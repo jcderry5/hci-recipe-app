@@ -22,6 +22,15 @@ class SideMenu extends Component {
             // 'side-menu__overlay--active': isMenuActive
         })
 
+        let menu;
+
+        if(isMenuActive == true){
+            menu = Menu()
+        }
+        else{
+            menu = ""
+        }
+
 
         return (
             <aside className={sideMenuClasses}>
@@ -29,7 +38,7 @@ class SideMenu extends Component {
                 <div className={sideMenuContentClasses}>
                     {/* okay so this is where the i put the menu options, 
                     the thing is it shows up all the time and i don't know how to make it conditional */}
-                    {Menu()}
+                    {menu}
                 </div>
             </aside>
         )
