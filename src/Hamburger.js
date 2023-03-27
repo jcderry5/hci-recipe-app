@@ -7,7 +7,7 @@ function Hamburger({ fill = "#594e78", onMenuClick}) {
             id = "Menu_Burger_Icon"
             data-name="Menu Burger Icon"
             // viewBox="31.5 30 49.9 32"
-            height="10vh"
+            height="11vh"
             width="120"
             fill={fill}
         >
