@@ -1,43 +1,32 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 class SideMenu extends Component {
 
     render() {
         const { isMenuActive, onOverLayClick } = this.props
         const sideMenuClasses = classnames({
-            // 'side-menu--active': isMenuActive,
             'side-menu': isMenuActive
         })
-        console.log("this is inside sidemenu: ", isMenuActive)
         const sideMenuContentClasses = classnames({
-            // 'side-menu__content--active': isMenuActive,
             'side-menu__content': isMenuActive,
             
         })
-
         const sideMenuOverlayClasses = classnames({
             "side-menu__overlay": isMenuActive,
-            // 'side-menu__overlay--active': isMenuActive
         })
 
-        let menu;
+        let menu = "";
 
-        if(isMenuActive == true){
+        if(isMenuActive === true){
             menu = Menu()
         }
-        else{
-            menu = ""
-        }
-
 
         return (
             <aside className={sideMenuClasses}>
                 <div className={sideMenuOverlayClasses} onClick = {onOverLayClick}/>
                 <div className={sideMenuContentClasses}>
-                    {/* okay so this is where the i put the menu options, 
-                    the thing is it shows up all the time and i don't know how to make it conditional */}
                     {menu}
                 </div>
             </aside>
