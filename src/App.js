@@ -8,8 +8,6 @@ import SideMenu from './SideMenu';
 function App() {
   const [isMenuActive, activeMenu] = useState(false)
 
-  console.log("the state is" , isMenuActive)
-
   return (
  
     <div className="App">
