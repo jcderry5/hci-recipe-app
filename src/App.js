@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -7,7 +6,6 @@ import SignUp from './components/SignUp';
 import RecipeBook from './components/RecipeBook';
 import Profile from './components/Profile';
 import MainMenu from './components/MainMenu';
-import DisplayRecipeResults from './DisplayRecipeResults'
 import LogIn from './components/LogIn';
 import NewRecipe from './components/NewRecipe';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -15,7 +13,6 @@ import { AuthProvider } from './contexts/AuthContext';
 import AppHeader from './components/header/AppHeader';
 
 function App() {
-  const [isMenuActive, activeMenu] = useState(false)
     return (
 
       <Container
@@ -39,5 +36,8 @@ function App() {
       </div>
     </Container>
   )
+    
+  
+  
 }
 export default App

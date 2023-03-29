@@ -16,7 +16,6 @@ function DisplayRecipeResults() {
 }
 
 function getResponseData(searchText) {
-
 	console.log("Inside the getResponseData function")
 	const options = {
 		method: 'GET',
