@@ -7,6 +7,7 @@ import RecipeBook from './components/RecipeBook';
 import Profile from './components/Profile';
 import MainMenu from './components/MainMenu';
 import LogIn from './components/LogIn';
+import NewRecipe from './components/NewRecipe';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext';
 import AppHeader from './components/header/AppHeader';
@@ -28,6 +29,7 @@ function App() {
               <Route path="/login" element={<LogIn/>} />
               <Route path="/recipebook" element={<><AppHeader/><RecipeBook/></>} />
               <Route path="/profile" element={<><AppHeader/><Profile/></>} />
+              <Route path="/newrecipe" element={<><AppHeader/><NewRecipe/></>} />
             </Routes>
           </AuthProvider>
         </BrowserRouter>
