@@ -1,9 +1,9 @@
 import React from 'react'
-import DisplayRecipeResults from '../DisplayRecipeResults'
+import DisplayRecipeResults from './DisplayRecipeResults'
 
 export default function NewRecipe() {
     return (
-        <div>
+        <div class="container text-center">
             <DisplayRecipeResults/>
         </div>
     )

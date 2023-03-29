@@ -1,0 +1,13 @@
+.recipe-row {
+	border: solid
+}
+
+.recipe-subtitles {
+	font-weight: bold;
+}
+
+.truncate {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
