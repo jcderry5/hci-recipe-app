@@ -9,6 +9,7 @@ import MainMenu from './components/MainMenu';
 import LogIn from './components/LogIn';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext';
+import AppHeader from './components/header/AppHeader';
 
 function App() {
     return (
@@ -17,16 +18,16 @@ function App() {
       className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh" }}
     >
-      <div className="w-100" style={{ maxWidth: "400px" }}>
+      <div className="w-100" style={{ maxWidth: "800px" }}>
         
         <BrowserRouter>
           <AuthProvider>
             <Routes>
-              <Route exact path="/" element={<ProtectedRoute><MainMenu/></ProtectedRoute>} />
-              <Route path="/signup" element={<SignUp/>} />
+              <Route exact path="/" element={<ProtectedRoute><AppHeader/><MainMenu/></ProtectedRoute>} />
+              <Route path="/signup" element={<><AppHeader/><SignUp/></>} />
               <Route path="/login" element={<LogIn/>} />
-              <Route path="/recipebook" element={<RecipeBook/>} />
-              <Route path="/profile" element={<Profile/>} />
+              <Route path="/recipebook" element={<><AppHeader/><RecipeBook/></>} />
+              <Route path="/profile" element={<><AppHeader/><Profile/></>} />
             </Routes>
           </AuthProvider>
         </BrowserRouter>
