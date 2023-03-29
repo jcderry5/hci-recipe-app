@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import { Link, useNavigate} from "react-router-dom"
 // import PropTypes from 'prop-types'
 
 class SideMenu extends Component {
@@ -26,7 +27,7 @@ class SideMenu extends Component {
         return (
             <aside className={sideMenuClasses}>
                 <div className={sideMenuOverlayClasses} onClick = {onOverLayClick}/>
-                <div className={sideMenuContentClasses}>
+                <div className={sideMenuContentClasses} onClick = {onOverLayClick}>
                     {menu}
                 </div>
             </aside>
@@ -38,16 +39,16 @@ function Menu(){
     return(
         <div>
             <div className='menu-option' id = "home-menu">
-                Home
+            <Link to="/">Home</Link>
             </div>
             <div className='menu-option' id = "recipe-book-menu">
-                Recipe Book
+            <Link to="/RecipeBook">Recipe Book</Link>
             </div>
             <div className='menu-option' id = 'new-recipe-menu'>
-                New Recipe
+            <Link to="/newrecipe">Create New Recipe</Link>
             </div>
             <div className='menu-option' id = 'profile-menu'>
-                Profile
+            <Link to="/profile">Profile</Link>
             </div>
         </div>
     )
