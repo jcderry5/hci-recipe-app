@@ -10,7 +10,7 @@ export default function MainMenu() {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/login');
+      navigate('/hci-recipe-app/login');
       console.log('You are logged out')
     } catch (e) {
       console.log(e.message);
@@ -31,10 +31,10 @@ export default function MainMenu() {
         </Card.Body>
       </Card>}
       <div className="w-100 text-center mt-2" style={{display: 'flex', justifyContent: 'center'}}>
-                <Link to="/recipebook">View Your Recipe Book</Link>
+                <Link to="/hci-recipe-app/recipebook">View Your Recipe Book</Link>
             </div>
             <div className="w-100 text-center mt-2" style={{display: 'flex', justifyContent: 'center'}}>
-                <Link to="/profile">Update Profile</Link>
+                <Link to="/hci-recipe-app/profile">Update Profile</Link>
             </div>
             <button onClick={handleLogout} className='border px-6 py-2 my-4' style={{display: 'flex', justifyContent: 'center'}}>
         Logout
