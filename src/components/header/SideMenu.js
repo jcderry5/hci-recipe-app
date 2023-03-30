@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
-import { Link, useNavigate} from "react-router-dom"
+import { Link } from "react-router-dom"
 // import PropTypes from 'prop-types'
 
 class SideMenu extends Component {
@@ -39,16 +39,16 @@ function Menu(){
     return(
         <div>
             <div className='menu-option' id = "home-menu">
-            <Link to="/">Home</Link>
+            <Link to="/hci-recipe-app">Home</Link>
             </div>
             <div className='menu-option' id = "recipe-book-menu">
-            <Link to="/RecipeBook">Recipe Book</Link>
+            <Link to="/hci-recipe-app/RecipeBook">Recipe Book</Link>
             </div>
             <div className='menu-option' id = 'new-recipe-menu'>
-            <Link to="/newrecipe">Create New Recipe</Link>
+            <Link to="/hci-recipe-app/newrecipe">Create New Recipe</Link>
             </div>
             <div className='menu-option' id = 'profile-menu'>
-            <Link to="/profile">Profile</Link>
+            <Link to="/hci-recipe-app/profile">Profile</Link>
             </div>
         </div>
     )

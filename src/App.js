@@ -26,12 +26,12 @@ function App() {
         <BrowserRouter>
           <AuthProvider>
             <Routes>
-              <Route exact path="/" element={<ProtectedRoute><AppHeader/><MainMenu/></ProtectedRoute>} />
-              <Route path="/signup" element={<><AppHeader/><SignUp/></>} />
-              <Route path="/login" element={<LogIn/>} />
-              <Route path="/recipebook" element={<><AppHeader/><RecipeBook/></>} />
-              <Route path="/profile" element={<><AppHeader/><Profile/></>} />
-              <Route path="/newrecipe" element={<><AppHeader/><NewRecipe/></>} />
+              <Route exact path="/hci-recipe-app" element={<ProtectedRoute><AppHeader/><MainMenu/></ProtectedRoute>} />
+              <Route path="/hci-recipe-app/signup" element={<><AppHeader/><SignUp/></>} />
+              <Route path="/hci-recipe-app/login" element={<><AppHeader/><LogIn/></>} />
+              <Route path="/hci-recipe-app/recipebook" element={<ProtectedRoute><AppHeader/><RecipeBook/></ProtectedRoute>} />
+              <Route path="/hci-recipe-app/profile" element={<ProtectedRoute><AppHeader/><Profile/></ProtectedRoute>} />
+              <Route path="/hci-recipe-app/newrecipe" element={<ProtectedRoute><AppHeader/><NewRecipe/></ProtectedRoute>} />
             </Routes>
           </AuthProvider>
         </BrowserRouter>

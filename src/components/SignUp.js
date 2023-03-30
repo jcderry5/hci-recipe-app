@@ -15,7 +15,7 @@ export default function Signup() {
     setError('');
     try {
       await signIn(email, password);
-      navigate('/')
+      navigate('/hci-recipe-app')
     } catch (e) {
       setError(e.message);
       console.log(e.message);
@@ -52,7 +52,7 @@ export default function Signup() {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Log In</Link>
+        Already have an account? <Link to="/hci-recipe-app/login">Log In</Link>
       </div>
     </>
   )
