@@ -50,7 +50,11 @@ export default function NewRecipe() {
 
         <div>
             {stepsHeader()}
-            {stepName}
+            <div class = "row justify-content-center">
+                <div class = "recipe-name">
+                {stepName}
+                </div>
+            </div>
             {theStep}
             {nextStep}
         </div>
