@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import DisplayRecipeResults from './DisplayRecipeResults'
 import DisplayRecipeSteps from './DisplayRecipeSteps';
 import DisplayRecipeIngrediants from './DisplayRecipeIngredients';
@@ -8,6 +8,10 @@ import DisplayRecipeSummary from './DisplayRecipeSummary';
 // import selectedRecipe from './DisplayRecipeResults'
 
 export default function NewRecipe() {
+    // useRef for searchText since it will constantly be updating
+	const searchTextRef = useRef();
+	const [searchState, setSearchState] = useState("");
+
     const [hasResults, changeHasResults] = useState(false)
     const [stepsNum, changeStep] = useState(1)
     const [currentRecipe, changeCurrentRecipe] = useState()
@@ -94,7 +98,7 @@ export default function NewRecipe() {
             <div class = "import">
                 <form>
                     <label for = "search">Search: </label>
-                    <input type = "text" value = "Kid-Friendly"></input>
+                    <input type = "text" placeholder="Kid-Friendly" ref={searchTextRef} ></input>
                     <button type = "button" onClick={submitQuery}>Submit</button>
                     {/* <input type = "submit" value = "Enter" onClick={() => flipIt()}></input> */}
                 </form>
@@ -106,6 +110,7 @@ export default function NewRecipe() {
     }
 
     function submitQuery(){
+        setSearchState(searchTextRef.current.value);
         changeHasResults(true)
     }
 
@@ -114,12 +119,12 @@ export default function NewRecipe() {
 
 
     function generateResults(){
-        //here we pass the search values to DisplayRecipeResults
+        //here we pass the search value to DisplayRecipeResults
 
         return(
             <div>
                 <div class="container text-center">
-                    <   DisplayRecipeResults/>
+                    <DisplayRecipeResults searchState={searchState} />
                 </div>
             </div>
         )

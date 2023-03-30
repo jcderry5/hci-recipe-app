@@ -30,7 +30,7 @@ function DisplayRecipeSummary(){
         return(
             <div class = "row justify-content-center">
                 <button type="button" class = "confirm-but">
-                   <Link to="/RecipeBook">Add New Recipe</Link>
+                   <Link to="/hci-recipe-app/RecipeBook">Add New Recipe</Link>
                </button>
             </div>
         )
