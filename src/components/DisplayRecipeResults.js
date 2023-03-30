@@ -1,15 +1,28 @@
-import React from 'react'
+import React, {useRef, useState} from 'react'
 import data from '../data.json'
 import '../RecipeResults.css';
 
 
 function DisplayRecipeResults() {
-	const searchText = "Burger"
+	// useRef for searchText since it will constantly be updating
+	const searchText = useRef();
+	const [searchState, setSearchState] = useState("");
+
+	const handleSearchKeyDown = (event) => {
+		if (event.key === 'Enter') {
+			// force render by setting state of search text.
+			setSearchState(searchText.current.value);
+		}
+	};
 
 	// getResponseData(searchText)
 
 	return (
-		< DataSetResults />
+		<div>
+			<span>Search: </span>
+			<input type='text' placeholder="burger" ref={searchText} onKeyDown={handleSearchKeyDown} />
+			< DataSetResults searchState={searchState} />
+		</div>
 	)
 }
 
@@ -55,11 +68,14 @@ function extractRecipeInfo() {
 
 }
 
-function DataSetResults() {
+function DataSetResults({ searchState }) {
+	console.log("searchState: " + searchState);
 	extractRecipeInfo()
 	const returnValue = [];
     for (let i = 0; i < 5; i++) {
-      returnValue.push(<RecipeResult idx={i} />)
+      if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState)) {
+		returnValue.push(<RecipeResult idx={i} />)
+	  }
 	}
     return returnValue
 }
