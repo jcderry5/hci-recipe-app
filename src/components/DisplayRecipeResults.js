@@ -5,24 +5,22 @@ import '../RecipeResults.css';
 
 
 
-function DisplayRecipeResults() {
+function DisplayRecipeResults({ searchState }) {
 	// useRef for searchText since it will constantly be updating
-	const searchText = useRef();
-	const [searchState, setSearchState] = useState("");
+	//const searchText = useRef();
+	//const [searchState, setSearchState] = useState("");
 
-	const handleSearchKeyDown = (event) => {
-		if (event.key === 'Enter') {
-			// force render by setting state of search text.
-			setSearchState(searchText.current.value);
-		}
-	};
+	// const handleSearchKeyDown = (event) => {
+	// 	if (event.key === 'Enter') {
+	// 		// force render by setting state of search text.
+	// 		setSearchState(searchText.current.value);
+	// 	}
+	// };
 
 	// getResponseData(searchText)
 
 	return (
 		<div>
-			<span>Search: </span>
-			<input type='text' placeholder="burger" ref={searchText} onKeyDown={handleSearchKeyDown} />
 			< DataSetResults searchState={searchState} />
 		</div>
 	)
