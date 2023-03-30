@@ -5,11 +5,9 @@ import '../RecipeResults.css'
 import selectedRecipe from './DisplayRecipeResults'
 
 
-function DisplayRecipeSteps(){
+function DisplayRecipeSteps({ recipeIndex }){
 
-    let idx = 0
-
-    let results = extractRecipeSteps()
+    let results = extractRecipeSteps({recipeIndex})
 
     //here is where the code to pass idx back and forth goes
     
@@ -20,9 +18,9 @@ function DisplayRecipeSteps(){
         </div>
     )
 
-    function extractRecipeSteps(){
+    function extractRecipeSteps({recipeIndex}){
 
-        let steps_data = data.results[0].recipes[idx].instructions;
+        let steps_data = data.results[0].recipes[recipeIndex].instructions;
         let amtSteps = steps_data.length
 
         console.log(steps_data)
@@ -33,7 +31,7 @@ function DisplayRecipeSteps(){
         returnValue.push(<Title/>)
 
         for(let i = 0; i< amtSteps; i++){
-            returnValue.push(<GenerateRecipeSteps num={i}/>)
+            returnValue.push(<GenerateRecipeSteps recipeIndex={recipeIndex} num={i}/>)
         }
 
         return(
@@ -65,9 +63,9 @@ function DisplayRecipeSteps(){
         )
     }
     
-    function GenerateRecipeSteps({num}){
+    function GenerateRecipeSteps({recipeIndex, num}){
 
-        let step = data.results[0].recipes[idx].instructions[num].display_text
+        let step = data.results[0].recipes[recipeIndex].instructions[num].display_text
         
         let punctuation = ". "
 
