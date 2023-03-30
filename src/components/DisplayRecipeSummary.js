@@ -9,10 +9,10 @@ import DisplayRecipeIngredients from './DisplayRecipeIngredients'
 
 
 
-function DisplayRecipeSummary({addedIngredients, changeAddedIngredients}){
+function DisplayRecipeSummary({recipeIndex, addedIngredients, changeAddedIngredients}){
 
-    let theIngredients = DisplayRecipeIngredients({addedIngredients, changeAddedIngredients})
-    let theSteps = extractRecipeSteps()
+    let theIngredients = DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients})
+    let theSteps = extractRecipeSteps({recipeIndex})
 
     //here is where the code to pass idx back and forth goes
     

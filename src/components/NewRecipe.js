@@ -7,34 +7,41 @@ import DisplayRecipeIngredients from './DisplayRecipeIngredients';
 import DisplayRecipeSummary from './DisplayRecipeSummary';
 // import selectedRecipe from './DisplayRecipeResults'
 
+import data from '../data.json'
+
 export default function NewRecipe() {
     // useRef for searchText since it will constantly be updating
-    const searchTextRef = useRef();
-    const [searchState, setSearchState] = useState("");
+	const searchTextRef = useRef();
+	const [searchState, setSearchState] = useState("");
+    const [currentRecipeIndex, setRecipeIndex] = useState(0);
 
     const [hasResults, changeHasResults] = useState(false)
-    const [stepsNum, changeStep] = useState(4)
+    const [stepsNum, changeStep] = useState(1)
     const [currentRecipe, changeCurrentRecipe] = useState()
     const [addedIngredients, changeAddedIngredients] = useState([])
 
-    let current_recipe = ""
-
     let theStep = Import()
-    let nextStep = tempNextButton()
+    let nextStep = ""
+    let stepName = "";
+
     // // console.log(selectedRecipe)
     // console.log("cr", current_recipe)
     // console.log(currentRecipe)
 
-    if (stepsNum == 2) {
+    if (stepsNum === 2) {
         // console.log("line 21")
         theStep = Ingrediants()
+        stepName = data.results[0].recipes[currentRecipeIndex].name
+        nextStep = tempNextButton();
     }
-    else if (stepsNum == 3) {
+    else if (stepsNum === 3) {
         theStep = Steps()
+        stepName = data.results[0].recipes[currentRecipeIndex].name
+        nextStep = tempNextButton();
     }
-    else if (stepsNum == 4) {
+    else if (stepsNum === 4) {
         theStep = Finalize()
-        nextStep = ""
+        stepName = data.results[0].recipes[currentRecipeIndex].name
     }
 
 
@@ -43,6 +50,7 @@ export default function NewRecipe() {
 
         <div>
             {stepsHeader()}
+            {stepName}
             {theStep}
             {nextStep}
         </div>
@@ -90,7 +98,7 @@ export default function NewRecipe() {
     function Import() {
         let results = ""
 
-        if (hasResults == true) {
+        if (hasResults === true) {
             results = generateResults()
             console.log(currentRecipe)
         }
@@ -125,15 +133,15 @@ export default function NewRecipe() {
         return (
             <div>
                 <div class="container text-center">
-                    <DisplayRecipeResults searchState={searchState} />
+                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
                 </div>
             </div>
         )
     }
 
-    function Steps() {
-        return (
-            <   DisplayRecipeSteps />
+    function Steps(){
+        return(
+            <   DisplayRecipeSteps recipeIndex={currentRecipeIndex} />
         )
 
     }
@@ -146,7 +154,8 @@ export default function NewRecipe() {
         return (
             <   DisplayRecipeIngredients 
             addedIngredients={addedIngredients} 
-            changeAddedIngredients={changeAddedIngredients} />
+            changeAddedIngredients={changeAddedIngredients}
+            recipeIndex={currentRecipeIndex} />
         )
 
     }
@@ -154,7 +163,8 @@ export default function NewRecipe() {
         return (
             <   DisplayRecipeSummary
             addedIngredients={addedIngredients} 
-            changeAddedIngredients={changeAddedIngredients} />
+            changeAddedIngredients={changeAddedIngredients}
+            recipeIndex={currentRecipeIndex} />
         )
     }
 }
