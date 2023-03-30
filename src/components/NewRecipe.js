@@ -5,6 +5,7 @@ import DisplayRecipeResults from './DisplayRecipeResults'
 import DisplayRecipeSteps from './DisplayRecipeSteps';
 import DisplayRecipeIngredients from './DisplayRecipeIngredients';
 import DisplayRecipeSummary from './DisplayRecipeSummary';
+
 // import selectedRecipe from './DisplayRecipeResults'
 
 import data from '../data.json'
@@ -24,11 +25,7 @@ export default function NewRecipe() {
     let nextStep = ""
     let stepName = "";
 
-    // // console.log(selectedRecipe)
-    // console.log("cr", current_recipe)
-    // console.log(currentRecipe)
-
-    if (stepsNum === 2) {
+    if(stepsNum === 2 ){
         // console.log("line 21")
         theStep = Ingrediants()
         stepName = data.results[0].recipes[currentRecipeIndex].name
@@ -62,10 +59,10 @@ export default function NewRecipe() {
     )
 
 
-    function stepsHeader() {
+    function stepsHeader(){
         return (
-            <div class="steps-header">
-                <button class='stepsButton' type="button">
+            <div class = "steps-header">
+                <button class = 'stepsButton' type = "button">
                     1
                 </button>
                 <button class='stepsButton' type="button">

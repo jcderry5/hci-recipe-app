@@ -3,6 +3,8 @@ import data from '../data.json'
 import '../RecipeResults.css'
 import { useState, useRef } from 'react';
 
+import selectedRecipe from './DisplayRecipeResults'
+import getIngredientData from './IngredientSubstitute'
 
 
 function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients}) {
@@ -31,7 +33,6 @@ function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIng
     )
 
     function extractRecipeIngredients({recipeIndex}){
-        // console.log("line 24")
         let ingredients_data = data.results[0].recipes[recipeIndex].sections[0].components;
         let amtIngredients = ingredients_data.length
 
@@ -44,10 +45,10 @@ function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIng
         for(let i = 0; i< amtIngredients; i++){
             returnValue.push(<GenerateRecipeIngredients idx={recipeIndex} num={i}/>)
         }
-
         // returnValue.push(<AddButton/>);
 
-        return (
+        return(
+
             returnValue
         )
     }
@@ -71,6 +72,7 @@ function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIng
             </div>
         )
     }
+
 
     function addClick(){
         changeAddStage(!addStage)
@@ -118,6 +120,7 @@ function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIng
 
     function GenerateRecipeIngredients({idx, num}){
 
+
         let amt = data.results[0].recipes[idx].sections[0].components[num].measurements[0].quantity
         let unit_a = data.results[0].recipes[idx].sections[0].components[num].measurements[0].unit.display_plural
         if (amt == 1) {
@@ -127,8 +130,8 @@ function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIng
         let space = " "
 
         return (
-            <div class="row justify-content-center">
-                <div class="ingredient">
+            <div class = "row justify-content-center">
+                <div onClick={() => { getIngredientData({ ingredient_a }) }} class="ingredient">
                     {amt} {unit_a}
                     {space}
                     {ingredient_a}
@@ -136,9 +139,6 @@ function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIng
 
             </div>
         )
-
     }
 }
-
-
 export default DisplayRecipeIngredients
