@@ -61,3 +61,23 @@ html{
   text-align: left;
   padding: 20px;
 }
+
+/* new recipe */
+
+.stepsButton{
+  text-align: center;
+  border: none;
+  border-radius: 50%;
+  font-size: 30px;
+  font-weight: 1000;
+  background-color: lightgray;
+  color: black;
+  padding: 15px 27px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.steps-header{
+  text-align: center;
+  padding: 15px;
+}
