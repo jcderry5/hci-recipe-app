@@ -82,30 +82,31 @@ function DisplayRecipeResults() {
 	function RecipeResult({ idx }) {
 		return (
 			<div class="recipe-row">
-				<div class="row">
-					<button class = "recipe-options" type = "button" onClick = {selectRecipe}>
-						<img class = "recipe-options" src={data.results[0].recipes[idx].thumbnail_url}></img>
-					</button>
-				</div>
-				<div class="row">
-					<div class="col-3 recipe-subtitles">
-						Name:
+				<button class = "recipe-options-but" type = "button" onClick = {selectRecipe}>
+					<div class = "row">
+						<img class = "recipe-options-img" src={data.results[0].recipes[idx].thumbnail_url}></img>
 					</div>
-					<div class="col-9 truncate">
-						{data.results[0].recipes[idx].name}
+						
+					<div class="row">
+						<div class="col-3 recipe-subtitles">
+							Name:
+						</div>
+						<div class="col-9 truncate">
+							{data.results[0].recipes[idx].name}
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-6 recipe-subtitles">
-						Recipe Steps:
+					<div class="row">
+						<div class="col-6 recipe-subtitles">
+							Recipe Steps:
+						</div>
+						<div class="col-6">
+							{data.results[0].recipes[idx].instructions.length}
+						</div>
 					</div>
-					<div class="col-6">
-						{data.results[0].recipes[idx].instructions.length}
-					</div>
-				</div>
+				</button>
 				
 				<div class="row">
-					<a class= "recipe-subtitles truncate" href={data.results[0].recipes[idx].original_video_url}> OG Recipe URL</a>
+					<a class= "recipe-subtitles truncate-url" href={data.results[0].recipes[idx].original_video_url}> OG Recipe URL</a>
 				</div>
 				
 					{/* data.results[0].recipes[0].instructions.count */}
