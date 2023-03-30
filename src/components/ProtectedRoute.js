@@ -1,13 +1,16 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
+  let navigate = useNavigate();
   const { user } = useAuth();
-
-  if (!user) {
-    return <Navigate to='/login' />;
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate('/hci-recipe-app/login');
+    }
+  })
+  
   return children;
 };
 
