@@ -1,16 +1,21 @@
 import React from 'react'
 import '../App.css';
+import DisplayRecipeResults from './DisplayRecipeResults'
 
 export default function NewRecipe() {
     return (
         <div>
             {stepsHeader()}
+        <div/>
+        
+        <div class="container text-center">
+            <   DisplayRecipeResults/>
         </div>
-    )
+        </div>
+    )   
 }
 
 function stepsHeader(){
-
     return(
         <div class = "steps-header">
             <button class = 'stepsButton'>
@@ -34,7 +39,7 @@ function Import(){
         <div class = "import">
             <form>
                 <input type = "text">
-                    
+
                 </input>
             </form>
         </div>
