@@ -9,7 +9,7 @@ import DisplayRecipeSummary from './DisplayRecipeSummary';
 
 export default function NewRecipe() {
     const [hasResults, changeHasResults] = useState(false)
-    const [stepsNum, changeStep] = useState(4)
+    const [stepsNum, changeStep] = useState(1)
     const [currentRecipe, changeCurrentRecipe] = useState()
 
     let current_recipe = ""
