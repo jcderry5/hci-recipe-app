@@ -9,6 +9,7 @@ import DisplayRecipeSummary from './DisplayRecipeSummary';
 
 export default function NewRecipe() {
     // useRef for searchText since it will constantly be updating
+    
 	const searchTextRef = useRef();
 	const [searchState, setSearchState] = useState("");
 
@@ -149,7 +150,7 @@ export default function NewRecipe() {
     }
     function Finalize(){
         return(
-            <   DisplayRecipeSummary/>
+            <   DisplayRecipeSummary recipecount={recipecount} recipecount_val={recipecount_val} />
         )
     }
 }
