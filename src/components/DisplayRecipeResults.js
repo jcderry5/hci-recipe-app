@@ -5,7 +5,7 @@ import '../RecipeResults.css';
 
 
 
-function DisplayRecipeResults({ searchState }) {
+function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep }) {
 	// useRef for searchText since it will constantly be updating
 	//const searchText = useRef();
 	//const [searchState, setSearchState] = useState("");
@@ -21,7 +21,7 @@ function DisplayRecipeResults({ searchState }) {
 
 	return (
 		<div>
-			< DataSetResults searchState={searchState} />
+			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
 		</div>
 	)
 }
@@ -67,33 +67,30 @@ function extractRecipeInfo() {
 	//TODO: Fetch from recipes/get-more-info using id
 }
 
-function DataSetResults({ searchState }) {
+function DataSetResults({ searchState, setRecipeIndex, changeStep }) {
 	console.log("searchState: " + searchState);
 	extractRecipeInfo()
 	const returnValue = [];
-	for (let i = 0; i < 5; i++) {
+	console.log(data.results[0].recipes.length);
+	for (let i = 0; i < data.results[0].recipes.length; i++) {
 		if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState)) {
-			returnValue.push(<RecipeResult idx={i} />)
+			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep}  />)
 		}
 	}
 
 	return returnValue;
 }
 
-function selectRecipe() {
-	// changeSelectedRecipe(idx)
-	console.log("index ", 0)
-	// changeCurrentRecipe(0)
-	//this is where i want the selected recipe to be passed
-	//something wrong with use states i can't figure out
-
+function handleRecipeChoice({idx, setRecipeIndex, changeStep}) {
+	setRecipeIndex(idx);
+	// Hardcoded to the next step
+	changeStep(2);
 }
 
-
-function RecipeResult({ idx }) {
+function RecipeResult({ idx, setRecipeIndex, changeStep }) {
 	return (
 		<div class="recipe-row">
-			<button class="recipe-options-but" type="button" onClick={selectRecipe}>
+			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep})}}>
 				<div class="row">
 					<img class="recipe-options-img" src={data.results[0].recipes[idx].thumbnail_url}></img>
 				</div>

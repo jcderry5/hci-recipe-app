@@ -10,10 +10,10 @@ import extractRecipeIngredients from './DisplayRecipeIngredients'
 
 
 
-function DisplayRecipeSummary(){
-    const { user } = useAuth();
-    let theIngredients = extractRecipeIngredients()
-    let theSteps = extractRecipeSteps()
+function DisplayRecipeSummary({ recipeIndex }){
+
+    let theIngredients = extractRecipeIngredients({recipeIndex})
+    let theSteps = extractRecipeSteps({recipeIndex})
 
     //here is where the code to pass idx back and forth goes
     
