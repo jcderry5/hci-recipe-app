@@ -8,7 +8,6 @@ import selectedRecipe from './DisplayRecipeResults'
 function DisplayRecipeSteps(){
 
     let idx = 0
-
     let results = extractRecipeSteps()
 
     //here is where the code to pass idx back and forth goes

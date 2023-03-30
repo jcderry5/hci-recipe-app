@@ -13,7 +13,7 @@ export default function NewRecipe() {
     const [searchState, setSearchState] = useState("");
 
     const [hasResults, changeHasResults] = useState(false)
-    const [stepsNum, changeStep] = useState(2)
+    const [stepsNum, changeStep] = useState(4)
     const [currentRecipe, changeCurrentRecipe] = useState()
     const [addedIngredients, changeAddedIngredients] = useState([])
 
@@ -73,7 +73,7 @@ export default function NewRecipe() {
         return (
             <div class="row justify-content-center">
                 <button type="button" class="temp-button" onClick={addStep}>
-                    Temporary Next Step Button
+                    Next Step
                 </button>
             </div>
         )

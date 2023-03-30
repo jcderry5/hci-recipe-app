@@ -20,15 +20,13 @@ function DisplayRecipeIngredients({addedIngredients, changeAddedIngredients}) {
     }
 
 
-    //here is where the code to pass idx back and forth goes
-
     return (
         <div>
-            {theIngredients}
-            
-            {GenerateNewIngredients()}
 
+            {theIngredients}
+            {GenerateNewIngredients()}
             {addState}
+
         </div>
     )
 
