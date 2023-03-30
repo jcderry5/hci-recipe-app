@@ -4,14 +4,14 @@ import '../RecipeResults.css'
 import { Link } from "react-router-dom"
 
 import extractRecipeSteps from './DisplayRecipeSteps'
-import extractRecipeIngredients from './DisplayRecipeIngredients'
+import DisplayRecipeIngredients from './DisplayRecipeIngredients'
 
 
 
 
 function DisplayRecipeSummary({addedIngredients, changeAddedIngredients}){
 
-    let theIngredients = extractRecipeIngredients()
+    let theIngredients = DisplayRecipeIngredients({addedIngredients, changeAddedIngredients})
     let theSteps = extractRecipeSteps()
 
     //here is where the code to pass idx back and forth goes
