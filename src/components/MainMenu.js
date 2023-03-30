@@ -30,7 +30,7 @@ export default function MainMenu() {
         <div class="col-6" style={{display: 'flex', justifyContent: 'center'}}><b>Logo Will Go Here</b> </div> </div>    
         </Card.Body>
       </Card>}
-      <div className="w-100 text-center mt-2" style={{display: 'flex', justifyContent: 'center'}}>
+      <div className="w-100 text-center mt-2" style={{ display: 'flex', justifyContent: 'center' }}>
                 <Link to="/hci-recipe-app/recipebook">View Your Recipe Book</Link>
             </div>
             <div className="w-100 text-center mt-2" style={{display: 'flex', justifyContent: 'center'}}>

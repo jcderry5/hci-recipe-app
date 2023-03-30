@@ -5,6 +5,7 @@ import DisplayRecipeResults from './DisplayRecipeResults'
 import DisplayRecipeSteps from './DisplayRecipeSteps';
 import DisplayRecipeIngrediants from './DisplayRecipeIngredients';
 import DisplayRecipeSummary from './DisplayRecipeSummary';
+
 // import selectedRecipe from './DisplayRecipeResults'
 
 export default function NewRecipe() {
@@ -16,9 +17,6 @@ export default function NewRecipe() {
 
     let theStep = Import()
     let nextStep = tempNextButton()
-    // // console.log(selectedRecipe)
-    // console.log("cr", current_recipe)
-    // console.log(currentRecipe)
 
     if(stepsNum == 2 ){
         // console.log("line 21")
@@ -46,7 +44,7 @@ export default function NewRecipe() {
 
 
     function stepsHeader(){
-        return(
+        return (
             <div class = "steps-header">
                 <button class = 'stepsButton' type = "button">
                     1
