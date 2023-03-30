@@ -1,19 +1,21 @@
 import React from 'react'
 import '../App.css';
-import DisplayRecipeResults from './DisplayRecipeResults'
 import { useState } from 'react';
+import DisplayRecipeResults from './DisplayRecipeResults'
 import DisplayRecipeSteps from './DisplayRecipeSteps';
 import DisplayRecipeIngrediants from './DisplayRecipeIngredients';
+import DisplayRecipeSummary from './DisplayRecipeSummary';
 // import selectedRecipe from './DisplayRecipeResults'
 
 export default function NewRecipe() {
     const [hasResults, changeHasResults] = useState(false)
-    const [stepsNum, changeStep] = useState(3)
+    const [stepsNum, changeStep] = useState(4)
     const [currentRecipe, changeCurrentRecipe] = useState()
 
     let current_recipe = ""
 
     let theStep = Import()
+    let nextStep = tempNextButton()
     // // console.log(selectedRecipe)
     // console.log("cr", current_recipe)
     // console.log(currentRecipe)
@@ -27,6 +29,7 @@ export default function NewRecipe() {
     }
     else if(stepsNum == 4){
         theStep = Finalize()
+        nextStep = ""
     }
     
 
@@ -36,8 +39,7 @@ export default function NewRecipe() {
         <div>
             {stepsHeader()}
             {theStep}
-            
-
+            {nextStep}
         </div>
 
     )   
@@ -61,6 +63,24 @@ export default function NewRecipe() {
             </div>
         )
     }
+
+    function tempNextButton(){
+        return(
+            <div class = "row justify-content-center">
+                <button type="button" class = "temp-button" onClick = {addStep}>
+                    Temporary Next Step Button
+                </button>
+            </div>
+        )
+    }
+
+    function addStep(){
+        if(stepsNum < 4){
+            changeStep(stepsNum+1)
+        }
+        
+    }
+
 
     function Import(){
         let results = ""
@@ -123,6 +143,8 @@ export default function NewRecipe() {
 
     }
     function Finalize(){
-
+        return(
+            <   DisplayRecipeSummary/>
+        )
     }
 }

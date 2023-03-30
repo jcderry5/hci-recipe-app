@@ -12,6 +12,21 @@
 	text-overflow: ellipsis;
 }
 
+/* new recipe */
+
+.title{
+	margin-left: 20px;
+	font-size: 35px;
+	font-weight: 700;
+}
+
+.title-sum{
+	/* margin-left: 20px; */
+	font-size: 40px;
+	font-weight: 750;
+	text-align: center;
+}
+
 .recipe-options{
 	border: 1px solid black;
 	border-radius: 2px;
@@ -47,4 +62,12 @@
 	width: 325px;
 	text-align: left;
 	background-color: rgb(255, 255, 255);
+}
+
+.confirm-but{
+	width: 350px;
+	font-size: 30px;
+	margin: 10px;
+	padding: 5px;
+	margin-bottom: 20px;
 }

@@ -11,15 +11,12 @@ function DisplayRecipeSteps(){
 
     let results = extractRecipeSteps()
 
-
-
-
-
     //here is where the code to pass idx back and forth goes
     
     return(
         <div>
            {results}
+           {AddButton()}
         </div>
     )
 
@@ -32,6 +29,9 @@ function DisplayRecipeSteps(){
 
 
         const returnValue = [];
+
+        returnValue.push(<Title/>)
+
         for(let i = 0; i< amtSteps; i++){
             returnValue.push(<GenerateRecipeSteps num={i}/>)
         }
@@ -40,6 +40,29 @@ function DisplayRecipeSteps(){
             returnValue
         )
 
+    }
+
+    function Title(){
+        return(
+            <div class = 'row'>
+                <div class = "title">
+                    Steps:
+                </div>
+            </div>
+        )
+    }
+
+    function AddButton(){
+        return(
+            <div class = "row justify-content-center">
+                <button type = "button" class = "steps">
+                    {/* <button type = "button">
+                        +
+                    </button> */}
+                    + Add Recipe Step
+                </button>
+            </div>
+        )
     }
     
     function GenerateRecipeSteps({num}){
