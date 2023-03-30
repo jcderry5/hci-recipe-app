@@ -3,13 +3,12 @@ import data from '../data.json'
 import '../RecipeResults.css'
 import { useState, useRef } from 'react';
 
-import selectedRecipe from './DisplayRecipeResults'
 
 
-function DisplayRecipeIngredients() {
+function DisplayRecipeIngredients({addedIngredients, changeAddedIngredients}) {
 
     const [addStage, changeAddStage] = useState(false);
-    const [addedIngredients, changeAddedIngredients] = useState([])
+    // const [addedIngredients, changeAddedIngredients] = useState([])
 
     let idx = 0
     let theIngredients = extractRecipeIngredients()

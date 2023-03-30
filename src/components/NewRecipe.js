@@ -15,6 +15,7 @@ export default function NewRecipe() {
     const [hasResults, changeHasResults] = useState(false)
     const [stepsNum, changeStep] = useState(2)
     const [currentRecipe, changeCurrentRecipe] = useState()
+    const [addedIngredients, changeAddedIngredients] = useState([])
 
     let current_recipe = ""
 
@@ -143,13 +144,17 @@ export default function NewRecipe() {
 
     function Ingrediants() {
         return (
-            <   DisplayRecipeIngredients />
+            <   DisplayRecipeIngredients 
+            addedIngredients={addedIngredients} 
+            changeAddedIngredients={changeAddedIngredients} />
         )
 
     }
     function Finalize() {
         return (
-            <   DisplayRecipeSummary />
+            <   DisplayRecipeSummary
+            addedIngredients={addedIngredients} 
+            changeAddedIngredients={changeAddedIngredients} />
         )
     }
 }

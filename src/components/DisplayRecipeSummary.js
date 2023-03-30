@@ -6,10 +6,10 @@ import { Link } from "react-router-dom"
 import extractRecipeSteps from './DisplayRecipeSteps'
 import extractRecipeIngredients from './DisplayRecipeIngredients'
 
-import selectedRecipe from './DisplayRecipeResults'
 
 
-function DisplayRecipeSummary(){
+
+function DisplayRecipeSummary({addedIngredients, changeAddedIngredients}){
 
     let theIngredients = extractRecipeIngredients()
     let theSteps = extractRecipeSteps()
