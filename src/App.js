@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+// import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -13,8 +14,9 @@ import { AuthProvider } from './contexts/AuthContext';
 import AppHeader from './components/header/AppHeader';
 
 function App() {
+  
     return (
-
+      
       <Container
       className="d-flex justify-content-center"
       style={{ minHeight: "100vh" }}
