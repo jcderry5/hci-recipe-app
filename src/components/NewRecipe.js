@@ -1,9 +1,10 @@
 import React from 'react'
+import DisplayRecipeResults from './DisplayRecipeResults'
 
 export default function NewRecipe() {
     return (
-        <div>
-            putting something here
+        <div class="container text-center">
+            <DisplayRecipeResults/>
         </div>
     )
 }
