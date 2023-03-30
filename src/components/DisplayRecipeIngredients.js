@@ -4,9 +4,10 @@ import '../RecipeResults.css'
 import selectedRecipe from './DisplayRecipeResults'
 import getIngredientData from './IngredientSubstitute'
 
-function DisplayRecipeIngredients(){
-    let idx = 0
-    let theIngredients = extractRecipeIngredients()
+function DisplayRecipeIngredients({ recipeIndex }){
+
+    let theIngredients = extractRecipeIngredients({recipeIndex})
+
     //here is where the code to pass idx back and forth goes
     
     return(
@@ -16,13 +17,13 @@ function DisplayRecipeIngredients(){
         </div>
     )
 
-    function extractRecipeIngredients(){
-        let ingredients_data = data.results[0].recipes[idx].sections[0].components;
+    function extractRecipeIngredients({recipeIndex}){
+        let ingredients_data = data.results[0].recipes[recipeIndex].sections[0].components;
         let amtIngredients = ingredients_data.length
         const returnValue = [];
         returnValue.push(<Title/>);
         for(let i = 0; i< amtIngredients; i++){
-            returnValue.push(<GenerateRecipeIngredients num={i}/>)
+            returnValue.push(<GenerateRecipeIngredients idx={recipeIndex} num={i}/>)
         }
         // returnValue.push(<AddButton/>);
         return(
@@ -52,8 +53,9 @@ function DisplayRecipeIngredients(){
             </div>
         )
     }
-    
-    function GenerateRecipeIngredients({num}){
+
+    function GenerateRecipeIngredients({idx, num}) {
+
         let amt = data.results[0].recipes[idx].sections[0].components[num].measurements[0].quantity
         let unit_a = data.results[0].recipes[idx].sections[0].components[num].measurements[0].unit.display_plural
         if(amt == 1){

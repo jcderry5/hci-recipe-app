@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import DisplayRecipeResults from './DisplayRecipeResults'
 import DisplayRecipeSteps from './DisplayRecipeSteps';
 import DisplayRecipeIngrediants from './DisplayRecipeIngredients';
@@ -8,26 +8,36 @@ import DisplayRecipeSummary from './DisplayRecipeSummary';
 
 // import selectedRecipe from './DisplayRecipeResults'
 
+import data from '../data.json'
+
 export default function NewRecipe() {
+    // useRef for searchText since it will constantly be updating
+	const searchTextRef = useRef();
+	const [searchState, setSearchState] = useState("");
+    const [currentRecipeIndex, setRecipeIndex] = useState(0);
+
     const [hasResults, changeHasResults] = useState(false)
     const [stepsNum, changeStep] = useState(1)
     const [currentRecipe, changeCurrentRecipe] = useState()
 
-    let current_recipe = ""
-
     let theStep = Import()
-    let nextStep = tempNextButton()
+    let nextStep = ""
+    let stepName = "";
 
-    if(stepsNum == 2 ){
+    if(stepsNum === 2 ){
         // console.log("line 21")
         theStep = Ingrediants()
+        stepName = data.results[0].recipes[currentRecipeIndex].name
+        nextStep = tempNextButton();
     }
-    else if(stepsNum == 3){
+    else if(stepsNum === 3){
         theStep = Steps()
+        stepName = data.results[0].recipes[currentRecipeIndex].name
+        nextStep = tempNextButton();
     }
-    else if(stepsNum == 4){
+    else if(stepsNum === 4){
         theStep = Finalize()
-        nextStep = ""
+        stepName = data.results[0].recipes[currentRecipeIndex].name
     }
     
 
@@ -36,6 +46,7 @@ export default function NewRecipe() {
         
         <div>
             {stepsHeader()}
+            {stepName}
             {theStep}
             {nextStep}
         </div>
@@ -83,7 +94,7 @@ export default function NewRecipe() {
     function Import(){
         let results = ""
 
-        if(hasResults == true){
+        if(hasResults === true){
             results = generateResults()
             console.log(currentRecipe)
         }
@@ -92,7 +103,7 @@ export default function NewRecipe() {
             <div class = "import">
                 <form>
                     <label for = "search">Search: </label>
-                    <input type = "text" value = "Kid-Friendly"></input>
+                    <input type = "text" placeholder="Kid-Friendly" ref={searchTextRef} ></input>
                     <button type = "button" onClick={submitQuery}>Submit</button>
                     {/* <input type = "submit" value = "Enter" onClick={() => flipIt()}></input> */}
                 </form>
@@ -104,6 +115,7 @@ export default function NewRecipe() {
     }
 
     function submitQuery(){
+        setSearchState(searchTextRef.current.value);
         changeHasResults(true)
     }
 
@@ -112,12 +124,12 @@ export default function NewRecipe() {
 
 
     function generateResults(){
-        //here we pass the search values to DisplayRecipeResults
+        //here we pass the search value to DisplayRecipeResults
 
         return(
             <div>
                 <div class="container text-center">
-                    <   DisplayRecipeResults/>
+                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
                 </div>
             </div>
         )
@@ -125,7 +137,7 @@ export default function NewRecipe() {
 
     function Steps(){
         return(
-            <   DisplayRecipeSteps/>
+            <   DisplayRecipeSteps recipeIndex={currentRecipeIndex} />
         )
 
     }
@@ -136,13 +148,13 @@ export default function NewRecipe() {
 
     function Ingrediants(){
         return(
-            <   DisplayRecipeIngrediants/>
+            <   DisplayRecipeIngrediants recipeIndex={currentRecipeIndex} />
         )
 
     }
     function Finalize(){
         return(
-            <   DisplayRecipeSummary/>
+            <   DisplayRecipeSummary recipeIndex={currentRecipeIndex} />
         )
     }
 }
