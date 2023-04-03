@@ -11,7 +11,7 @@ import extractRecipeIngredients from './DisplayRecipeIngredients'
 
 
 function DisplayRecipeSummary({ recipeIndex }){
-
+    const user = useAuth();
     let theIngredients = extractRecipeIngredients({recipeIndex})
     let theSteps = extractRecipeSteps({recipeIndex})
 
@@ -19,6 +19,7 @@ function DisplayRecipeSummary({ recipeIndex }){
     
     return(
         <div>
+            {console.log(user)}
             {Title()}
             {theIngredients}
             {theSteps}
@@ -26,29 +27,28 @@ function DisplayRecipeSummary({ recipeIndex }){
         </div>
     )
 
-    async function getRecipeCount() {
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/recipecount"}/.json`);
-        const responseJson = await val.json();
-        console.log(responseJson)
-        return responseJson
-      }
+    // async function getRecipeCount() {
+    //     const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/recipecount"}/.json`);
+    //     const responseJson = await val.json();
+    //     console.log(responseJson)
+    //     return responseJson
+    //   }
 
-    function updateUserIngredients() {
-        alert(getRecipeCount())
-        update(ref(database, 'users/' + user.uid+'/recipe-book/'),{
-            recipename: data.results[0].recipes[0].name,
+    function updateRecipe(recipeIndex) {
+        update(ref(database, 'users/' + user.uid),{
+            recipename: data.results[0].recipes[recipeIndex].name,
            })
-        update(ref(database, 'users/' + user.uid+'/recipe-book/'),{
-            recipethumbnail: data.results[0].recipes[0].thumbnail_url,
+        update(ref(database, 'users/' + user.uid),{
+            recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
            })
-        recipecount_val(recipecount + 1)
     }
     //add firebase data confirmation to here
     function ConfirmRecipe(){
+        
         return(
             <div class = "row justify-content-center">
                 <button type="button" class = "confirm-but">
-                   <Link to="/hci-recipe-app/RecipeBook"  onClick={() => updateUserIngredients()}>Add New Recipe</Link>
+                   <Link to="/hci-recipe-app/RecipeBook"  onClick={() => updateRecipe(recipeIndex)}>Add New Recipe</Link>
                </button>
             </div>
         )

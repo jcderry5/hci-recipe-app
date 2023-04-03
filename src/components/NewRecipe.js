@@ -5,6 +5,7 @@ import DisplayRecipeResults from './DisplayRecipeResults'
 import DisplayRecipeSteps from './DisplayRecipeSteps';
 import DisplayRecipeIngrediants from './DisplayRecipeIngredients';
 import DisplayRecipeSummary from './DisplayRecipeSummary';
+import { useAuth } from '../contexts/AuthContext';
 
 // import selectedRecipe from './DisplayRecipeResults'
 
@@ -12,7 +13,7 @@ import data from '../data.json'
 
 export default function NewRecipe() {
     // useRef for searchText since it will constantly be updating
-    
+    const { user } = useAuth();
 	const searchTextRef = useRef();
 	const [searchState, setSearchState] = useState("");
     const [currentRecipeIndex, setRecipeIndex] = useState(0);
@@ -26,7 +27,7 @@ export default function NewRecipe() {
     let stepName = "";
 
     if(stepsNum === 2 ){
-        // console.log("line 21")
+        // console.log(user)
         theStep = Ingrediants()
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
@@ -85,6 +86,7 @@ export default function NewRecipe() {
     }
 
     function addStep(){
+        console.log(user)
         if(stepsNum < 4){
             changeStep(stepsNum+1)
         }
@@ -97,7 +99,7 @@ export default function NewRecipe() {
 
         if(hasResults === true){
             results = generateResults()
-            console.log(currentRecipe)
+            // console.log(currentRecipe)
         }
 
         return(
@@ -148,12 +150,14 @@ export default function NewRecipe() {
     // }
 
     function Ingrediants(){
+        // {console.log(user)}
         return(
             <   DisplayRecipeIngrediants recipeIndex={currentRecipeIndex} />
         )
 
     }
     function Finalize(){
+        // console.log(user)
         return(
             <   DisplayRecipeSummary recipeIndex={currentRecipeIndex} />
         )

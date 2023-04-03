@@ -8,15 +8,12 @@ import '../RecipeResults.css';
 import { Link, useNavigate } from "react-router-dom"
 // import { DisplayRecipeSummary } from "DisplayRecipeSummary"
 
-export default function RecipeBook({recipecount, recipecount_val}) {
+export default function RecipeBook() {
     const { user } = useAuth();
     const [recipename, recipename_val] = useState([]);
     const [recipethumbnail, recipethumbnail_val] = useState([]);
     function extractRecipeInfo() {
-        
-        console.log("Inside extract")
-        console.log(data.results[0].recipes[1])
-    
+ 
         // Possible variables to use
         let name = data.results[0].recipes[0].name
         let instructions = data.results[0].recipes[0].instructions
@@ -34,27 +31,25 @@ export default function RecipeBook({recipecount, recipecount_val}) {
 
     function DataSetResults() {
         extractRecipeInfo()
-        const returnValue = [];
-        for (let i = 0; i < 1; i++) {
-          returnValue.push(<RecipeResult idx={i} />)
-        }
+        
         getRecipeThumbnail();
         getRecipeName();
-        return returnValue
+        return 
     }
 
     async function getRecipeName() {
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/"+{recipecount}+"recipename"}/.json`);
+        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid}/.json`);
         const responseJson = await val.json();
         recipename_val(responseJson)
       }
       async function getRecipeThumbnail() {
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/"+{recipecount}+"/recipethumbnail"}/.json`);
+        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid}/.json`);
         const responseJson = await val.json();
         recipethumbnail_val(responseJson)
       }
 
     function RecipeResult({ idx }) {
+        <DataSetResults/>
         return (
             <div class="recipe-row">
                 <div class="row">
@@ -89,6 +84,6 @@ export default function RecipeBook({recipecount, recipecount_val}) {
         )
     }
     return (
-        <DataSetResults/>
+        <RecipeResult/>
     )
 }

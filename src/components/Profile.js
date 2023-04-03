@@ -5,6 +5,7 @@ import { update, ref } from "firebase/database";
 import { useAuth } from '../contexts/AuthContext';
 import { Container } from 'react-bootstrap';
 
+
 export default function Profile() {
     const [name, name_val] = useState([]);
     const { user } = useAuth();
