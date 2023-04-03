@@ -3,108 +3,113 @@ import '../App.css';
 import { useState, useRef } from 'react';
 import DisplayRecipeResults from './DisplayRecipeResults'
 import DisplayRecipeSteps from './DisplayRecipeSteps';
-import DisplayRecipeIngrediants from './DisplayRecipeIngredients';
+import DisplayRecipeIngredients from './DisplayRecipeIngredients';
 import DisplayRecipeSummary from './DisplayRecipeSummary';
-
 // import selectedRecipe from './DisplayRecipeResults'
-
 import data from '../data.json'
-
 export default function NewRecipe() {
     // useRef for searchText since it will constantly be updating
-	const searchTextRef = useRef();
-	const [searchState, setSearchState] = useState("");
+    const searchTextRef = useRef();
+    const [searchState, setSearchState] = useState("");
     const [currentRecipeIndex, setRecipeIndex] = useState(0);
-
     const [hasResults, changeHasResults] = useState(false)
     const [stepsNum, changeStep] = useState(1)
     const [currentRecipe, changeCurrentRecipe] = useState()
-
+    const [currentIngredients, changeCurrentIngredients] = useState([])
     let theStep = Import()
     let nextStep = ""
     let stepName = "";
+    if (stepsNum === 2) {
+        console.log('this is currentrecipeindex', currentRecipeIndex)
+        // Update change current ingredients
+        changeCurrentIngredients([])
+        const allIngredients = data.results[0].recipes[currentRecipeIndex].sections[0].components
 
-    if(stepsNum === 2 ){
-        // console.log("line 21")
-        theStep = Ingrediants()
+        console.log("All ingredients: ", allIngredients)
+        console.log("length= ", allIngredients.length)
+
+        // Make it iterable
+        // Iterate over the property names:
+        for (const currKey of Object.keys(allIngredients)) {
+            const currVal = allIngredients[currKey];
+            console.log(currKey, currVal);
+        }
+
+        for (const currKey of Object.keys(allIngredients)) {
+            console.log("Current Ingredient ", allIngredients[currKey])
+            changeCurrentIngredients(...currentIngredients, allIngredients[currKey])
+        }
+
+        theStep = Ingredients()
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
     }
-    else if(stepsNum === 3){
+    else if (stepsNum === 3) {
         theStep = Steps()
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
     }
-    else if(stepsNum === 4){
+    else if (stepsNum === 4) {
         theStep = Finalize()
         stepName = data.results[0].recipes[currentRecipeIndex].name
     }
-    
-
 
     return (
-        
+
         <div>
             {stepsHeader()}
             {stepName}
             {theStep}
             {nextStep}
         </div>
+    )
 
-    )   
-
-
-    function stepsHeader(){
+    function stepsHeader() {
         return (
-            <div class = "steps-header">
-                <button class = 'stepsButton' type = "button">
+            <div class="steps-header">
+                <button class='stepsButton' type="button">
                     1
                 </button>
-                <button class = 'stepsButton' type = "button">
+                <button class='stepsButton' type="button">
                     2
                 </button>
-                <button class = 'stepsButton' type = "button">
+                <button class='stepsButton' type="button">
                     3
                 </button>
-                <button class = 'stepsButton' type = "button">
+                <button class='stepsButton' type="button">
                     4
                 </button>
             </div>
         )
     }
 
-    function tempNextButton(){
-        return(
-            <div class = "row justify-content-center">
-                <button type="button" class = "temp-button" onClick = {addStep}>
+    function tempNextButton() {
+        return (
+            <div class="row justify-content-center">
+                <button type="button" class="temp-button" onClick={addStep}>
                     Temporary Next Step Button
                 </button>
             </div>
         )
     }
 
-    function addStep(){
-        if(stepsNum < 4){
-            changeStep(stepsNum+1)
+    function addStep() {
+        if (stepsNum < 4) {
+            changeStep(stepsNum + 1)
         }
-        
     }
-
-
-    function Import(){
+    function Import() {
         let results = ""
-
-        if(hasResults === true){
+        if (hasResults === true) {
             results = generateResults()
             console.log(currentRecipe)
         }
-
-        return(
-            <div class = "import">
+        return (
+            <div class="import">
                 <form>
-                    <label for = "search">Search: </label>
-                    <input type = "text" placeholder="Kid-Friendly" ref={searchTextRef} ></input>
-                    <button type = "button" onClick={submitQuery}>Submit</button>
+                    <label for="search">Search: </label>
+                    <input type="text" placeholder="Kid-Friendly" ref={searchTextRef} ></input>
+                    <button type="button" onClick={submitQuery}>Submit</button>
                     {/* <input type = "submit" value = "Enter" onClick={() => flipIt()}></input> */}
                 </form>
                 <div>
@@ -113,20 +118,13 @@ export default function NewRecipe() {
             </div>
         )
     }
-
-    function submitQuery(){
+    function submitQuery() {
         setSearchState(searchTextRef.current.value);
         changeHasResults(true)
     }
-
-
-
-
-
-    function generateResults(){
+    function generateResults() {
         //here we pass the search value to DisplayRecipeResults
-
-        return(
+        return (
             <div>
                 <div class="container text-center">
                     <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
@@ -134,26 +132,21 @@ export default function NewRecipe() {
             </div>
         )
     }
-
-    function Steps(){
-        return(
+    function Steps() {
+        return (
             <   DisplayRecipeSteps recipeIndex={currentRecipeIndex} />
         )
-
     }
-
     // function chosenRecipe(data){
     //     changeCurrentRecipe(data)
     // }
-
-    function Ingrediants(){
-        return(
-            <   DisplayRecipeIngrediants recipeIndex={currentRecipeIndex} />
+    function Ingredients() {
+        return (
+            <   DisplayRecipeIngredients recipeIndex={currentRecipeIndex} currentIngredients={currentIngredients} />
         )
-
     }
-    function Finalize(){
-        return(
+    function Finalize() {
+        return (
             <   DisplayRecipeSummary recipeIndex={currentRecipeIndex} />
         )
     }
