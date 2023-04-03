@@ -3,7 +3,7 @@ import '../App.css';
 import { useState, useRef } from 'react';
 import DisplayRecipeResults from './DisplayRecipeResults'
 import DisplayRecipeSteps from './DisplayRecipeSteps';
-import DisplayRecipeIngrediants from './DisplayRecipeIngredients';
+import DisplayRecipeIngredients from './DisplayRecipeIngredients';
 import DisplayRecipeSummary from './DisplayRecipeSummary';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -21,6 +21,7 @@ export default function NewRecipe() {
     const [hasResults, changeHasResults] = useState(false)
     const [stepsNum, changeStep] = useState(1)
     const [currentRecipe, changeCurrentRecipe] = useState()
+    const [addedIngredients, changeAddedIngredients] = useState([])
 
     let theStep = Import()
     let nextStep = ""
@@ -32,28 +33,32 @@ export default function NewRecipe() {
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
     }
-    else if(stepsNum === 3){
+    else if (stepsNum === 3) {
         theStep = Steps()
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
     }
-    else if(stepsNum === 4){
+    else if (stepsNum === 4) {
         theStep = Finalize()
         stepName = data.results[0].recipes[currentRecipeIndex].name
     }
-    
+
 
 
     return (
-        
+
         <div>
             {stepsHeader()}
-            {stepName}
+            <div class = "row justify-content-center">
+                <div class = "recipe-name">
+                {stepName}
+                </div>
+            </div>
             {theStep}
             {nextStep}
         </div>
 
-    )   
+    )
 
 
     function stepsHeader(){
@@ -62,52 +67,51 @@ export default function NewRecipe() {
                 <button class = 'stepsButton' type = "button">
                     1
                 </button>
-                <button class = 'stepsButton' type = "button">
+                <button class='stepsButton' type="button">
                     2
                 </button>
-                <button class = 'stepsButton' type = "button">
+                <button class='stepsButton' type="button">
                     3
                 </button>
-                <button class = 'stepsButton' type = "button">
+                <button class='stepsButton' type="button">
                     4
                 </button>
             </div>
         )
     }
 
-    function tempNextButton(){
-        return(
-            <div class = "row justify-content-center">
-                <button type="button" class = "temp-button" onClick = {addStep}>
-                    Temporary Next Step Button
+    function tempNextButton() {
+        return (
+            <div class="row justify-content-center">
+                <button type="button" class="temp-button" onClick={addStep}>
+                    Next Step
                 </button>
             </div>
         )
     }
 
-    function addStep(){
-        console.log(user)
-        if(stepsNum < 4){
-            changeStep(stepsNum+1)
+    function addStep() {
+        if (stepsNum < 4) {
+            changeStep(stepsNum + 1)
         }
-        
+
     }
 
 
-    function Import(){
+    function Import() {
         let results = ""
 
-        if(hasResults === true){
+        if (hasResults === true) {
             results = generateResults()
             // console.log(currentRecipe)
         }
 
-        return(
-            <div class = "import">
+        return (
+            <div class="import">
                 <form>
-                    <label for = "search">Search: </label>
-                    <input type = "text" placeholder="Kid-Friendly" ref={searchTextRef} ></input>
-                    <button type = "button" onClick={submitQuery}>Submit</button>
+                    <label for="search">Search: </label>
+                    <input type="text" placeholder="Kid-Friendly" ref={searchTextRef} ></input>
+                    <button type="button" onClick={submitQuery}>Submit</button>
                     {/* <input type = "submit" value = "Enter" onClick={() => flipIt()}></input> */}
                 </form>
                 <div>
@@ -117,7 +121,7 @@ export default function NewRecipe() {
         )
     }
 
-    function submitQuery(){
+    function submitQuery() {
         setSearchState(searchTextRef.current.value);
         changeHasResults(true)
     }
@@ -126,10 +130,10 @@ export default function NewRecipe() {
 
 
 
-    function generateResults(){
+    function generateResults() {
         //here we pass the search value to DisplayRecipeResults
 
-        return(
+        return (
             <div>
                 <div class="container text-center">
                     <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
@@ -149,17 +153,21 @@ export default function NewRecipe() {
     //     changeCurrentRecipe(data)
     // }
 
-    function Ingrediants(){
-        // {console.log(user)}
-        return(
-            <   DisplayRecipeIngrediants recipeIndex={currentRecipeIndex} />
+    function Ingrediants() {
+        return (
+            <   DisplayRecipeIngredients 
+            addedIngredients={addedIngredients} 
+            changeAddedIngredients={changeAddedIngredients}
+            recipeIndex={currentRecipeIndex} />
         )
 
     }
-    function Finalize(){
-        // console.log(user)
-        return(
-            <   DisplayRecipeSummary recipeIndex={currentRecipeIndex} />
+    function Finalize() {
+        return (
+            <   DisplayRecipeSummary
+            addedIngredients={addedIngredients} 
+            changeAddedIngredients={changeAddedIngredients}
+            recipeIndex={currentRecipeIndex} />
         )
     }
 }
