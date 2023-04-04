@@ -19,26 +19,30 @@ export default function NewRecipe() {
     let theStep = Import()
     let nextStep = ""
     let stepName = "";
+    console.log("Heyo, currently in NewRecipe")
+    
     if (stepsNum === 2) {
-        console.log('this is currentrecipeindex', currentRecipeIndex)
+        //console.log('this is currentrecipeindex', currentRecipeIndex)
         // Update change current ingredients
-        changeCurrentIngredients([])
-        const allIngredients = data.results[0].recipes[currentRecipeIndex].sections[0].components
+        //changeCurrentIngredients([])
+        //const allIngredients = data.results[0].recipes[currentRecipeIndex].sections[0].components
 
-        console.log("All ingredients: ", allIngredients)
-        console.log("length= ", allIngredients.length)
+        //console.log("All ingredients: ", allIngredients)
+        //console.log("length= ", allIngredients.length)
 
         // Make it iterable
         // Iterate over the property names:
-        for (const currKey of Object.keys(allIngredients)) {
-            const currVal = allIngredients[currKey];
-            console.log(currKey, currVal);
-        }
-
-        for (const currKey of Object.keys(allIngredients)) {
-            console.log("Current Ingredient ", allIngredients[currKey])
-            changeCurrentIngredients(...currentIngredients, allIngredients[currKey])
-        }
+        // for (const currKey of Object.keys(allIngredients)) {
+        //     const currValue = allIngredients[currKey];
+        //     //console.log("currKey and currValue below:")
+        //     //console.log(currKey, currVal);
+        //     changeCurrentIngredients(currArray => [...currArray, currValue])
+        // }
+        //console.log("This is the useState:", currentIngredients)
+        // for (const currKey of Object.keys(allIngredients)) {
+        //     console.log("Current Ingredient ", allIngredients[currKey])
+        //     changeCurrentIngredients(...currentIngredients, allIngredients[currKey])
+        // }
 
         theStep = Ingredients()
         stepName = data.results[0].recipes[currentRecipeIndex].name
@@ -127,7 +131,7 @@ export default function NewRecipe() {
         return (
             <div>
                 <div class="container text-center">
-                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
+                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>
                 </div>
             </div>
         )

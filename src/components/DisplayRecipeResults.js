@@ -5,7 +5,7 @@ import '../RecipeResults.css';
 
 
 
-function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep }) {
+function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients}) {
 	// useRef for searchText since it will constantly be updating
 	//const searchText = useRef();
 	//const [searchState, setSearchState] = useState("");
@@ -21,7 +21,7 @@ function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep }) {
 
 	return (
 		<div>
-			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
+			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>
 		</div>
 	)
 }
@@ -67,30 +67,62 @@ function extractRecipeInfo() {
 	//TODO: Fetch from recipes/get-more-info using id
 }
 
-function DataSetResults({ searchState, setRecipeIndex, changeStep }) {
+function DataSetResults({ searchState, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients }) {
 	console.log("searchState: " + searchState);
 	extractRecipeInfo()
 	const returnValue = [];
 	console.log(data.results[0].recipes.length);
 	for (let i = 0; i < data.results[0].recipes.length; i++) {
 		if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState)) {
-			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep}  />)
+			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>)
 		}
 	}
 
 	return returnValue;
 }
 
-function handleRecipeChoice({idx, setRecipeIndex, changeStep}) {
+function handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients}) {
 	setRecipeIndex(idx);
 	// Hardcoded to the next step
 	changeStep(2);
+
+	console.log("Inside handleRecipeChoice")
+	// Update useState for selectedRecipe
+	//changeCurrentIngredients([])
+	console.log('idx', idx)
+	const allIngredients = data.results[0].recipes[idx].sections[0].components
+	console.log('all ingredients', allIngredients)
+	
+	//const arrayToCopy = [1, 2, 3, 4, 5]
+	
+	// for (var i; i < arrayToCopy.length; i++) {
+	// 	changeCurrentIngredients([...currentIngredients, arrayToCopy[i]])
+	// }
+
+
+	for (const currKey of Object.keys(allIngredients)) {
+		const currValue = allIngredients[currKey];
+		console.log("currKey and currValue below:")
+		console.log(currKey, currValue);
+		// changeCurrentIngredients(currArray => [...currArray, currValue])
+		console.log("ingredientName", currValue.ingredient)
+		console.log("measurement", currValue.measurements)
+		console.log("raw_text", currValue.raw_text)
+		changeCurrentIngredients([ ...currentIngredients, {
+			ingredientName: currValue.ingredient,
+			measurement: currValue.measurements,
+			raw_text: currValue.raw_text
+		}])
+	}
+
+	
+	console.log("This is the useState:", currentIngredients)
 }
 
-function RecipeResult({ idx, setRecipeIndex, changeStep }) {
+function RecipeResult({ idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients }) {
 	return (
 		<div class="recipe-row">
-			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep})}}>
+			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients})}}>
 				<div class="row">
 					<img class="recipe-options-img" src={data.results[0].recipes[idx].thumbnail_url}></img>
 				</div>
