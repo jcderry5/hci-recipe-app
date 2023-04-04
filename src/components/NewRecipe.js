@@ -7,6 +7,7 @@ import DisplayRecipeIngredients from './DisplayRecipeIngredients';
 import DisplayRecipeSummary from './DisplayRecipeSummary';
 // import selectedRecipe from './DisplayRecipeResults'
 import data from '../data.json'
+
 export default function NewRecipe() {
     // useRef for searchText since it will constantly be updating
     const searchTextRef = useRef();
@@ -16,12 +17,13 @@ export default function NewRecipe() {
     const [stepsNum, changeStep] = useState(1)
     const [currentRecipe, changeCurrentRecipe] = useState()
     const [addedIngredients, changeAddedIngredients] = useState([])
+    const [currentIngredients, changeCurrentIngredients] = useState([])
+
     let theStep = Import()
     let nextStep = ""
     let stepName = "";
     if (stepsNum === 2) {
-        // console.log("line 21")
-        theStep = Ingrediants()
+        theStep = Ingredients()
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
     }
@@ -112,27 +114,24 @@ export default function NewRecipe() {
         return (
             <div>
                 <div class="container text-center">
-                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
+                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients={changeCurrentIngredients}/>
                 </div>
             </div>
         )
     }
+
     function Steps() {
         return (
             <   DisplayRecipeSteps recipeIndex={currentRecipeIndex} />
         )
     }
-    // function chosenRecipe(data){
-    //     changeCurrentRecipe(data)
-    // }
-    function Ingrediants() {
+
+    function Ingredients() {
         return (
-            <   DisplayRecipeIngredients
-                addedIngredients={addedIngredients}
-                changeAddedIngredients={changeAddedIngredients}
-                recipeIndex={currentRecipeIndex} />
+            <   DisplayRecipeIngredients currentIngredients={currentIngredients} />
         )
     }
+
     function Finalize() {
         return (
             <   DisplayRecipeSummary
