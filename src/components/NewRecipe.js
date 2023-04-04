@@ -131,7 +131,7 @@ export default function NewRecipe() {
         return (
             <div>
                 <div class="container text-center">
-                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>
+                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients={changeCurrentIngredients}/>
                 </div>
             </div>
         )

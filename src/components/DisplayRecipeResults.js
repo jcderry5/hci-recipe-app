@@ -99,22 +99,22 @@ function handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients
 	// 	changeCurrentIngredients([...currentIngredients, arrayToCopy[i]])
 	// }
 
+	let ingredientArr = [];
+
 
 	for (const currKey of Object.keys(allIngredients)) {
 		const currValue = allIngredients[currKey];
 		console.log("currKey and currValue below:")
 		console.log(currKey, currValue);
 		// changeCurrentIngredients(currArray => [...currArray, currValue])
-		console.log("ingredientName", currValue.ingredient)
-		console.log("measurement", currValue.measurements)
-		console.log("raw_text", currValue.raw_text)
-		changeCurrentIngredients([ ...currentIngredients, {
-			ingredientName: currValue.ingredient,
-			measurement: currValue.measurements,
+		ingredientArr = [...ingredientArr, {
+			ingredient: currValue.ingredient,
+			measurements: currValue.measurements,
 			raw_text: currValue.raw_text
-		}])
+		}];
 	}
 
+	changeCurrentIngredients(ingredientArr);
 	
 	console.log("This is the useState:", currentIngredients)
 }

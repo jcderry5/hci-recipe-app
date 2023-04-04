@@ -17,13 +17,13 @@ function DisplayRecipeIngredients({ recipeIndex, currentIngredients }){
         </div>
     )
 
-    function extractRecipeIngredients({recipeIndex}){
+    function extractRecipeIngredients({recipeIndex, currentIngredients}){
         let ingredients_data = data.results[0].recipes[recipeIndex].sections[0].components;
         let amtIngredients = ingredients_data.length
         const returnValue = [];
         returnValue.push(<Title/>);
         for(let i = 0; i< amtIngredients; i++){
-            returnValue.push(<GenerateRecipeIngredients idx={i}/>)
+            returnValue.push(<GenerateRecipeIngredients idx={i} currentIngredients={currentIngredients}/>)
         }
         // returnValue.push(<AddButton/>);
         return(
@@ -54,7 +54,7 @@ function DisplayRecipeIngredients({ recipeIndex, currentIngredients }){
         )
     }
 
-    function GenerateRecipeIngredients({idx, num}) {
+    function GenerateRecipeIngredients({idx, num, currentIngredients}) {
 
         let amt = currentIngredients[idx].measurements[0].quantity
         let unit_a = currentIngredients[idx].measurements[0].unit.display_plural
