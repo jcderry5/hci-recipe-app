@@ -4,9 +4,9 @@ import '../RecipeResults.css'
 import selectedRecipe from './DisplayRecipeResults'
 import getIngredientData from './IngredientSubstitute'
 
-function DisplayRecipeIngredients({ recipeIndex, currentIngredients }){
+function DisplayRecipeIngredients({ currentIngredients }){
     
-    let theIngredients = extractRecipeIngredients({recipeIndex, currentIngredients})
+    let theIngredients = extractRecipeIngredients({currentIngredients})
 
     //here is where the code to pass idx back and forth goes
     
@@ -17,9 +17,8 @@ function DisplayRecipeIngredients({ recipeIndex, currentIngredients }){
         </div>
     )
 
-    function extractRecipeIngredients({recipeIndex, currentIngredients}){
-        let ingredients_data = data.results[0].recipes[recipeIndex].sections[0].components;
-        let amtIngredients = ingredients_data.length
+    function extractRecipeIngredients({currentIngredients}){
+        let amtIngredients = currentIngredients.length
         const returnValue = [];
         returnValue.push(<Title/>);
         for(let i = 0; i< amtIngredients; i++){

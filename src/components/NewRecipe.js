@@ -146,7 +146,7 @@ export default function NewRecipe() {
     // }
     function Ingredients() {
         return (
-            <   DisplayRecipeIngredients recipeIndex={currentRecipeIndex} currentIngredients={currentIngredients} />
+            <   DisplayRecipeIngredients currentIngredients={currentIngredients} />
         )
     }
     function Finalize() {
