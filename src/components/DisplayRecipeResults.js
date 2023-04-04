@@ -86,21 +86,8 @@ function handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients
 	// Hardcoded to the next step
 	changeStep(2);
 
-	console.log("Inside handleRecipeChoice")
-	// Update useState for selectedRecipe
-	//changeCurrentIngredients([])
-	console.log('idx', idx)
 	const allIngredients = data.results[0].recipes[idx].sections[0].components
-	console.log('all ingredients', allIngredients)
-	
-	//const arrayToCopy = [1, 2, 3, 4, 5]
-	
-	// for (var i; i < arrayToCopy.length; i++) {
-	// 	changeCurrentIngredients([...currentIngredients, arrayToCopy[i]])
-	// }
-
 	let ingredientArr = [];
-
 
 	for (const currKey of Object.keys(allIngredients)) {
 		const currValue = allIngredients[currKey];
@@ -115,8 +102,7 @@ function handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients
 	}
 
 	changeCurrentIngredients(ingredientArr);
-	
-	console.log("This is the useState:", currentIngredients)
+
 }
 
 function RecipeResult({ idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients }) {
