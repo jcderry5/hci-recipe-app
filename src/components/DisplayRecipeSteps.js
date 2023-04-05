@@ -52,7 +52,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
                     </button> */}
                     +
                 </button>
-                <form id="formElement" style="display: none;">
+                <form id="formElement" style={{display: 'none'}}>
 
                 </form>
             </div>
