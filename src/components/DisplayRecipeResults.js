@@ -5,7 +5,7 @@ import '../RecipeResults.css';
 
 
 
-function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep }) {
+function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep, changeRecipeSteps }) {
 	// useRef for searchText since it will constantly be updating
 	//const searchText = useRef();
 	//const [searchState, setSearchState] = useState("");
@@ -21,7 +21,7 @@ function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep }) {
 
 	return (
 		<div>
-			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
+			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} changeRecipeSteps={changeRecipeSteps}/>
 		</div>
 	)
 }
@@ -67,30 +67,42 @@ function extractRecipeInfo() {
 	//TODO: Fetch from recipes/get-more-info using id
 }
 
-function DataSetResults({ searchState, setRecipeIndex, changeStep }) {
+function DataSetResults({ searchState, setRecipeIndex, changeStep, changeRecipeSteps}) {
 	console.log("searchState: " + searchState);
 	extractRecipeInfo()
 	const returnValue = [];
 	console.log(data.results[0].recipes.length);
 	for (let i = 0; i < data.results[0].recipes.length; i++) {
 		if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState)) {
-			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep}  />)
+			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep} changeRecipeSteps={changeRecipeSteps} />)
 		}
 	}
 
 	return returnValue;
 }
 
-function handleRecipeChoice({idx, setRecipeIndex, changeStep}) {
+function handleRecipeChoice({idx, setRecipeIndex, changeStep, changeRecipeSteps}) {
 	setRecipeIndex(idx);
 	// Hardcoded to the next step
+
+	let ingredients_data = data.results[0].recipes[idx].sections[0].components;
+	let amtIngredients = ingredients_data.length
+
+	let steps = []
+
+	for(let i = 0; i<amtIngredients; i++){
+		steps.push(data.results[0].recipes[idx].instructions[i].display_text)
+	}
+
+	changeRecipeSteps(steps)
+
 	changeStep(2);
 }
 
-function RecipeResult({ idx, setRecipeIndex, changeStep }) {
+function RecipeResult({ idx, setRecipeIndex, changeStep, changeRecipeSteps }) {
 	return (
 		<div class="recipe-row">
-			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep})}}>
+			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep, changeRecipeSteps})}}>
 				<div class="row">
 					<img class="recipe-options-img" src={data.results[0].recipes[idx].thumbnail_url}></img>
 				</div>
