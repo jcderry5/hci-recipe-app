@@ -44,9 +44,11 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
     }
 
     function AddButton(num, changeRecipeSteps) {
+        let addbutton = "addbutton" + num
+
         return (
             <div class="row justify-content-center">
-                <button type="button" class="step-butt" onClick={(showForm(num={num}, changeRecipeSteps={changeRecipeSteps}))}>
+                <button type="button" class="step-butt" onClick={showForm} id = "addbutton">
                     {/* <button type = "button">
                         +
                     </button> */}
@@ -59,10 +61,16 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
         )
     }
 
-    function showForm(num, recipeSteps, changeRecipeSteps){
+    function showForm(){
         // let arr = recipeSteps
         let form = document.getElementById('formElement')
-        // form.style.display = "block"
+        console.log("gets into showForm")
+        form.style.display = "block"
+        console.log(form.style.display)
+        
+        let ab = document.getElementById('addbutton')
+        console.log(ab)
+
     }        
     
 
