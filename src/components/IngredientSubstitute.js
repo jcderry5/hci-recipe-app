@@ -15,7 +15,7 @@ const getIngredientData = function (ingredientName) {
 			if (response.status === 'failure') {
 				console.log("ERROR!!!")
 				console.log(response)
-				console.log(ingredientName.ingredient_a)
+				console.log(ingredientString)
 				console.log(encodedIngredient)
 				alert("This ingredient cannot be substituted")
 			} else {

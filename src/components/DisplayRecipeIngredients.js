@@ -88,7 +88,7 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
     function GenerateRecipeIngredients({ idx, currentIngredients }) {
         //console.log("Ingredient Object: ", currentIngredients[idx])
         let displayText = currentIngredients[idx].raw_text
-        let nameObj = currentIngredients[idx].ingredient
+        let name = currentIngredients[idx].ingredient
         let measurementObj = currentIngredients[idx].measurements // can hold obj (if from data) or string (if custom)
         //console.log("name", nameObj)
         // let amt = currentIngredients[idx].measurements[0].quantity
@@ -100,7 +100,7 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
         //let space = " "
         return (
             <div class = "row justify-content-center">
-                <div onClick={() => { getIngredientData({ nameObj }) }} class="ingredient">
+                <div onClick={() => { getIngredientData({ name }) }} class="ingredient">
                     {displayText}
                 </div>
             </div>
