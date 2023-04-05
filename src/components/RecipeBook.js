@@ -31,45 +31,44 @@ export default function RecipeBook() {
     
     }
 
-    function DataSetResults({i}) {
-        extractRecipeInfo();
+    function DataSetResults({idx}) {
+        // extractRecipeInfo();
         getRecipeName();
-        getRecipeThumbnail({i});
+        // getRecipeThumbnail(idx = {idx});
     }
 
     async function getRecipeName() {
         // console.log("getting recipe name")
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"}/.json`);
+        const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"}/.json`);
         const responseJson = await val.json();
         recipe_val(Object.keys(responseJson))
         // console.log("uwu", Object.keys(responseJson))
         return
       }
-      async function getRecipeThumbnail({i}) {
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+"/"+recipes[i]+"/recipethumbnail"}/.json`);
-        const responseJson = await val.json();
-        recipethumbnail_val(responseJson)
-        // console.log("uwu", Object.keys(responseJson))
-        return
+    //   async function getRecipeThumbnail({idx}) {
+    //     const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+"/"+recipes[idx]+"/recipethumbnail"}/.json`);
+    //     const responseJson = await val.json();
+    //     recipethumbnail_val(responseJson)
+    //     // console.log("uwu", Object.keys(responseJson))
+    //     return
         
-      }
+    //   }
 
       function Build({idx}){
-        <DataSetResults/>
+        <DataSetResults idx = {idx}/>
         return(
             <div class="recipe-row">
             <div class="row">
             <div class="col-3 recipe-subtitles">
                 Name:
-               
             </div>
             <div class="col-9 truncate">
                 {recipes[idx]}
             </div>
         </div>
-        <div class="row">
+        {/* <div class="row">
              {<img src = {recipethumbnail}></img>}
-        </div>
+        </div> */}
         <div class="row">
             <div class="col-3 recipe-subtitles">
             View
@@ -105,9 +104,9 @@ export default function RecipeBook() {
     //     }
     //   }
       
-    extractRecipeInfo();
+    // extractRecipeInfo();
     getRecipeName();
-    getRecipeThumbnail();
+    // getRecipeThumbnail();
     for(let i = 0; i< recipes.length; i++){
         <DataSetResults/>
         returnValue.push(<Build idx={i}/>)

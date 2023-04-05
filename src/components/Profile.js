@@ -12,7 +12,7 @@ export default function Profile() {
     const [diet, diet_val] = useState([]);
 
     async function getName() {
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/name"}/.json`);
+        const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/name"}/.json`);
         const responseJson = await val.json();
         name_val(responseJson)
         console.log(responseJson)
@@ -25,7 +25,7 @@ export default function Profile() {
       }
 
       async function getDiet() {
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/diet"}/.json`);
+        const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/diet"}/.json`);
         const responseJson = await val.json();
         diet_val(responseJson)
         console.log(responseJson)

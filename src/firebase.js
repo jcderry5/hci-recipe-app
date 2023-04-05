@@ -8,15 +8,16 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAzUqnYAF2WigaAT3ZxCl4WprQIZLttSaM",
-    authDomain: "recipe-remix-996dc.firebaseapp.com",
-    databaseURL: "https://recipe-remix-996dc-default-rtdb.firebaseio.com/",
-    projectId: "recipe-remix-996dc",
-    storageBucket: "recipe-remix-996dc.appspot.com",
-    messagingSenderId: "924797122457",
-    appId: "1:924797122457:web:dd46d07d256093ad660508",
-    measurementId: "G-LBW75XRFXG"
-  };
+  apiKey: "AIzaSyCdIVhFmrOXCE4hWpPOSSQPlZdyPgAIC08",
+  authDomain: "hci-recipe-app.firebaseapp.com",
+  databaseURL: "https://hci-recipe-app-default-rtdb.firebaseio.com",
+  projectId: "hci-recipe-app",
+  storageBucket: "hci-recipe-app.appspot.com",
+  messagingSenderId: "768535032250",
+  appId: "1:768535032250:web:9ce639cd6d647b8d202d83",
+  measurementId: "G-ZPXR0DB98S"
+};
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
