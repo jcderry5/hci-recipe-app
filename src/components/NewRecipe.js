@@ -137,9 +137,8 @@ export default function NewRecipe() {
     function Finalize() {
         return (
             <   DisplayRecipeSummary
-                addedIngredients={addedIngredients}
-                changeAddedIngredients={changeAddedIngredients}
-                recipeIndex={currentRecipeIndex} />
+                recipeIndex={currentRecipeIndex}
+                currentIngredients={currentIngredients} />
         )
     }
 }

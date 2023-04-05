@@ -17,9 +17,8 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
             {addState}
         </div>
     )
-    
+
     function extractRecipeIngredients({ currentIngredients }) {
-        console.log("Entering extractRecipeIngredients")
         let amtIngredients = currentIngredients.length
         const returnValue = [];
         returnValue.push(<Title/>);
