@@ -40,6 +40,7 @@ function App() {
               <Route path="/hci-recipe-app/newrecipe" element={<ProtectedRoute><AppHeader/><NewRecipe/></ProtectedRoute>} />
               <Route path="/hci-recipe-app/viewrecipe" element={<ProtectedRoute><AppHeader/><ViewRecipe/></ProtectedRoute>} />
               <Route path="/hci-recipe-app/recipesummaryagain" element={<ProtectedRoute><AppHeader/><RecipeSummaryAgain/></ProtectedRoute>} />
+              
             </Routes>
           </AuthProvider>
         </BrowserRouter>

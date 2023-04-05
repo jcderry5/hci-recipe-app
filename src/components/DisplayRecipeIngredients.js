@@ -2,13 +2,13 @@ import React from 'react'
 import data from '../data.json'
 import '../RecipeResults.css'
 import { useState, useRef } from 'react';
-
+import { useAuth } from '../contexts/AuthContext';
 import selectedRecipe from './DisplayRecipeResults'
 import getIngredientData from './IngredientSubstitute'
 
 
 function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients}) {
-
+    const { user } = useAuth();
     const [addStage, changeAddStage] = useState(false);
     // const [addedIngredients, changeAddedIngredients] = useState([])
 
@@ -21,7 +21,7 @@ function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIng
         addState = AddIngredient()
     }
 
-
+    // console.log(user)
     return (
         <div>
 

@@ -1,11 +1,12 @@
 import React from 'react'
 import data from '../data.json'
+import { useAuth } from '../contexts/AuthContext';
 import '../RecipeResults.css'
 import selectedRecipe from './DisplayRecipeResults'
 
 
 function DisplayRecipeSteps({ recipeIndex }){
-
+    const user = useAuth();
     let results = extractRecipeSteps({recipeIndex})
 
     //here is where the code to pass idx back and forth goes
@@ -17,7 +18,7 @@ function DisplayRecipeSteps({ recipeIndex }){
     )
 
     function extractRecipeSteps({recipeIndex}){
-
+        // console.log(user)
         let steps_data = data.results[0].recipes[recipeIndex].instructions;
         let amtSteps = steps_data.length
         console.log(steps_data)

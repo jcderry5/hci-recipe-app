@@ -1,11 +1,14 @@
 import React, { useRef, useState } from 'react'
 import data from '../data.json'
 import '../RecipeResults.css';
+import { useAuth } from '../contexts/AuthContext';
 // import changeState from "./NewRecipe"
 
 
 
+
 function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep }) {
+	const { user } = useAuth();
 	// useRef for searchText since it will constantly be updating
 	//const searchText = useRef();
 	//const [searchState, setSearchState] = useState("");
@@ -19,6 +22,7 @@ function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep }) {
 
 	// getResponseData(searchText)
 
+	// console.log(user)
 	return (
 		<div>
 			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />

@@ -8,20 +8,15 @@ import { useAuth } from '../contexts/AuthContext';
 
 
 
-function DisplayRecipeSummary({ recipeIndex }){
-    const user = useAuth();
-function DisplayRecipeSummary({recipeIndex, addedIngredients, changeAddedIngredients}){
-
-    // let theIngredients = DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients})
+function DisplayRecipeSummary({ recipeIndex, addedIngredients, changeAddedIngredients, user }){
+    // const user = useAuth();
     let theIngredients = extractRecipeIngredients({recipeIndex})
     let newIngredients = GenerateNewIngredients()
     let theSteps = extractRecipeSteps({recipeIndex})
 
     //here is where the code to pass idx back and forth goes
-    
     return(
         <div>
-            {console.log(user)}
             {TitleSum()}
             {theIngredients}
             {newIngredients}
@@ -38,13 +33,19 @@ function DisplayRecipeSummary({recipeIndex, addedIngredients, changeAddedIngredi
     //   }
 
     function updateRecipe(recipeIndex) {
-        update(ref(database, 'users/' + user.uid),{
-            recipename: data.results[0].recipes[recipeIndex].name,
-           })
-        update(ref(database, 'users/' + user.uid),{
-            recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
-           })
+        // console.log("hi", user)
+        // console.log("inside updaterecipe", user.uid)
+        update(ref(database,'users/' + user.uid + '/recipe-book'),{
+            [data.results[0].recipes[recipeIndex].name]:  { 
+                recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
+                recipe_obj: {
+                    steps: data.results[0].recipes[recipeIndex].instructions,
+                    ingredients: data.results[0].recipes[recipeIndex].sections[0].components
+                }
+            }
+        })
     }
+    
     //add firebase data confirmation to here
     function ConfirmRecipe(){
         
@@ -98,7 +99,7 @@ function DisplayRecipeSummary({recipeIndex, addedIngredients, changeAddedIngredi
         let ingredients_data = data.results[0].recipes[recipeIndex].sections[0].components;
         let amtIngredients = ingredients_data.length
 
-        console.log(data.results)
+        // console.log(data.results)
 
         const returnValue = [];
 
@@ -166,7 +167,7 @@ function DisplayRecipeSummary({recipeIndex, addedIngredients, changeAddedIngredi
         let steps_data = data.results[0].recipes[recipeIndex].instructions;
         let amtSteps = steps_data.length
 
-        console.log(steps_data)
+        // console.log(steps_data)
 
 
         const returnValue = [];

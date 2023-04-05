@@ -122,6 +122,7 @@ export default function NewRecipe() {
     }
 
     function submitQuery() {
+        
         setSearchState(searchTextRef.current.value);
         changeHasResults(true)
     }
@@ -132,7 +133,7 @@ export default function NewRecipe() {
 
     function generateResults() {
         //here we pass the search value to DisplayRecipeResults
-
+        // console.log(user)
         return (
             <div>
                 <div class="container text-center">
@@ -167,7 +168,7 @@ export default function NewRecipe() {
             <   DisplayRecipeSummary
             addedIngredients={addedIngredients} 
             changeAddedIngredients={changeAddedIngredients}
-            recipeIndex={currentRecipeIndex} />
+            recipeIndex={currentRecipeIndex} user={user}/>
         )
     }
 }
