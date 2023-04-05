@@ -31,10 +31,10 @@ export default function RecipeBook() {
     
     }
 
-    function DataSetResults({idx}) {
+    function DataSetResults({i}) {
         extractRecipeInfo();
         getRecipeName();
-        getRecipeThumbnail(idx = {idx});
+        getRecipeThumbnail({i});
     }
 
     async function getRecipeName() {
@@ -45,8 +45,8 @@ export default function RecipeBook() {
         // console.log("uwu", Object.keys(responseJson))
         return
       }
-      async function getRecipeThumbnail({idx}) {
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+"/"+recipes[idx]+"/recipethumbnail"}/.json`);
+      async function getRecipeThumbnail({i}) {
+        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+"/"+recipes[i]+"/recipethumbnail"}/.json`);
         const responseJson = await val.json();
         recipethumbnail_val(responseJson)
         // console.log("uwu", Object.keys(responseJson))
@@ -55,12 +55,13 @@ export default function RecipeBook() {
       }
 
       function Build({idx}){
-        <DataSetResults idx = {idx}/>
+        <DataSetResults/>
         return(
             <div class="recipe-row">
             <div class="row">
             <div class="col-3 recipe-subtitles">
                 Name:
+               
             </div>
             <div class="col-9 truncate">
                 {recipes[idx]}
