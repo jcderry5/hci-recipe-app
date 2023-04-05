@@ -128,7 +128,9 @@ export default function NewRecipe() {
 
     function Ingredients() {
         return (
-            <   DisplayRecipeIngredients currentIngredients={currentIngredients} />
+            <   DisplayRecipeIngredients
+                currentIngredients={currentIngredients}
+                changeCurrentIngredients={changeCurrentIngredients}/>
         )
     }
 

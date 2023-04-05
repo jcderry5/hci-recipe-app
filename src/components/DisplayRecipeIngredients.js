@@ -4,18 +4,20 @@ import '../RecipeResults.css'
 import { useState, useRef } from 'react';
 import selectedRecipe from './DisplayRecipeResults'
 import getIngredientData from './IngredientSubstitute'
-
-function DisplayRecipeIngredients({ currentIngredients }) {
-
+function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients }) {
+    const [addStage, changeAddStage] = useState(false);
     let theIngredients = extractRecipeIngredients({ currentIngredients })
-
+    let addState = AddButton()
+    if(addStage === true){
+        addState = AddIngredient()
+    }
     return (
         <div>
             {theIngredients}
-            {AddButton()}
+            {addState}
         </div>
     )
-
+    
     function extractRecipeIngredients({ currentIngredients }) {
         console.log("Entering extractRecipeIngredients")
         let amtIngredients = currentIngredients.length
@@ -24,7 +26,6 @@ function DisplayRecipeIngredients({ currentIngredients }) {
         for(let i = 0; i< amtIngredients; i++){
             returnValue.push(<GenerateRecipeIngredients idx={i} currentIngredients={currentIngredients}/>)
         }
-        // returnValue.push(<AddButton/>);
         return (
             returnValue
         )
@@ -42,36 +43,69 @@ function DisplayRecipeIngredients({ currentIngredients }) {
 
     function AddButton() {
         return (
-            <div class = "row justify-content-center">
-                <button type = "button" class = "ingredient">
-                    {/* <button type = "button">
-                        +
-                    </button> */}
+            <div class="row justify-content-center">
+                <button type="button" class="ingredient" onClick={(addClick)}>
                     + Add Ingredient
                 </button>
             </div>
         )
     }
 
-    function GenerateRecipeIngredients({ idx, currentIngredients }) {
-        let amt = currentIngredients[idx].measurements[0].quantity
-        let unit_a = currentIngredients[idx].measurements[0].unit.display_plural
-        if (amt == 1) {
-            unit_a = currentIngredients[idx].measurements[0].unit.display_singular
+    function addClick(){
+        changeAddStage(!addStage)
+    }
+
+    function AddIngredient() {
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            let addedUnit = e.target.elements.unit.value
+            let addedIngredient = e.target.elements.name.value
+            changeCurrentIngredients(addedIngredients => [...addedIngredients, {
+                ingredient: addedIngredient,
+			    measurements: addedUnit,
+			    raw_text: addedUnit + " " + addedIngredient
+            }]);
+            addClick()
         }
-        let ingredient_a = currentIngredients[idx].ingredient.name
-        let space = " "
+        return (
+            <div class="justify-content-center">
+                <form class="new-ingredient-form" onSubmit={handleSubmit}>
+                    <div class="row" id="new-ingredient-row">
+                        <div class="col-4">
+                            <input type="text" id="recipe-measurement" class = "new-ingredient-input" name = "unit" placeholder="Unit">
+                            </input>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id= "recipe-name" class = "new-ingredient-input" name = "name" placeholder="Ingredient">
+                            </input>
+                    </div>
+                </div>
+                    <input type = "submit" class = "sub-butt" value="Add Ingredient"/>
+                </form>
+            </div>
+        )
+    }
+
+    function GenerateRecipeIngredients({ idx, currentIngredients }) {
+        //console.log("Ingredient Object: ", currentIngredients[idx])
+        let displayText = currentIngredients[idx].raw_text
+        let nameObj = currentIngredients[idx].ingredient
+        let measurementObj = currentIngredients[idx].measurements // can hold obj (if from data) or string (if custom)
+        //console.log("name", nameObj)
+        // let amt = currentIngredients[idx].measurements[0].quantity
+        // let unit_a = currentIngredients[idx].measurements[0].unit.display_plural
+        // if (amt == 1) {
+        //     unit_a = currentIngredients[idx].measurements[0].unit.display_singular
+        // }
+        // let ingredient_a = currentIngredients[idx].ingredient.name
+        //let space = " "
         return (
             <div class = "row justify-content-center">
-                <div onClick={() => { getIngredientData({ ingredient_a }) }} class="ingredient">
-                    {amt} {unit_a}
-                    {space}
-                    {ingredient_a}
+                <div onClick={() => { getIngredientData({ nameObj }) }} class="ingredient">
+                    {displayText}
                 </div>
-
             </div>
         )
     }
 }
-
 export default DisplayRecipeIngredients
