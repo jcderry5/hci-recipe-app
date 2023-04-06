@@ -1,5 +1,6 @@
 import React from 'react'
 import data from '../data.json'
+import { useAuth } from '../contexts/AuthContext';
 import '../RecipeResults.css'
 import selectedRecipe from './DisplayRecipeResults'
 
@@ -23,7 +24,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
         // let amtSteps = steps_data.length
         // console.log(steps_data)
         const returnValue = [];
-        
+
         returnValue.push(<Title/>)
         for(let i = 0; i< recipeSteps.length; i++){
             returnValue.push(<GenerateRecipeSteps recipeIndex={recipeIndex} num={i} recipeSteps={recipeSteps} changeRecipeSteps={changeRecipeSteps}/>)
@@ -94,6 +95,6 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
             </div>
         )
     }
-    
 }
+
 export default DisplayRecipeSteps
