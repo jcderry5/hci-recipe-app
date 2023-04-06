@@ -5,7 +5,6 @@ import { update, ref } from "firebase/database";
 import { useAuth } from '../contexts/AuthContext';
 import { Container } from 'react-bootstrap';
 
-
 export default function Profile() {
     const [name, name_val] = useState([]);
     const { user } = useAuth();
@@ -42,7 +41,6 @@ export default function Profile() {
         getDiet();
     }
     return (
-        
         <Container>
         <Test/>
         <div class="row">
@@ -54,7 +52,7 @@ export default function Profile() {
 				</div>
                 <div class="col-3" id="name" >
                 <input type="text" id="updateName"/>
-                <button id="name" onClick={() => updateName()}> Update Name </button> 
+                <button id="name" onClick={() => updateName()}> Update Name </button>
                 </div>
 			</div>
             <div class="row">
@@ -66,10 +64,10 @@ export default function Profile() {
 				</div>
                 <div class="col-3" id="diet" >
                 <input type="text" id="updateDiet"/>
-                <button id="diet" onClick={() => updateDiet()}> Update Diet </button> 
+                <button id="diet" onClick={() => updateDiet()}> Update Diet </button>
                 </div>
 			</div>
-            
+
         </Container>
     )
 }

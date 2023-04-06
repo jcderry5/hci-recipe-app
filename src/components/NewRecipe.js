@@ -29,13 +29,11 @@ export default function NewRecipe() {
         theStep = Ingredients()
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
-    }
-    else if (stepsNum === 3) {
+    } else if (stepsNum === 3) {
         theStep = Steps()
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
-    }
-    else if (stepsNum === 4) {
+    } else if (stepsNum === 4) {
         theStep = Finalize()
         stepName = data.results[0].recipes[currentRecipeIndex].name
     }
@@ -71,6 +69,7 @@ export default function NewRecipe() {
             </div>
         )
     }
+
     function tempNextButton() {
         return (
             <div class="row justify-content-center">
@@ -90,7 +89,6 @@ export default function NewRecipe() {
         let results = ""
         if (hasResults === true) {
             results = generateResults()
-            // console.log(currentRecipe)
         }
         return (
             <div class="import">
@@ -106,16 +104,14 @@ export default function NewRecipe() {
             </div>
         )
     }
+
     function submitQuery() {
-        
         setSearchState(searchTextRef.current.value);
         changeHasResults(true)
     }
 
-
     function generateResults() {
         //here we pass the search value to DisplayRecipeResults
-        // console.log(user)
         return (
             <div>
                 <div class="container text-center">
@@ -142,7 +138,7 @@ export default function NewRecipe() {
     function Finalize() {
         return (
             <   DisplayRecipeSummary
-            currentIngredients={currentIngredients} 
+            currentIngredients={currentIngredients}
             changeAddedIngredients={changeAddedIngredients}
             recipeIndex={currentRecipeIndex} user={user}/>
         )

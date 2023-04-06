@@ -4,11 +4,9 @@ import { useAuth } from '../contexts/AuthContext';
 import '../RecipeResults.css'
 import selectedRecipe from './DisplayRecipeResults'
 
-
 function DisplayRecipeSteps({ recipeIndex }){
     const user = useAuth();
     let results = extractRecipeSteps({recipeIndex})
-
     //here is where the code to pass idx back and forth goes
     return (
         <div>
@@ -23,7 +21,7 @@ function DisplayRecipeSteps({ recipeIndex }){
         let amtSteps = steps_data.length
         console.log(steps_data)
         const returnValue = [];
-        
+
         returnValue.push(<Title/>)
         for(let i = 0; i< amtSteps; i++){
             returnValue.push(<GenerateRecipeSteps recipeIndex={recipeIndex} num={i}/>)
@@ -58,7 +56,7 @@ function DisplayRecipeSteps({ recipeIndex }){
 
     function GenerateRecipeSteps({recipeIndex, num}){
         let step = data.results[0].recipes[recipeIndex].instructions[num].display_text
-        
+
         let punctuation = ". "
         return (
             <div class="row justify-content-center">
@@ -70,6 +68,6 @@ function DisplayRecipeSteps({ recipeIndex }){
             </div>
         )
     }
-    
 }
+
 export default DisplayRecipeSteps

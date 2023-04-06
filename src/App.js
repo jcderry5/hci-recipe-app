@@ -11,7 +11,6 @@ import Profile from './components/Profile';
 import MainMenu from './components/MainMenu';
 import LogIn from './components/LogIn';
 import NewRecipe from './components/NewRecipe';
-import RecipeSummaryAgain from './components/RecipeSummaryAgain';
 import ViewRecipe from './components/ViewRecipe';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext';
@@ -28,7 +27,7 @@ function App() {
     //   style={{ minHeight: "100vh" }}
     // >
       <div className="w-100" style={{ maxWidth: "800px" }}>
-        
+
         <BrowserRouter>
           <AuthProvider>
             <Routes>
@@ -39,16 +38,14 @@ function App() {
               <Route path="/hci-recipe-app/profile" element={<ProtectedRoute><AppHeader/><Profile/></ProtectedRoute>} />
               <Route path="/hci-recipe-app/newrecipe" element={<ProtectedRoute><AppHeader/><NewRecipe/></ProtectedRoute>} />
               <Route path="/hci-recipe-app/viewrecipe" element={<ProtectedRoute><AppHeader/><ViewRecipe/></ProtectedRoute>} />
-              <Route path="/hci-recipe-app/recipesummaryagain" element={<ProtectedRoute><AppHeader/><RecipeSummaryAgain/></ProtectedRoute>} />
-              
             </Routes>
           </AuthProvider>
         </BrowserRouter>
       </div>
     // </Container>
   )
-    
-  
-  
+
+
+
 }
 export default App

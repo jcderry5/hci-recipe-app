@@ -6,7 +6,6 @@ import { database } from '../firebase';
 import { set, push, update, ref } from "firebase/database";
 import { useAuth } from '../contexts/AuthContext';
 
-
 function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
     // let theIngredients = DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients})
     let theIngredients = extractRecipeIngredients({currentIngredients})
@@ -21,18 +20,9 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
         </div>
     )
 
-    // async function getRecipeCount() {
-    //     const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/recipecount"}/.json`);
-    //     const responseJson = await val.json();
-    //     console.log(responseJson)
-    //     return responseJson
-    //   }
-
     function updateRecipe(recipeIndex) {
-        // console.log("hi", user)
-        // console.log("inside updaterecipe", user.uid)
         update(ref(database,'users/' + user.uid + '/recipe-book'),{
-            [data.results[0].recipes[recipeIndex].name]:  { 
+            [data.results[0].recipes[recipeIndex].name]:  {
                 recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
                 recipe_obj: {
                     steps: data.results[0].recipes[recipeIndex].instructions,
@@ -41,10 +31,9 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
             }
         })
     }
-    
+
     //add firebase data confirmation to here
     function ConfirmRecipe(){
-        
         return(
             <div class = "row justify-content-center">
                 <button type="button" class = "confirm-but">
@@ -116,7 +105,6 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
         let steps_data = data.results[0].recipes[recipeIndex].instructions;
         let amtSteps = steps_data.length
         console.log(steps_data)
-
         const returnValue = [];
         returnValue.push(<TitleSteps/>)
         for(let i = 0; i< amtSteps; i++){
@@ -139,7 +127,6 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
                 </div>
             </div>
         )
-
     }
 }
 

@@ -15,7 +15,6 @@ export default function RecipeBook() {
     const [recipes, recipe_val] = useState([]);
     const [recipethumbnail, recipethumbnail_val] = useState([]);
     function extractRecipeInfo() {
- 
         // Possible variables to use
         let name = data.results[0].recipes[0].name
         let instructions = data.results[0].recipes[0].instructions
@@ -28,7 +27,6 @@ export default function RecipeBook() {
         // console.log(thumbnailURL)
         // console.log(originalURL)
         //TODO: Fetch from recipes/get-more-info using id
-    
     }
 
     function DataSetResults({idx}) {
@@ -51,7 +49,7 @@ export default function RecipeBook() {
     //     recipethumbnail_val(responseJson)
     //     // console.log("uwu", Object.keys(responseJson))
     //     return
-        
+
     //   }
 
       function Build({idx}){
@@ -77,25 +75,22 @@ export default function RecipeBook() {
         </div>
         )
       }
-      
+
     //   return (
     //             <Container>
     //             <DataSetResults/>
-             
+
     //             <Build/>
-                
+
     //             </Container>
     //     )
-        
-    
-   
 
     // return (
     //         <div id="list" ></div>
     //         <script>
-             
+
     //         </script>
-            
+
     // )
 
     //   function build_me() {
@@ -103,7 +98,7 @@ export default function RecipeBook() {
     //         {recipes[0]}
     //     }
     //   }
-      
+
     // extractRecipeInfo();
     getRecipeName();
     // getRecipeThumbnail();

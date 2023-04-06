@@ -6,8 +6,6 @@ import { useAuth } from '../contexts/AuthContext';
 import selectedRecipe from './DisplayRecipeResults'
 import getIngredientData from './IngredientSubstitute'
 
-   
-
 function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients }) {
     const { user } = useAuth();
     const [addStage, changeAddStage] = useState(false);
@@ -16,8 +14,6 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
     if(addStage === true){
         addState = AddIngredient()
     }
-
-    // console.log(user)
     return (
         <div>
             {theIngredients}
@@ -73,6 +69,7 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
             }]);
             addClick()
         }
+
         return (
             <div class="justify-content-center">
                 <form class="new-ingredient-form" onSubmit={handleSubmit}>
@@ -114,4 +111,5 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
         )
     }
 }
+
 export default DisplayRecipeIngredients

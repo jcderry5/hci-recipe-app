@@ -16,18 +16,13 @@ export default function NewRecipe() {
     const [hasResults, changeHasResults] = useState(false)
     const [stepsNum, changeStep] = useState(1)
     const [currentRecipe, changeCurrentRecipe] = useState()
-
     let current_recipe = ""
 
-
     return (
-        
         <div>
             {Finalize()}
         </div>
-
-    )   
-
+    )
     function Finalize(){
         return(
             <   DisplayRecipeSummary/>
