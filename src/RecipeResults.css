@@ -57,7 +57,7 @@
 	object-fit: cover;
 
 	/* align-items: center; */
-	
+
 }
 
 .recipe-options-but{
@@ -73,7 +73,7 @@
 	margin-right: auto;
 	display: block;
 	object-fit: cover;
-	
+
 }
 
 .ingredient{
@@ -112,16 +112,30 @@
 
 .new-ingredient-form{
 	text-align: center;
-	
+
 }
 
 .new-ingredient-input{
 	border-radius: 15px;
-	margin: 10px;
-	font-size: 25px;
-	width: 325px;
-	text-align: left;
+	/* margin: 10px; */
+	/* font-size: 25px; */
+	/* width: 325px; */
+	/* text-align: left; */
+	width: 100%;
 	background-color: rgb(255, 255, 255);
+}
+
+#new-ingredient-row {
+	margin: 15px;
+	font-size: 25px;
+	text-align: left;
+	border: none;
+	/* padding:2px;
+	padding-left:14px; */
+}
+
+input{
+	padding: 3px;
 }
 
 .sub-butt{

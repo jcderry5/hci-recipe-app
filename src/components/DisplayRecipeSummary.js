@@ -7,19 +7,15 @@ import { set, push, update, ref } from "firebase/database";
 import { useAuth } from '../contexts/AuthContext';
 
 
-
-function DisplayRecipeSummary({ recipeIndex, addedIngredients, changeAddedIngredients, user }){
-    // const user = useAuth();
-    let theIngredients = extractRecipeIngredients({recipeIndex})
-    let newIngredients = GenerateNewIngredients()
+function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
+    // let theIngredients = DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients})
+    let theIngredients = extractRecipeIngredients({currentIngredients})
     let theSteps = extractRecipeSteps({recipeIndex})
-
     //here is where the code to pass idx back and forth goes
     return(
         <div>
             {TitleSum()}
             {theIngredients}
-            {newIngredients}
             {theSteps}
             {ConfirmRecipe()}
         </div>
@@ -56,7 +52,6 @@ function DisplayRecipeSummary({ recipeIndex, addedIngredients, changeAddedIngred
                </button>
             </div>
         )
-     
     }
 
     function TitleSum(){
@@ -89,107 +84,52 @@ function DisplayRecipeSummary({ recipeIndex, addedIngredients, changeAddedIngred
         )
     }
 
-
-
-
     // INGREDIENT PORTION
-
-    function extractRecipeIngredients({recipeIndex}){
-        // console.log("line 24")
-        let ingredients_data = data.results[0].recipes[recipeIndex].sections[0].components;
-        let amtIngredients = ingredients_data.length
-
-        // console.log(data.results)
-
+    function extractRecipeIngredients({currentIngredients}){
+        console.log(currentIngredients)
+        let amtIngredients = currentIngredients.length // this line gives errors about lenght!
         const returnValue = [];
-
-        returnValue.push(<TitleIn />);
-
+        returnValue.push(<TitleIn/>);
         for(let i = 0; i< amtIngredients; i++){
-            returnValue.push(<GenerateRecipeIngredients idx={recipeIndex} num={i}/>)
+            returnValue.push(<GenerateRecipeIngredients idx={i} currentIngredients={currentIngredients}/>)
         }
-
-        // returnValue.push(<AddButton/>);
-
         return (
             returnValue
         )
     }
 
     function GenerateRecipeIngredients({idx, num}){
-
-        let amt = data.results[0].recipes[idx].sections[0].components[num].measurements[0].quantity
-        let unit_a = data.results[0].recipes[idx].sections[0].components[num].measurements[0].unit.display_plural
-        if (amt == 1) {
-            unit_a = data.results[0].recipes[idx].sections[0].components[num].measurements[0].unit.display_singular
-        }
-        let ingredient_a = data.results[0].recipes[idx].sections[0].components[num].ingredient.name
-        let space = " "
-
+        let displayText = currentIngredients[idx].raw_text
+        let nameObj = currentIngredients[idx].ingredient
+        let measurementObj = currentIngredients[idx].measurements // can hold obj (if from data) or string (if custom)
         return (
             <div class="row justify-content-center">
                 <div class="ingredient">
-                    {amt} {unit_a}
-                    {space}
-                    {ingredient_a}
-                </div>
-
-            </div>
-        )
-
-    }
-
-    function GenerateNewIngredients(){
-        let send = []
-        for(let i = 0; i<addedIngredients.length; i++){
-            send.push(<AddNewIngredient idx = {i}/>)
-        }
-        return(
-            send
-        )
-    }
-
-    function AddNewIngredient({idx}){
-        return(
-            <div class = "row justify-content-center">
-                <div class = "ingredient">
-                    {addedIngredients[idx]}
+                    {displayText}
                 </div>
             </div>
         )
     }
-
 
     // STEPS PORTION
-
     function extractRecipeSteps({recipeIndex}){
-
         let steps_data = data.results[0].recipes[recipeIndex].instructions;
         let amtSteps = steps_data.length
-
-        // console.log(steps_data)
-
+        console.log(steps_data)
 
         const returnValue = [];
-
         returnValue.push(<TitleSteps/>)
-
         for(let i = 0; i< amtSteps; i++){
             returnValue.push(<GenerateRecipeSteps recipeIndex={recipeIndex} num={i}/>)
         }
-
         return(
             returnValue
         )
-
     }
 
     function GenerateRecipeSteps({recipeIndex, num}){
-
         let step = data.results[0].recipes[recipeIndex].instructions[num].display_text
-        
         let punctuation = ". "
-
         return(
             <div class = "row justify-content-center">
                 <div class = "steps">
@@ -200,10 +140,7 @@ function DisplayRecipeSummary({ recipeIndex, addedIngredients, changeAddedIngred
             </div>
         )
 
-
     }
-
 }
-
 
 export default DisplayRecipeSummary

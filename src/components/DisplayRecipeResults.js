@@ -4,10 +4,9 @@ import '../RecipeResults.css';
 import { useAuth } from '../contexts/AuthContext';
 // import changeState from "./NewRecipe"
 
+	
+function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients}) {
 
-
-
-function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep }) {
 	const { user } = useAuth();
 	// useRef for searchText since it will constantly be updating
 	//const searchText = useRef();
@@ -25,11 +24,10 @@ function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep }) {
 	// console.log(user)
 	return (
 		<div>
-			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} />
+			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>
 		</div>
 	)
 }
-
 function getResponseData(searchText) {
 	console.log("Inside the getResponseData function")
 	const options = {
@@ -39,7 +37,6 @@ function getResponseData(searchText) {
 			'X-RapidAPI-Host': 'tasty.p.rapidapi.com'
 		}
 	};
-
 	// TODO: Fix URL not sourcing properly
 	let URL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&q=' + searchText
 	console.log(URL)
@@ -51,12 +48,10 @@ function getResponseData(searchText) {
 	// 	.then(respone => extractRecipeInfo(response))
 	// .catch(err => console.error(err));
 }
-
 // TODO: add a turn jsonFile into response and add 'response' to param
 function extractRecipeInfo() {
 	console.log("Inside extract")
 	console.log(data.results[0].recipes[1])
-
 	// Possible variables to use
 	let name = data.results[0].recipes[0].name
 	let instructions = data.results[0].recipes[0].instructions
@@ -70,35 +65,44 @@ function extractRecipeInfo() {
 	console.log(originalURL)
 	//TODO: Fetch from recipes/get-more-info using id
 }
-
-function DataSetResults({ searchState, setRecipeIndex, changeStep }) {
+function DataSetResults({ searchState, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients }) {
 	console.log("searchState: " + searchState);
 	extractRecipeInfo()
 	const returnValue = [];
 	console.log(data.results[0].recipes.length);
 	for (let i = 0; i < data.results[0].recipes.length; i++) {
 		if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState)) {
-			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep}  />)
+			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>)
 		}
 	}
-
 	return returnValue;
 }
-
-function handleRecipeChoice({idx, setRecipeIndex, changeStep}) {
-	setRecipeIndex(idx);
+function handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients}) {	setRecipeIndex(idx);
 	// Hardcoded to the next step
 	changeStep(2);
-}
+	const allIngredients = data.results[0].recipes[idx].sections[0].components
+	let ingredientArr = [];
 
-function RecipeResult({ idx, setRecipeIndex, changeStep }) {
+	for (const currKey of Object.keys(allIngredients)) {
+		const currValue = allIngredients[currKey];
+		console.log("currKey and currValue below:")
+		console.log(currKey, currValue);
+		// changeCurrentIngredients(currArray => [...currArray, currValue])
+		ingredientArr = [...ingredientArr, {
+			ingredient: currValue.ingredient,
+			measurements: currValue.measurements,
+			raw_text: currValue.raw_text
+		}];
+	}
+	console.log("Ingredient Array", ingredientArr)
+	changeCurrentIngredients(ingredientArr);
+}
+function RecipeResult({ idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients }) {
 	return (
 		<div class="recipe-row">
-			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep})}}>
-				<div class="row">
+			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients})}}>				<div class="row">
 					<img class="recipe-options-img" src={data.results[0].recipes[idx].thumbnail_url}></img>
 				</div>
-
 				<div class="row">
 					<div class="col-3 recipe-subtitles">
 						Name:
@@ -116,15 +120,11 @@ function RecipeResult({ idx, setRecipeIndex, changeStep }) {
 					</div>
 				</div>
 			</button>
-
 			<div class="row">
 				<a class="recipe-subtitles truncate-url" href={data.results[0].recipes[idx].original_video_url}> OG Recipe URL</a>
 			</div>
-
 			{/* data.results[0].recipes[0].instructions.count */}
-
 		</div>
 	)
 }
-
 export default DisplayRecipeResults

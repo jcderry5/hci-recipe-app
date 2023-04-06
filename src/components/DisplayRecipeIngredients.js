@@ -6,17 +6,13 @@ import { useAuth } from '../contexts/AuthContext';
 import selectedRecipe from './DisplayRecipeResults'
 import getIngredientData from './IngredientSubstitute'
 
+   
 
-function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients}) {
+function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients }) {
     const { user } = useAuth();
     const [addStage, changeAddStage] = useState(false);
-    // const [addedIngredients, changeAddedIngredients] = useState([])
-
-    let idx = 0
-    let theIngredients = extractRecipeIngredients({recipeIndex})
-
+    let theIngredients = extractRecipeIngredients({ currentIngredients })
     let addState = AddButton()
-
     if(addStage === true){
         addState = AddIngredient()
     }
@@ -24,31 +20,19 @@ function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIng
     // console.log(user)
     return (
         <div>
-
             {theIngredients}
-            {GenerateNewIngredients()}
             {addState}
-
         </div>
     )
 
-    function extractRecipeIngredients({recipeIndex}){
-        let ingredients_data = data.results[0].recipes[recipeIndex].sections[0].components;
-        let amtIngredients = ingredients_data.length
-
-        console.log(data.results)
-
+    function extractRecipeIngredients({ currentIngredients }) {
+        let amtIngredients = currentIngredients.length
         const returnValue = [];
-
-        returnValue.push(<Title />);
-
+        returnValue.push(<Title/>);
         for(let i = 0; i< amtIngredients; i++){
-            returnValue.push(<GenerateRecipeIngredients idx={recipeIndex} num={i}/>)
+            returnValue.push(<GenerateRecipeIngredients idx={i} currentIngredients={currentIngredients}/>)
         }
-        // returnValue.push(<AddButton/>);
-
-        return(
-
+        return (
             returnValue
         )
     }
@@ -73,70 +57,59 @@ function DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIng
         )
     }
 
-
     function addClick(){
         changeAddStage(!addStage)
     }
 
     function AddIngredient() {
-
         const handleSubmit = async (e) => {
             e.preventDefault();
-            const newElement = e.target.elements.new.value
-            changeAddedIngredients(addedIngredients => [...addedIngredients, newElement]);
+            let addedUnit = e.target.elements.unit.value
+            let addedIngredient = e.target.elements.name.value
+            changeCurrentIngredients(addedIngredients => [...addedIngredients, {
+                ingredient: addedIngredient,
+			    measurements: addedUnit,
+			    raw_text: addedUnit + " " + addedIngredient
+            }]);
             addClick()
         }
-
         return (
-            <div class="row justify-content-center">
-                <form class = "new-ingredient-form" onSubmit={handleSubmit}>
-                    <input type="text" class = "new-ingredient-input" name = "new">
-                    </input>
-                    <input type = "submit" class = "sub-butt" value="Submit"/>
+            <div class="justify-content-center">
+                <form class="new-ingredient-form" onSubmit={handleSubmit}>
+                    <div class="row" id="new-ingredient-row">
+                        <div class="col-4">
+                            <input type="text" id="recipe-measurement" class = "new-ingredient-input" name = "unit" placeholder="Unit">
+                            </input>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id= "recipe-name" class = "new-ingredient-input" name = "name" placeholder="Ingredient">
+                            </input>
+                    </div>
+                </div>
+                    <input type = "submit" class = "sub-butt" value="Add Ingredient"/>
                 </form>
             </div>
         )
     }
 
-    function GenerateNewIngredients(){
-        let send = []
-        for(let i = 0; i<addedIngredients.length; i++){
-            send.push(<AddNewIngredient idx = {i}/>)
-        }
-        return(
-            send
-        )
-    }
-
-    function AddNewIngredient({idx}){
-        return(
-            <div class = "row justify-content-center">
-                <div class = "ingredient">
-                    {addedIngredients[idx]}
-                </div>
-            </div>
-        )
-    }
-
-    function GenerateRecipeIngredients({idx, num}){
-
-
-        let amt = data.results[0].recipes[idx].sections[0].components[num].measurements[0].quantity
-        let unit_a = data.results[0].recipes[idx].sections[0].components[num].measurements[0].unit.display_plural
-        if (amt == 1) {
-            unit_a = data.results[0].recipes[idx].sections[0].components[num].measurements[0].unit.display_singular
-        }
-        let ingredient_a = data.results[0].recipes[idx].sections[0].components[num].ingredient.name
-        let space = " "
-
+    function GenerateRecipeIngredients({ idx, currentIngredients }) {
+        //console.log("Ingredient Object: ", currentIngredients[idx])
+        let displayText = currentIngredients[idx].raw_text
+        let name = currentIngredients[idx].ingredient
+        let measurementObj = currentIngredients[idx].measurements // can hold obj (if from data) or string (if custom)
+        //console.log("name", nameObj)
+        // let amt = currentIngredients[idx].measurements[0].quantity
+        // let unit_a = currentIngredients[idx].measurements[0].unit.display_plural
+        // if (amt == 1) {
+        //     unit_a = currentIngredients[idx].measurements[0].unit.display_singular
+        // }
+        // let ingredient_a = currentIngredients[idx].ingredient.name
+        //let space = " "
         return (
             <div class = "row justify-content-center">
-                <div onClick={() => { getIngredientData({ ingredient_a }) }} class="ingredient">
-                    {amt} {unit_a}
-                    {space}
-                    {ingredient_a}
+                <div onClick={() => { getIngredientData({ name }) }} class="ingredient">
+                    {displayText}
                 </div>
-
             </div>
         )
     }
