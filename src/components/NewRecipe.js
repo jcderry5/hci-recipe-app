@@ -5,17 +5,20 @@ import DisplayRecipeResults from './DisplayRecipeResults'
 import DisplayRecipeSteps from './DisplayRecipeSteps';
 import DisplayRecipeIngredients from './DisplayRecipeIngredients';
 import DisplayRecipeSummary from './DisplayRecipeSummary';
+import { useAuth } from '../contexts/AuthContext';
+
 // import selectedRecipe from './DisplayRecipeResults'
 import data from '../data.json'
 
 export default function NewRecipe() {
     // useRef for searchText since it will constantly be updating
-    const searchTextRef = useRef();
-    const [searchState, setSearchState] = useState("");
+    const { user } = useAuth();
+	const searchTextRef = useRef();
+	const [searchState, setSearchState] = useState("");
     const [currentRecipeIndex, setRecipeIndex] = useState(0);
     const [hasResults, changeHasResults] = useState(false)
     const [stepsNum, changeStep] = useState(1)
-    const [currentRecipe, changeCurrentRecipe] = useState()
+    const [currentRecipe, changeCurrentRecipe] = useState() //is this being used?
     const [addedIngredients, changeAddedIngredients] = useState([])
     const [currentIngredients, changeCurrentIngredients] = useState([])
 
@@ -26,13 +29,11 @@ export default function NewRecipe() {
         theStep = Ingredients()
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
-    }
-    else if (stepsNum === 3) {
+    } else if (stepsNum === 3) {
         theStep = Steps()
         stepName = data.results[0].recipes[currentRecipeIndex].name
         nextStep = tempNextButton();
-    }
-    else if (stepsNum === 4) {
+    } else if (stepsNum === 4) {
         theStep = Finalize()
         stepName = data.results[0].recipes[currentRecipeIndex].name
     }
@@ -68,6 +69,7 @@ export default function NewRecipe() {
             </div>
         )
     }
+
     function tempNextButton() {
         return (
             <div class="row justify-content-center">
@@ -87,7 +89,6 @@ export default function NewRecipe() {
         let results = ""
         if (hasResults === true) {
             results = generateResults()
-            console.log(currentRecipe)
         }
         return (
             <div class="import">
@@ -103,11 +104,11 @@ export default function NewRecipe() {
             </div>
         )
     }
+
     function submitQuery() {
         setSearchState(searchTextRef.current.value);
         changeHasResults(true)
     }
-
 
     function generateResults() {
         //here we pass the search value to DisplayRecipeResults
@@ -137,8 +138,9 @@ export default function NewRecipe() {
     function Finalize() {
         return (
             <   DisplayRecipeSummary
-                recipeIndex={currentRecipeIndex}
-                currentIngredients={currentIngredients} />
+            currentIngredients={currentIngredients}
+            changeAddedIngredients={changeAddedIngredients}
+            recipeIndex={currentRecipeIndex} user={user}/>
         )
     }
 }

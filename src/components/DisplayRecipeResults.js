@@ -1,15 +1,29 @@
 import React, { useRef, useState } from 'react'
 import data from '../data.json'
 import '../RecipeResults.css';
+import { useAuth } from '../contexts/AuthContext';
 // import changeState from "./NewRecipe"
-function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients}) {
 
+function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients}) {
+	const { user } = useAuth();
+	// useRef for searchText since it will constantly be updating
+	//const searchText = useRef();
+	//const [searchState, setSearchState] = useState("");
+	// const handleSearchKeyDown = (event) => {
+	// 	if (event.key === 'Enter') {
+	// 		// force render by setting state of search text.
+	// 		setSearchState(searchText.current.value);
+	// 	}
+	// };
+	// getResponseData(searchText)
+	// console.log(user)
 	return (
 		<div>
 			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>
 		</div>
 	)
 }
+
 function getResponseData(searchText) {
 	console.log("Inside the getResponseData function")
 	const options = {
@@ -30,6 +44,7 @@ function getResponseData(searchText) {
 	// 	.then(respone => extractRecipeInfo(response))
 	// .catch(err => console.error(err));
 }
+
 // TODO: add a turn jsonFile into response and add 'response' to param
 function extractRecipeInfo() {
 	console.log("Inside extract")
@@ -47,6 +62,7 @@ function extractRecipeInfo() {
 	console.log(originalURL)
 	//TODO: Fetch from recipes/get-more-info using id
 }
+
 function DataSetResults({ searchState, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients }) {
 	console.log("searchState: " + searchState);
 	extractRecipeInfo()
@@ -59,12 +75,12 @@ function DataSetResults({ searchState, setRecipeIndex, changeStep, currentIngred
 	}
 	return returnValue;
 }
+
 function handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients}) {	setRecipeIndex(idx);
 	// Hardcoded to the next step
 	changeStep(2);
 	const allIngredients = data.results[0].recipes[idx].sections[0].components
 	let ingredientArr = [];
-
 	for (const currKey of Object.keys(allIngredients)) {
 		const currValue = allIngredients[currKey];
 		console.log("currKey and currValue below:")
@@ -79,6 +95,7 @@ function handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients
 	console.log("Ingredient Array", ingredientArr)
 	changeCurrentIngredients(ingredientArr);
 }
+
 function RecipeResult({ idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients }) {
 	return (
 		<div class="recipe-row">
@@ -109,4 +126,5 @@ function RecipeResult({ idx, setRecipeIndex, changeStep, currentIngredients, cha
 		</div>
 	)
 }
+
 export default DisplayRecipeResults

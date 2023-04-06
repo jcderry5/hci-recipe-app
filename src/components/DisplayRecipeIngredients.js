@@ -2,9 +2,12 @@ import React from 'react'
 import data from '../data.json'
 import '../RecipeResults.css'
 import { useState, useRef } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import selectedRecipe from './DisplayRecipeResults'
 import getIngredientData from './IngredientSubstitute'
+
 function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients }) {
+    const { user } = useAuth();
     const [addStage, changeAddStage] = useState(false);
     let theIngredients = extractRecipeIngredients({ currentIngredients })
     let addState = AddButton()
@@ -66,6 +69,7 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
             }]);
             addClick()
         }
+
         return (
             <div class="justify-content-center">
                 <form class="new-ingredient-form" onSubmit={handleSubmit}>
@@ -107,4 +111,5 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
         )
     }
 }
+
 export default DisplayRecipeIngredients

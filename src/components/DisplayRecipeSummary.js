@@ -2,9 +2,11 @@ import React from 'react'
 import data from '../data.json'
 import '../RecipeResults.css'
 import { Link } from "react-router-dom"
+import { database } from '../firebase';
+import { set, push, update, ref } from "firebase/database";
+import { useAuth } from '../contexts/AuthContext';
 
-
-function DisplayRecipeSummary({recipeIndex, currentIngredients}){
+function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
     // let theIngredients = DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients})
     let theIngredients = extractRecipeIngredients({currentIngredients})
     let theSteps = extractRecipeSteps({recipeIndex})
@@ -18,12 +20,24 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients}){
         </div>
     )
 
+    function updateRecipe(recipeIndex) {
+        update(ref(database,'users/' + user.uid + '/recipe-book'),{
+            [data.results[0].recipes[recipeIndex].name]:  {
+                recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
+                recipe_obj: {
+                    steps: data.results[0].recipes[recipeIndex].instructions,
+                    ingredients: data.results[0].recipes[recipeIndex].sections[0].components
+                }
+            }
+        })
+    }
+
     //add firebase data confirmation to here
     function ConfirmRecipe(){
         return(
             <div class = "row justify-content-center">
                 <button type="button" class = "confirm-but">
-                   <Link to="/hci-recipe-app/RecipeBook">Add New Recipe</Link>
+                   <Link to="/hci-recipe-app/RecipeBook"  onClick={() => updateRecipe(recipeIndex)}>Add New Recipe</Link>
                </button>
             </div>
         )
@@ -61,7 +75,8 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients}){
 
     // INGREDIENT PORTION
     function extractRecipeIngredients({currentIngredients}){
-        let amtIngredients = currentIngredients.length
+        console.log(currentIngredients)
+        let amtIngredients = currentIngredients.length // this line gives errors about lenght!
         const returnValue = [];
         returnValue.push(<TitleIn/>);
         for(let i = 0; i< amtIngredients; i++){
@@ -90,7 +105,6 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients}){
         let steps_data = data.results[0].recipes[recipeIndex].instructions;
         let amtSteps = steps_data.length
         console.log(steps_data)
-
         const returnValue = [];
         returnValue.push(<TitleSteps/>)
         for(let i = 0; i< amtSteps; i++){
@@ -113,7 +127,6 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients}){
                 </div>
             </div>
         )
-
     }
 }
 

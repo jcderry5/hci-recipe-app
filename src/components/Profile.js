@@ -11,7 +11,7 @@ export default function Profile() {
     const [diet, diet_val] = useState([]);
 
     async function getName() {
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/name"}/.json`);
+        const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/name"}/.json`);
         const responseJson = await val.json();
         name_val(responseJson)
         console.log(responseJson)
@@ -24,7 +24,7 @@ export default function Profile() {
       }
 
       async function getDiet() {
-        const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/diet"}/.json`);
+        const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/diet"}/.json`);
         const responseJson = await val.json();
         diet_val(responseJson)
         console.log(responseJson)
@@ -41,7 +41,6 @@ export default function Profile() {
         getDiet();
     }
     return (
-        
         <Container>
         <Test/>
         <div class="row">
@@ -53,7 +52,7 @@ export default function Profile() {
 				</div>
                 <div class="col-3" id="name" >
                 <input type="text" id="updateName"/>
-                <button id="name" onClick={() => updateName()}> Update Name </button> 
+                <button id="name" onClick={() => updateName()}> Update Name </button>
                 </div>
 			</div>
             <div class="row">
@@ -65,10 +64,10 @@ export default function Profile() {
 				</div>
                 <div class="col-3" id="diet" >
                 <input type="text" id="updateDiet"/>
-                <button id="diet" onClick={() => updateDiet()}> Update Diet </button> 
+                <button id="diet" onClick={() => updateDiet()}> Update Diet </button>
                 </div>
 			</div>
-            
+
         </Container>
     )
 }
