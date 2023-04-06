@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import data from '../data.json'
 import { useState } from 'react';
 import { Container } from 'react-bootstrap';
@@ -29,17 +29,26 @@ export default function RecipeBook() {
         //TODO: Fetch from recipes/get-more-info using id
     }
 
+    useEffect(() => {
+        // This useEffect should only render on changes to {user} state
+        // Specifically, if a user exists (logged in) it will get recipes
+        getRecipeName();
+    }, [user]);
+
     function DataSetResults({idx}) {
         // extractRecipeInfo();
-        getRecipeName();
+        // getRecipeName();
         // getRecipeThumbnail(idx = {idx});
     }
 
     async function getRecipeName() {
         // console.log("getting recipe name")
-        const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"}/.json`);
-        const responseJson = await val.json();
-        recipe_val(Object.keys(responseJson))
+        // Once user is actually properly mounted, getRecipeName() will confirm and then pull recipes from firebase user
+        if (typeof user.uid !== 'undefined') {
+            const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"}/.json`);
+            const responseJson = await val.json();
+            recipe_val(Object.keys(responseJson))
+        }
         // console.log("uwu", Object.keys(responseJson))
         return
       }
@@ -53,7 +62,7 @@ export default function RecipeBook() {
     //   }
 
       function Build({idx}){
-        <DataSetResults idx = {idx}/>
+        // <DataSetResults idx = {idx}/>
         return(
             <div class="recipe-row">
             <div class="row">
@@ -100,12 +109,13 @@ export default function RecipeBook() {
     //   }
 
     // extractRecipeInfo();
-    getRecipeName();
+    // getRecipeName();
     // getRecipeThumbnail();
     for(let i = 0; i< recipes.length; i++){
-        <DataSetResults/>
+        //<DataSetResults/>
         returnValue.push(<Build idx={i}/>)
     }
+    
     return (
         returnValue
     )
