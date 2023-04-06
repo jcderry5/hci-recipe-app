@@ -55,15 +55,16 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
                     +
                 </button>
                 <form id="formElement" style={{display: 'none'}}>
-
+                    <input type="text" />
+                    <button type="submit">Submit</button>
                 </form>
             </div>
         )
     }
 
-    function showForm(){
+    function showForm(event) {
         // let arr = recipeSteps
-        let form = document.getElementById('formElement')
+        let form = event.target.parentElement.children[1];
         console.log("gets into showForm")
         form.style.display = "block"
         console.log(form.style.display)
