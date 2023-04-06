@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import data from '../data.json'
 import { useAuth } from '../contexts/AuthContext';
 import '../RecipeResults.css'
@@ -6,7 +6,6 @@ import selectedRecipe from './DisplayRecipeResults'
 
 
 function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
-
     let results = extractRecipeSteps({recipeIndex, recipeSteps, changeRecipeSteps})
     // const [addStage, changeAddStage] = useState(false);
 
@@ -44,8 +43,29 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
         )
     }
 
-    function AddButton(num, changeRecipeSteps) {
-        let addbutton = "addbutton" + num
+    /**
+     * When the 'submit' button for a new step is pressed, this handles adding
+     * the recipe step to the list.
+     */
+    function handleRecipeStepSubmit(e, {num, recipeSteps, changeRecipeSteps, submitRef}) {
+        e.preventDefault();
+        // submitRef.current.value contains the contents of the new step to add.
+        const newRecipeSteps = [];
+        for (let i = 0; i < recipeSteps.length; i++) {
+            newRecipeSteps.push(recipeSteps[i]);
+            if (i === num) {
+                // At num, insert the new recipe step.
+                newRecipeSteps.push(submitRef.current.value);
+            }
+        }
+
+        // Set the recipe state to include the newly added steps
+        changeRecipeSteps(newRecipeSteps);
+    }
+
+    function AddButton({num, recipeSteps, changeRecipeSteps}) {
+        // The ref that will contain each form's input string
+        const submitRef = useRef();
 
         return (
             <div class="row justify-content-center">
@@ -55,8 +75,8 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
                     </button> */}
                     +
                 </button>
-                <form id="formElement" style={{display: 'none'}}>
-                    <input type="text" />
+                <form id="formElement" style={{display: 'none'}} onSubmit={(e) => {handleRecipeStepSubmit(e, {num, recipeSteps, changeRecipeSteps, submitRef})}}>
+                    <input type="text" ref={submitRef}/>
                     <button type="submit">Submit</button>
                 </form>
             </div>
@@ -64,19 +84,10 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
     }
 
     function showForm(event) {
-        // let arr = recipeSteps
+        // Using the event origin, gets the form element from parent's children
         let form = event.target.parentElement.children[1];
-        console.log("gets into showForm")
         form.style.display = "block"
-        console.log(form.style.display)
-        
-        let ab = document.getElementById('addbutton')
-        console.log(ab)
-
-    }        
-    
-
-
+    }
 
     function GenerateRecipeSteps({recipeIndex, num, recipeSteps, changeRecipeSteps}){
         // let step = data.results[0].recipes[recipeIndex].instructions[num].display_text
@@ -84,14 +95,14 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
         
         let punctuation = ". "
         return (
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" key={num}>
                 <div class="steps">
                     {num}
                     {punctuation}
                     {step}
                     
                 </div>
-                {AddButton(num={num}, recipeSteps={recipeSteps}, changeRecipeSteps={changeRecipeSteps})}
+                {AddButton({num, recipeSteps, changeRecipeSteps})}
             </div>
         )
     }
