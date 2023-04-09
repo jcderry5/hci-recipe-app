@@ -140,6 +140,7 @@ export default function NewRecipe() {
     function Finalize() {
         return (
             <   DisplayRecipeSummary
+            recipeSteps={recipeSteps}
             currentIngredients={currentIngredients}
             changeAddedIngredients={changeAddedIngredients}
             recipeIndex={currentRecipeIndex} user={user}/>
