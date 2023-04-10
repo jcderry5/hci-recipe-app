@@ -6,10 +6,10 @@ import { database } from '../firebase';
 import { set, push, update, ref } from "firebase/database";
 import { useAuth } from '../contexts/AuthContext';
 
-function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
+function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, user}){
     // let theIngredients = DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients})
     let theIngredients = extractRecipeIngredients({currentIngredients})
-    let theSteps = extractRecipeSteps({recipeIndex})
+    let theSteps = extractRecipeSteps({recipeSteps})
     //here is where the code to pass idx back and forth goes
     return(
         <div>
@@ -20,19 +20,14 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
         </div>
     )
 
-    function updateRecipe(recipeIndex) {
-        console.log(currentIngredients)
-        // for (var i = 0; i < data.results[0].recipes[recipeIndex].sections[0].components.length; i++) {
-            update(ref(database,'users/' + user.uid + '/recipe-book'),{
-                [data.results[0].recipes[recipeIndex].name]:  {
-                    recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
-                    index: recipeIndex,
-                    recipe_obj: {
-                        
-                            // steps: data.results[0].recipes[recipeIndex].instructions,
-                        ingredients: currentIngredients
-                    }
-                        
+    function updateRecipe(recipeIndex, recipeSteps) {
+        update(ref(database,'users/' + user.uid + '/recipe-book'),{
+            [data.results[0].recipes[recipeIndex].name]:  {
+                recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
+                index: recipeIndex,
+                recipe_obj: {
+                    steps: recipeSteps,
+                    ingredients: currentIngredients
                 }
             })
         // }
@@ -43,7 +38,7 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
         return(
             <div class = "row justify-content-center">
                 <button type="button" class = "confirm-but">
-                   <Link to="/hci-recipe-app/RecipeBook"  onClick={() => updateRecipe(recipeIndex)}>Add New Recipe</Link>
+                   <Link to="/hci-recipe-app/RecipeBook"  onClick={() => updateRecipe(recipeIndex, recipeSteps)}>Add New Recipe</Link>
                </button>
             </div>
         )
@@ -107,22 +102,24 @@ function DisplayRecipeSummary({recipeIndex, currentIngredients, user}){
     }
 
     // STEPS PORTION
-    function extractRecipeSteps({recipeIndex}){
-        let steps_data = data.results[0].recipes[recipeIndex].instructions;
+    function extractRecipeSteps({recipeSteps}){
+        // let steps_data = data.results[0].recipes[recipeIndex].instructions;
+        let steps_data = recipeSteps
         let amtSteps = steps_data.length
         console.log(steps_data)
         const returnValue = [];
         returnValue.push(<TitleSteps/>)
         for(let i = 0; i< amtSteps; i++){
-            returnValue.push(<GenerateRecipeSteps recipeIndex={recipeIndex} num={i}/>)
+            returnValue.push(<GenerateRecipeSteps num={i} recipeSteps={recipeSteps}/>)
         }
         return(
             returnValue
         )
     }
 
-    function GenerateRecipeSteps({recipeIndex, num}){
-        let step = data.results[0].recipes[recipeIndex].instructions[num].display_text
+    function GenerateRecipeSteps({num, recipeSteps}){
+        // let step = data.results[0].recipes[recipeIndex].instructions[num].display_text
+        let step = recipeSteps[num]
         let punctuation = ". "
         return(
             <div class = "row justify-content-center">

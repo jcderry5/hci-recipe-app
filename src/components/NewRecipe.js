@@ -22,6 +22,8 @@ export default function NewRecipe() {
     const [addedIngredients, changeAddedIngredients] = useState([])
     const [currentIngredients, changeCurrentIngredients] = useState([])
 
+    const [recipeSteps, changeRecipeSteps] = useState([])
+
     let theStep = Import()
     let nextStep = ""
     let stepName = "";
@@ -115,15 +117,15 @@ export default function NewRecipe() {
         return (
             <div>
                 <div class="container text-center">
-                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients={changeCurrentIngredients}/>
+                    <DisplayRecipeResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} recipeSteps={recipeSteps} changeRecipeSteps={changeRecipeSteps} currentIngredients={currentIngredients} changeCurrentIngredients={changeCurrentIngredients}/>
                 </div>
             </div>
         )
     }
 
-    function Steps() {
-        return (
-            <   DisplayRecipeSteps recipeIndex={currentRecipeIndex} />
+    function Steps(){
+        return(
+            <   DisplayRecipeSteps recipeIndex={currentRecipeIndex} recipeSteps={recipeSteps} changeRecipeSteps={changeRecipeSteps} />
         )
     }
 
@@ -138,6 +140,7 @@ export default function NewRecipe() {
     function Finalize() {
         return (
             <   DisplayRecipeSummary
+            recipeSteps={recipeSteps}
             currentIngredients={currentIngredients}
             changeAddedIngredients={changeAddedIngredients}
             recipeIndex={currentRecipeIndex} user={user}/>
