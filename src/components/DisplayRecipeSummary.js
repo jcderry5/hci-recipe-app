@@ -21,13 +21,18 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
     )
 
     function updateRecipe(recipeIndex, recipeSteps) {
-        update(ref(database,'users/' + user.uid + '/recipe-book'),{
-            [data.results[0].recipes[recipeIndex].name]:  {
-                recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
-                index: recipeIndex,
-                recipe_obj: {
-                    steps: recipeSteps,
-                    ingredients: currentIngredients
+        console.log(currentIngredients)
+        // for (var i = 0; i < data.results[0].recipes[recipeIndex].sections[0].components.length; i++) {
+            update(ref(database,'users/' + user.uid + '/recipe-book'),{
+                [data.results[0].recipes[recipeIndex].name]:  {
+                    recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
+                    index: recipeIndex,
+                    recipe_obj: {
+                        steps: recipeSteps,
+                            // steps: data.results[0].recipes[recipeIndex].instructions,
+                        ingredients: currentIngredients
+                    }
+                        
                 }
             })
         // }

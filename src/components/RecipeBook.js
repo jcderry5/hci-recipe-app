@@ -47,7 +47,7 @@ export default function RecipeBook() {
         // console.log("getting recipe name")
         // Once user is actually properly mounted, getRecipeName() will confirm and then pull recipes from firebase user
         if (typeof user.uid !== 'undefined') {
-            const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"}/.json`);
+            const val = await fetch(`${"https://recipe-remix-hci-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"}/.json`);
             const responseJson = await val.json();
             recipe_val(Object.keys(responseJson))
         }
@@ -55,7 +55,7 @@ export default function RecipeBook() {
         return
       }
     //   async function getRecipeThumbnail({idx}) {
-    //     const val = await fetch(`${"https://recipe-remix-996dc-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+"/"+recipes[idx]+"/recipethumbnail"}/.json`);
+    //     const val = await fetch(`${"https://recipe-remix-hci-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+"/"+recipes[idx]+"/recipethumbnail"}/.json`);
     //     const responseJson = await val.json();
     //     recipethumbnail_val(responseJson)
     //     // console.log("uwu", Object.keys(responseJson))
@@ -88,7 +88,7 @@ export default function RecipeBook() {
       }
 
     async function getCurrentIngredients(idx) {
-        const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+recipes[idx]+"recipe_obj/ingredients"}/.json`);
+        const val = await fetch(`${"https://recipe-remix-hci-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+recipes[idx]+"recipe_obj/ingredients"}/.json`);
         const responseJson = await val.json();
         return responseJson
     }

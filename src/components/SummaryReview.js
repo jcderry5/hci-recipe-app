@@ -16,9 +16,6 @@ function SummaryReview() {
         // Specifically, if a user exists (logged in) it will get recipes
         // getRecipeName();
     }, [user]);
-    const {state} = useLocation();
-    const { summary } = state; 
-    
-    return ({summary})
+    return(<div>I am a wip</div>)
 }
 export default SummaryReview
