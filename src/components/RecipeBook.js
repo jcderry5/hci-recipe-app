@@ -5,11 +5,13 @@ import { Container } from 'react-bootstrap';
 import { database } from '../firebase';
 import { update, ref } from "firebase/database";
 import { useAuth } from '../contexts/AuthContext';
+import DisplayRecipeSummary from './DisplayRecipeSummary';
 import '../RecipeResults.css';
 import { Link, useNavigate } from "react-router-dom"
 // import { DisplayRecipeSummary } from "DisplayRecipeSummary"
 
 export default function RecipeBook() {
+    const navigate = useNavigate();
     const returnValue = [];
     const { user } = useAuth();
     const [recipes, recipe_val] = useState([]);
@@ -77,40 +79,30 @@ export default function RecipeBook() {
              {<img src = {recipethumbnail}></img>}
         </div> */}
         <div class="row">
-            <div class="col-3 recipe-subtitles">
+        <button type="button" class="temp-button" onClick={() => finalize(idx={idx})}>
             View
-            </div>
+            </button>
         </div>
         </div>
         )
       }
 
-    //   return (
-    //             <Container>
-    //             <DataSetResults/>
+    async function getCurrentIngredients(idx) {
+        const val = await fetch(`${"https://hci-recipe-app-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+recipes[idx]+"recipe_obj/ingredients"}/.json`);
+        const responseJson = await val.json();
+        return responseJson
+    }
 
-    //             <Build/>
+    function finalize(idx) {
 
-    //             </Container>
-    //     )
-
-    // return (
-    //         <div id="list" ></div>
-    //         <script>
-
-    //         </script>
-
-    // )
-
-    //   function build_me() {
-    //     for (var i = 0; i<recipes.length; i++){
-    //         {recipes[0]}
-    //     }
-    //   }
-
-    // extractRecipeInfo();
-    // getRecipeName();
-    // getRecipeThumbnail();
+        // navigate('/hci-recipe-app/summaryreview', {state: {idx: idx, currIngr: getCurrentIngredients(idx)}});
+        let currentIngredients = getCurrentIngredients(idx={idx})
+        // recipeIndex = idx
+        let summary = < DisplayRecipeSummary
+        currentIngredients={currentIngredients}
+        recipeIndex={idx} user={user}/>
+        navigate('/hci-recipe-app/summaryreview', {state: {summary: summary}});
+    }
     for(let i = 0; i< recipes.length; i++){
         //<DataSetResults/>
         returnValue.push(<Build idx={i}/>)

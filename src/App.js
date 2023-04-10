@@ -9,6 +9,7 @@ import SignUp from './components/SignUp';
 import RecipeBook from './components/RecipeBook';
 import Profile from './components/Profile';
 import MainMenu from './components/MainMenu';
+import SummaryReview from './components/SummaryReview';
 import LogIn from './components/LogIn';
 import NewRecipe from './components/NewRecipe';
 import ViewRecipe from './components/ViewRecipe';
@@ -38,6 +39,7 @@ function App() {
               <Route path="/hci-recipe-app/profile" element={<ProtectedRoute><AppHeader/><Profile/></ProtectedRoute>} />
               <Route path="/hci-recipe-app/newrecipe" element={<ProtectedRoute><AppHeader/><NewRecipe/></ProtectedRoute>} />
               <Route path="/hci-recipe-app/viewrecipe" element={<ProtectedRoute><AppHeader/><ViewRecipe/></ProtectedRoute>} />
+              <Route path="/hci-recipe-app/summaryreview" element={<ProtectedRoute><AppHeader/><SummaryReview/></ProtectedRoute>} />
             </Routes>
           </AuthProvider>
         </BrowserRouter>
