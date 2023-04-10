@@ -142,3 +142,11 @@ input{
 	border-radius: 15px;
 	font-size: 25px;
 }
+
+.step-butt{
+	width: 40px;
+	border-radius: 20px;
+	text-align: center;
+	font-weight: 700px;
+	font-size: 20px;
+}

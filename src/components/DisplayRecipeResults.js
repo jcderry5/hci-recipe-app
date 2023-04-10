@@ -4,7 +4,7 @@ import '../RecipeResults.css';
 import { useAuth } from '../contexts/AuthContext';
 // import changeState from "./NewRecipe"
 
-function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients}) {
+function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients}) {
 	const { user } = useAuth();
 	// useRef for searchText since it will constantly be updating
 	//const searchText = useRef();
@@ -19,7 +19,7 @@ function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep, current
 	// console.log(user)
 	return (
 		<div>
-			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>
+			< DataSetResults searchState={searchState} setRecipeIndex={setRecipeIndex} changeStep={changeStep} changeRecipeSteps={changeRecipeSteps} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>
 		</div>
 	)
 }
@@ -63,21 +63,34 @@ function extractRecipeInfo() {
 	//TODO: Fetch from recipes/get-more-info using id
 }
 
-function DataSetResults({ searchState, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients }) {
+function DataSetResults({ searchState, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients }) {
 	console.log("searchState: " + searchState);
 	extractRecipeInfo()
 	const returnValue = [];
 	console.log(data.results[0].recipes.length);
 	for (let i = 0; i < data.results[0].recipes.length; i++) {
 		if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState)) {
-			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>)
+			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep} changeRecipeSteps={changeRecipeSteps} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>)
 		}
 	}
 	return returnValue;
 }
 
-function handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients}) {	setRecipeIndex(idx);
+function handleRecipeChoice({idx, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients}) {
+	setRecipeIndex(idx);
 	// Hardcoded to the next step
+
+	let ingredients_data = data.results[0].recipes[idx].sections[0].components;
+	let amtIngredients = ingredients_data.length
+
+	let steps = []
+
+	for(let i = 0; i<amtIngredients; i++){
+		steps.push(data.results[0].recipes[idx].instructions[i].display_text)
+	}
+
+	changeRecipeSteps(steps)
+
 	changeStep(2);
 	const allIngredients = data.results[0].recipes[idx].sections[0].components
 	let ingredientArr = [];
@@ -96,10 +109,11 @@ function handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients
 	changeCurrentIngredients(ingredientArr);
 }
 
-function RecipeResult({ idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients }) {
+function RecipeResult({ idx, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients }) {
 	return (
 		<div class="recipe-row">
-			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep, currentIngredients, changeCurrentIngredients})}}>				<div class="row">
+			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients})}}>
+				<div class="row">
 					<img class="recipe-options-img" src={data.results[0].recipes[idx].thumbnail_url}></img>
 				</div>
 				<div class="row">
