@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import data from '../data.json'
 import '../RecipeResults.css'
 import { useState, useRef } from 'react';
@@ -27,13 +27,15 @@ const DeleteButton = styled.div`
 `
 
 function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients }) {
+    let theIngredients = extractRecipeIngredients({ currentIngredients, changeCurrentIngredients})
+    let addState = AddButton()
+
     const { user } = useAuth();
     const [addStage, changeAddStage] = useState(false);
-    let theIngredients = extractRecipeIngredients({ currentIngredients })
-    let addState = AddButton()
     if (addStage === true) {
         addState = AddIngredient()
     }
+
     return (
         <div>
             {theIngredients}
@@ -41,27 +43,22 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
         </div>
     )
 
-    function extractRecipeIngredients({ currentIngredients }) {
+    function extractRecipeIngredients({ currentIngredients, changeCurrentIngredients }) {
         let amtIngredients = currentIngredients.length
         const returnValue = [];
         //returnValue.push(<Title />);
 
-
         const trailingActions = () => (
             <TrailingActions>
-                <SwipeAction
-                    destructive={false}
-                    onClick={() => alert('swipe action triggered')}
-                >
+                <SwipeAction onClick={() => console.info('swipe action triggered')}>
                     <DeleteButton>Delete</DeleteButton>
-                    {/* <img class="swipeable-element" src="../../public/trash-can.png" width="100%" height="100%"></img> */}
                 </SwipeAction>
             </TrailingActions>
         );
 
         const IngredientItem = ({ idx, currentIngredients }) => {
             return (
-                <SwipeableListItem trailingActions={trailingActions()}>
+                <SwipeableListItem trailingActions={trailingActions()} onSwipeEnd={dragDirection => swipeEndActions({ dragDirection, idx, currentIngredients, changeCurrentIngredients })}>
                     <GenerateRecipeIngredients idx={idx} currentIngredients={currentIngredients} />
                 </SwipeableListItem>
             )
@@ -72,10 +69,21 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
         }
 
         return (
-            <SwipeableList fullSwipe={true}>
+            <SwipeableList fullSwipe={true} threshold={3.0}>
                 {returnValue}
             </SwipeableList>
         )
+    }
+
+    function swipeEndActions({ dragDirection, idx, currentIngredients, changeCurrentIngredients }){
+        console.log("swipe end actions from const")
+        console.log("Swiped element: ", idx)
+        const tempIngredients = currentIngredients
+        console.log("Before switch: ", tempIngredients)
+        tempIngredients.splice(idx, 1)
+        console.log("After shift: ", tempIngredients)
+        changeCurrentIngredients([...tempIngredients])
+        console.log("changed useState: ", currentIngredients)
     }
 
     function Title() {
@@ -91,7 +99,7 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
     function AddButton() {
         return (
             <div class="row justify-content-center">
-                <button type="button" class="ingredient" onClick={(addClick)}>
+                <button type="button" id="add-ingredient" onClick={(addClick)}>
                     + Add Ingredient
                 </button>
             </div>

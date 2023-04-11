@@ -55,9 +55,7 @@
 	margin-right: auto;
 	display: block;
 	object-fit: cover;
-
 	/* align-items: center; */
-
 }
 
 .recipe-options-but{
@@ -75,18 +73,25 @@
 	object-fit: cover;
 }
 
+#add-ingredient,
 .ingredient{
 	/* border-style: solid; */
 	border-radius: 15px;
 	margin: 10px;
 	font-size: 25px;
-	/* width: 325px; */
-	width: 100%;
 	text-align: left;
 	background-color: rgb(255, 255, 255);
 	/* height: 85px;
 	width: auto; */
 	/* align-items: center; */
+}
+
+.ingredient{
+	width: 100%
+}
+
+#add-ingredient {
+	width: 325px;
 }
 
 .steps{
