@@ -21,7 +21,6 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
     )
 
     function updateRecipe(recipeIndex, recipeSteps) {
-        console.log(currentIngredients)
         // for (var i = 0; i < data.results[0].recipes[recipeIndex].sections[0].components.length; i++) {
             update(ref(database,'users/' + user.uid + '/recipe-book'),{
                 [data.results[0].recipes[recipeIndex].name]:  {
@@ -32,12 +31,12 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
                             // steps: data.results[0].recipes[recipeIndex].instructions,
                         ingredients: currentIngredients
                     }
-                        
+
                 }
             })
         // }
     }
-    
+
     //add firebase data confirmation to here
     function ConfirmRecipe(){
         return(

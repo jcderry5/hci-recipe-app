@@ -25,7 +25,6 @@ function DisplayRecipeResults({ searchState, setRecipeIndex, changeStep, changeR
 }
 
 function getResponseData(searchText) {
-	console.log("Inside the getResponseData function")
 	const options = {
 		method: 'GET',
 		headers: {
@@ -35,7 +34,6 @@ function getResponseData(searchText) {
 	};
 	// TODO: Fix URL not sourcing properly
 	let URL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&q=' + searchText
-	console.log(URL)
 	extractRecipeInfo()
 	// TODO: Uncomment code when ready for fetching
 	// fetch(URL, options)
@@ -47,8 +45,6 @@ function getResponseData(searchText) {
 
 // TODO: add a turn jsonFile into response and add 'response' to param
 function extractRecipeInfo() {
-	console.log("Inside extract")
-	console.log(data.results[0].recipes[1])
 	// Possible variables to use
 	let name = data.results[0].recipes[0].name
 	let instructions = data.results[0].recipes[0].instructions
@@ -56,18 +52,12 @@ function extractRecipeInfo() {
 	let id = data.results[0].recipes[0].id
 	let thumbnailURL = data.results[0].recipes[0].thumbnail_url
 	let originalURL = data.results[0].recipes[0].original_video_url
-	console.log(name)
-	console.log(instructions)
-	console.log(thumbnailURL)
-	console.log(originalURL)
 	//TODO: Fetch from recipes/get-more-info using id
 }
 
 function DataSetResults({ searchState, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients }) {
-	console.log("searchState: " + searchState);
 	extractRecipeInfo()
 	const returnValue = [];
-	console.log(data.results[0].recipes.length);
 	for (let i = 0; i < data.results[0].recipes.length; i++) {
 		if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState)) {
 			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep} changeRecipeSteps={changeRecipeSteps} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>)
@@ -96,8 +86,6 @@ function handleRecipeChoice({idx, setRecipeIndex, changeStep, changeRecipeSteps,
 	let ingredientArr = [];
 	for (const currKey of Object.keys(allIngredients)) {
 		const currValue = allIngredients[currKey];
-		console.log("currKey and currValue below:")
-		console.log(currKey, currValue);
 		// changeCurrentIngredients(currArray => [...currArray, currValue])
 		ingredientArr = [...ingredientArr, {
 			ingredient: currValue.ingredient,
@@ -105,7 +93,6 @@ function handleRecipeChoice({idx, setRecipeIndex, changeStep, changeRecipeSteps,
 			raw_text: currValue.raw_text
 		}];
 	}
-	console.log("Ingredient Array", ingredientArr)
 	changeCurrentIngredients(ingredientArr);
 }
 
