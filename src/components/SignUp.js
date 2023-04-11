@@ -7,14 +7,14 @@ export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
-    const { signIn } = useAuth();
+    const { createUser } = useAuth();
     const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     try {
-      await signIn(email, password);
+      await createUser(email, password);
       navigate('/hci-recipe-app')
     } catch (e) {
       setError(e.message);
