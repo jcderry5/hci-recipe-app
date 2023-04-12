@@ -150,3 +150,7 @@ input{
 	font-weight: 700px;
 	font-size: 20px;
 }
+
+.pref-input{
+	width: 160px;
+}

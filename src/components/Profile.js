@@ -44,26 +44,30 @@ export default function Profile() {
         <Container>
         <Test/>
         <div class="row">
-				<div class="col-3">
+        <div class = "profile-image">
+          <img src = '../images/th_6.jpg' alt = "profile picture"/>
+         
+        </div>
+				<div class="col-3" >
 					Name:
 				</div>
 				<div class="col-3" id="name">
                     {name}
 				</div>
                 <div class="col-3" id="name" >
-                <input type="text" id="updateName"/>
+                <input type="text" id="updateName" class = "pref-input"/>
                 <button id="name" onClick={() => updateName()}> Update Name </button>
                 </div>
 			</div>
             <div class="row">
 				<div class="col-3">
-					Dietary Preferences
+					Dietary Preferences:
 				</div>
 				<div class="col-3" id="diet">
 					{diet}
 				</div>
                 <div class="col-3" id="diet" >
-                <input type="text" id="updateDiet"/>
+                <input type="text" id="updateDiet" class = "pref-input"/>
                 <button id="diet" onClick={() => updateDiet()}> Update Diet </button>
                 </div>
 			</div>

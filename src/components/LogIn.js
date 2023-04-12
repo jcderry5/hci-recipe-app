@@ -37,7 +37,7 @@ export default function Login() {
               <label className='py-2 font-medium'>Password</label>
               <input onChange={(e) => setPassword(e.target.value)} className='border p-3' type='password' />
             </div>
-            <button className='border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white'>
+            <button className='border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-black'>
               Log In
             </button>
           </Form>
