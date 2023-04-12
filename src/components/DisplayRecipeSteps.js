@@ -3,10 +3,30 @@ import data from '../data.json'
 import { useAuth } from '../contexts/AuthContext';
 import '../RecipeResults.css'
 import selectedRecipe from './DisplayRecipeResults'
+import {
+    LeadingActions,
+    SwipeableList,
+    SwipeableListItem,
+    SwipeAction,
+    TrailingActions,
+} from 'react-swipeable-list';
+import 'react-swipeable-list/dist/styles.css';
+import styled from 'styled-components'
 
+const DeleteButton = styled.div`
+    background: red;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 25px;
+    padding-left: 5%;
+    justify-content: center;
+    border-radius: 15px;
+    height: 80%;
+`
 
-function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
-    let results = extractRecipeSteps({recipeIndex, recipeSteps, changeRecipeSteps})
+function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
+    let results = extractRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps })
     // const [addStage, changeAddStage] = useState(false);
 
     //here is where the code to pass idx back and forth goes
@@ -24,20 +44,41 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
         </div>
     )
 
-    function extractRecipeSteps({recipeIndex, recipeSteps, changeRecipeSteps}){
-
-        // let steps_data = data.results[0].recipes[recipeIndex].instructions;
-        // let amtSteps = steps_data.length
-        // console.log(steps_data)
+    function extractRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
         const returnValue = [];
 
-        returnValue.push(<Title/>)
-        for(let i = 0; i< recipeSteps.length; i++){
-            returnValue.push(<GenerateRecipeSteps recipeIndex={recipeIndex} num={i} recipeSteps={recipeSteps} changeRecipeSteps={changeRecipeSteps}/>)
+        const trailingActions = () => (
+            <TrailingActions>
+                <SwipeAction onClick={() => console.info('swipe action triggered')}>
+                    <DeleteButton>Delete</DeleteButton>
+                </SwipeAction>
+            </TrailingActions>
+        );
+
+        const RecipeStepItem = ({ recipeIndex, idx, recipeSteps, changeRecipeSteps }) => {
+            return (
+                <SwipeableListItem trailingActions={trailingActions()} onSwipeEnd={dragDirection => swipeEndActions({ dragDirection, idx, recipeSteps, changeRecipeSteps })}>
+                    <GenerateRecipeSteps recipeIndex={recipeIndex} num={idx} recipeSteps={recipeSteps} changeRecipeSteps={changeRecipeSteps} />
+                </SwipeableListItem>
+            )
         }
+
+        //returnValue.push(<Title />)
+        for (let i = 0; i < recipeSteps.length; i++) {
+            returnValue.push(<RecipeStepItem recipeIndex={recipeIndex} idx={i} recipeSteps={recipeSteps} changeRecipeSteps={changeRecipeSteps}></RecipeStepItem>)
+        }
+
         return (
-            returnValue
+            <SwipeableList fullSwipe={true} threshold={3.0}>
+                {returnValue}
+            </SwipeableList>
         )
+    }
+
+    function swipeEndActions({ dragDirection, idx, recipeSteps, changeRecipeSteps }){
+        const tempSteps = recipeSteps
+        tempSteps.splice(idx, 1)
+        changeRecipeSteps([...tempSteps])
     }
 
     function Title() {
@@ -54,7 +95,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
      * When the 'submit' button for a new step is pressed, this handles adding
      * the recipe step to the list.
      */
-    function handleRecipeStepSubmit(e, {num, recipeSteps, changeRecipeSteps, submitRef}) {
+    function handleRecipeStepSubmit(e, { num, recipeSteps, changeRecipeSteps, submitRef }) {
         e.preventDefault();
         // submitRef.current.value contains the contents of the new step to add.
         const newRecipeSteps = [];
@@ -70,7 +111,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
         changeRecipeSteps(newRecipeSteps);
     }
 
-    function AddButton({num, recipeSteps, changeRecipeSteps}) {
+    function AddButton({ num, recipeSteps, changeRecipeSteps }) {
         // The ref that will contain each form's input string
         const submitRef = useRef();
 
@@ -90,7 +131,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
         form.style.display = "block"
     }
 
-    function GenerateRecipeSteps({recipeIndex, num, recipeSteps, changeRecipeSteps}){
+    function GenerateRecipeSteps({ recipeIndex, num, recipeSteps, changeRecipeSteps }) {
         // let step = data.results[0].recipes[recipeIndex].instructions[num].display_text
         let step = recipeSteps[num]
 
@@ -101,9 +142,8 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
                     {num}
                     {punctuation}
                     {step}
-
                 </div>
-                {AddButton({num, recipeSteps, changeRecipeSteps})}
+                {AddButton({ num, recipeSteps, changeRecipeSteps })}
             </div>
         )
     }

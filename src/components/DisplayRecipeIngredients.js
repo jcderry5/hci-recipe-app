@@ -76,14 +76,9 @@ function DisplayRecipeIngredients({ currentIngredients, changeCurrentIngredients
     }
 
     function swipeEndActions({ dragDirection, idx, currentIngredients, changeCurrentIngredients }){
-        console.log("swipe end actions from const")
-        console.log("Swiped element: ", idx)
         const tempIngredients = currentIngredients
-        console.log("Before switch: ", tempIngredients)
         tempIngredients.splice(idx, 1)
-        console.log("After shift: ", tempIngredients)
         changeCurrentIngredients([...tempIngredients])
-        console.log("changed useState: ", currentIngredients)
     }
 
     function Title() {
