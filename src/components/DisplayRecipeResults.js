@@ -68,14 +68,12 @@ function DataSetResults({ searchState, setRecipeIndex, changeStep, changeRecipeS
 
 function handleRecipeChoice({idx, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients}) {
 	setRecipeIndex(idx);
-	// Hardcoded to the next step
 
-	let ingredients_data = data.results[0].recipes[idx].sections[0].components;
-	let amtIngredients = ingredients_data.length
+	let amtSteps = data.results[0].recipes[idx].instructions.length
 
 	let steps = []
 
-	for(let i = 0; i<amtIngredients; i++){
+	for(let i = 0; i<amtSteps; i++){
 		steps.push(data.results[0].recipes[idx].instructions[i].display_text)
 	}
 
