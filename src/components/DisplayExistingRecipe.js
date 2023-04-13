@@ -20,8 +20,8 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
         </div>
     )
 
-   
-    
+
+
     //add firebase data confirmation to here
     function ConfirmRecipe(){
         return(
@@ -81,7 +81,7 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
 
         let displayText = currentIngredients[idx]
         return (
-            <div class="row justify-content-center">
+            <div class="row justify-content-center ingredient">
                 <div class="ingredient">
                     {displayText}
                 </div>
@@ -121,4 +121,4 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
     }
 }
 
-export default DisplayRecipeSummary 
+export default DisplayRecipeSummary
