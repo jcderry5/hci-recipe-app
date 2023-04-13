@@ -10,6 +10,7 @@ import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyB23yJoFNraaE2oG898dG0DglBFNsrkK48",
   authDomain: "recipe-remix-hci.firebaseapp.com",
+  databaseURL: "https://recipe-remix-hci-default-rtdb.firebaseio.com",
   projectId: "recipe-remix-hci",
   storageBucket: "recipe-remix-hci.appspot.com",
   messagingSenderId: "708029963658",

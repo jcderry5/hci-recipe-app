@@ -35,6 +35,8 @@
 	margin-left: 20px;
 	font-size: 35px;
 	font-weight: 700;
+	padding-left: 20%;
+	padding-top: 5%;
 }
 
 .title-sum{
@@ -42,6 +44,10 @@
 	font-size: 35px;
 	font-weight: 750;
 	text-align: center;
+}
+
+.recipe-book-subtitles{
+	padding-top: 2%;
 }
 
 .recipe-options-img{
@@ -87,7 +93,7 @@
 }
 
 .ingredient{
-	width: 100%
+	width: 95%
 }
 
 #add-ingredient {

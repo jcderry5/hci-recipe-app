@@ -8,7 +8,6 @@ import { useAuth } from '../contexts/AuthContext';
 
 function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, user}){
     // let theIngredients = DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients})
-    var displayIngreds = []
     let theIngredients = extractRecipeIngredients({currentIngredients})
     let theSteps = extractRecipeSteps({recipeSteps})
     //here is where the code to pass idx back and forth goes
@@ -21,30 +20,14 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
         </div>
     )
 
-    function updateRecipe(recipeIndex, recipeSteps) {
-        // for (var i = 0; i < data.results[0].recipes[recipeIndex].sections[0].components.length; i++) {
-            update(ref(database,'users/' + user.uid + '/recipe-book'),{
-                [data.results[0].recipes[recipeIndex].name]:  {
-                    recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
-                    index: recipeIndex,
-                    recipe_obj: {
-                        steps: recipeSteps,
-                            // steps: data.results[0].recipes[recipeIndex].instructions,
-                        ingredients: displayIngreds
-                    }
 
-                }
-            })
-        // }
-    }
 
     //add firebase data confirmation to here
     function ConfirmRecipe(){
-        // console.log(displayIngreds)
         return(
             <div class = "row justify-content-center">
                 <button type="button" class = "confirm-but">
-                   <Link to="/hci-recipe-app/RecipeBook"  onClick={() => updateRecipe(recipeIndex, recipeSteps)}>Add New Recipe</Link>
+                   <Link to="/hci-recipe-app/RecipeBook" >Back to Book</Link>
                </button>
             </div>
         )
@@ -87,10 +70,8 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
         const returnValue = [];
         returnValue.push(<TitleIn/>);
         for(let i = 0; i< amtIngredients; i++){
-            displayIngreds.push(currentIngredients[i].raw_text)
             returnValue.push(<GenerateRecipeIngredients idx={i} currentIngredients={currentIngredients}/>)
         }
-
         return (
             returnValue
         )
@@ -98,12 +79,9 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
 
     function GenerateRecipeIngredients({idx, num}){
 
-        let displayText = currentIngredients[idx].raw_text
-        // console.log(displayText)
-        // displayIngreds.push(displayText)
-        // console.log(displayIngreds)
+        let displayText = currentIngredients[idx]
         return (
-            <div class="row justify-content-center">
+            <div class="row justify-content-center ingredient">
                 <div class="ingredient">
                     {displayText}
                 </div>
