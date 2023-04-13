@@ -20,6 +20,15 @@ html{
   color: white;
 }
 
+#header-title {
+  font-size: 32px;
+  font-weight: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 3;
+}
+
 /* side menu */
 .side-menu {
   position: fixed;
