@@ -13,8 +13,12 @@ import { Link, useNavigate } from "react-router-dom"
 export default function RecipeBook() {
     const navigate = useNavigate();
     const returnValue = [];
+    // const currIngredients = [];
     const { user } = useAuth();
     const [recipes, recipe_val] = useState([]);
+    const [recipeObj, recipeObj_val] = useState([]);
+    const [currIngredients, currIngredients_val] = useState([]);
+    const [steps, steps_val] = useState([]);
     const [recipethumbnail, recipethumbnail_val] = useState([]);
     function extractRecipeInfo() {
         // Possible variables to use
@@ -47,8 +51,9 @@ export default function RecipeBook() {
         // console.log("getting recipe name")
         // Once user is actually properly mounted, getRecipeName() will confirm and then pull recipes from firebase user
         if (typeof user.uid !== 'undefined') {
-            const val = await fetch(`${"https://recipe-remix-hci-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"}/.json`);
+            const val = await fetch(`${"https://test-8392f-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"}/.json`);
             const responseJson = await val.json();
+            recipeObj_val(responseJson)
             recipe_val(Object.keys(responseJson))
         }
         // console.log("uwu", Object.keys(responseJson))
@@ -79,7 +84,7 @@ export default function RecipeBook() {
              {<img src = {recipethumbnail}></img>}
         </div> */}
         <div class="row">
-        <button type="button" class="temp-button" onClick={() => finalize(idx={idx})}>
+        <button type="button" class="temp-button" onClick={() => finalize(idx=idx)}>
             View
             </button>
         </div>
@@ -88,21 +93,37 @@ export default function RecipeBook() {
       }
 
     async function getCurrentIngredients(idx) {
-        const val = await fetch(`${"https://recipe-remix-hci-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book"+recipes[idx]+"recipe_obj/ingredients"}/.json`);
+        const val = await fetch(`${"https://test-8392f-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book/"+recipes[idx]+"/recipe_obj/ingredients"}/.json`);
         const responseJson = await val.json();
+        // console.log("current ing",responseJson)
+        // currIngredients_val(responseJson)
+        return responseJson
+    }
+    async function getSteps(idx) {
+        const val = await fetch(`${"https://test-8392f-default-rtdb.firebaseio.com//users/"+user.uid+"/recipe-book/"+recipes[idx]+"/recipe_obj/steps"}/.json`);
+        const responseJson = await val.json();
+        // console.log("current steps",responseJson)
+        // steps_val(responseJson)
         return responseJson
     }
 
-    function finalize(idx) {
-
+    async function finalize(idx) {
         // navigate('/hci-recipe-app/summaryreview', {state: {idx: idx, currIngr: getCurrentIngredients(idx)}});
-        let currentIngredients = getCurrentIngredients(idx={idx})
+        const ingredients = await getCurrentIngredients(idx=idx)
+        const theSteps = await getSteps(idx=idx)
+        // console.log("len is", currIngredients.length)
+        // for (let i = 0; i < currIngredients.length; i++)
+        // console.log("infinalize", ingredients)
+        // console.log("infinal", theSteps)
+        // // const summary = < DisplayRecipeSummary
+        // currentIngredients={ingredients} recipeSteps = {theSteps}
+        // recipeIndex={idx} user={user}/>
+        // console.log(currIngredients)
+        // console.log(currentIngredients)
         // recipeIndex = idx
-        let summary = < DisplayRecipeSummary
-        currentIngredients={currentIngredients}
-        recipeIndex={idx} user={user}/>
-        navigate('/hci-recipe-app/summaryreview', {state: {summary: summary}});
+        navigate('/hci-recipe-app/summaryreview', {state: {ingredients, theSteps, idx}});
     }
+
     for(let i = 0; i< recipes.length; i++){
         //<DataSetResults/>
         returnValue.push(<Build idx={i}/>)
