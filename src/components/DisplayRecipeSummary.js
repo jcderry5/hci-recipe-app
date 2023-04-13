@@ -8,7 +8,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, user}){
     // let theIngredients = DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients})
-    let displayIngreds = []
+    var displayIngreds = []
     let theIngredients = extractRecipeIngredients({currentIngredients})
     let theSteps = extractRecipeSteps({recipeSteps})
     //here is where the code to pass idx back and forth goes
@@ -40,6 +40,7 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
 
     //add firebase data confirmation to here
     function ConfirmRecipe(){
+        // console.log(displayIngreds)
         return(
             <div class = "row justify-content-center">
                 <button type="button" class = "confirm-but">
@@ -81,13 +82,15 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
 
     // INGREDIENT PORTION
     function extractRecipeIngredients({currentIngredients}){
-        console.log(currentIngredients)
+        // console.log(currentIngredients)
         let amtIngredients = currentIngredients.length // this line gives errors about lenght!
         const returnValue = [];
         returnValue.push(<TitleIn/>);
         for(let i = 0; i< amtIngredients; i++){
+            displayIngreds.push(currentIngredients[i].raw_text)
             returnValue.push(<GenerateRecipeIngredients idx={i} currentIngredients={currentIngredients}/>)
         }
+
         return (
             returnValue
         )
@@ -96,9 +99,9 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
     function GenerateRecipeIngredients({idx, num}){
 
         let displayText = currentIngredients[idx].raw_text
-        let nameObj = currentIngredients[idx].ingredient
-        let measurementObj = currentIngredients[idx].measurements // can hold obj (if from data) or string (if custom)
-        displayIngreds.push(displayText)
+        // console.log(displayText)
+        // displayIngreds.push(displayText)
+        // console.log(displayIngreds)
         return (
             <div class="row justify-content-center">
                 <div class="ingredient">
@@ -113,7 +116,7 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
         // let steps_data = data.results[0].recipes[recipeIndex].instructions;
         let steps_data = recipeSteps
         let amtSteps = steps_data.length
-        console.log(steps_data)
+        // console.log(steps_data)
         const returnValue = [];
         returnValue.push(<TitleSteps/>)
         for(let i = 0; i< amtSteps; i++){

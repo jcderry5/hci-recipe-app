@@ -8,8 +8,6 @@ import { useAuth } from '../contexts/AuthContext';
 
 function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, user}){
     // let theIngredients = DisplayRecipeIngredients({recipeIndex, addedIngredients, changeAddedIngredients})
-    let displayIngreds = []
-    console.log(currentIngredients)
     let theIngredients = extractRecipeIngredients({currentIngredients})
     let theSteps = extractRecipeSteps({recipeSteps})
     //here is where the code to pass idx back and forth goes
@@ -82,7 +80,6 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
     function GenerateRecipeIngredients({idx, num}){
 
         let displayText = currentIngredients[idx]
-        displayIngreds.push(displayText)
         return (
             <div class="row justify-content-center">
                 <div class="ingredient">

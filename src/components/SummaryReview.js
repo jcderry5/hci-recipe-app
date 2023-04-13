@@ -13,10 +13,10 @@ import { Link, useNavigate } from "react-router-dom"
 const SummaryReview = (props) => {
     const { user } = useAuth();
     const location = useLocation();
-    // console.log(location)
-    // console.log(location.state.idx)
-    // console.log(location.state.ingredients)
-    // console.log(location.state.theSteps)
+    console.log(location)
+    console.log(location.state.idx)
+    console.log(location.state.ingredients)
+    console.log(location.state.theSteps)
     const summary = <DisplayExistingRecipe
         currentIngredients={location.state.ingredients} recipeSteps = {location.state.theSteps}
         recipeIndex={location.state.idx} user={location.state.user}/>
