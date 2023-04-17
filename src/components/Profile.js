@@ -45,7 +45,7 @@ export default function Profile() {
         <Test/>
         <div class="row">
         <div class = "profile-image">
-          <img src = '../images/th_6.jpg' alt = "profile picture"/>
+          {/* <img src = '../images/th_6.jpg' alt = "profile picture"/> */}
          
         </div>
 				<div class="col-3" >
