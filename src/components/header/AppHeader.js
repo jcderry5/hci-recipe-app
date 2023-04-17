@@ -17,6 +17,10 @@ function AppHeader() {
                 />
             </div>
 
+            <div id="header-title">
+                Recipe Remix
+            </div>
+
             {/* Menu */}
             <SideMenu 
                 isMenuActive={isMenuActive}

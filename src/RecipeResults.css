@@ -111,6 +111,7 @@
 	width: 80%;
 	text-align: left;
 	background-color: rgb(255, 255, 255);
+	
 }
 
 .confirm-but{
@@ -159,4 +160,12 @@ input{
 	text-align: center;
 	font-weight: 700px;
 	font-size: 20px;
+}
+
+.pref-input{
+	width: 160px;
+}
+
+.main-menu-card{
+	text-align: center;
 }
