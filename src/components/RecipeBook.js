@@ -48,8 +48,6 @@ export default function RecipeBook() {
     }
 
     function Build({ idx }) {
-        // <DataSetResults idx = {idx}/>
-        //console.log("uwu obj: ", recipeObj[recipes[idx]].recipe_obj.ingredients.length)
         let recipeDifficulty = getRecipeDifficulty(recipeObj[recipes[idx]].recipe_obj.ingredients.length)
         return (
             <div class="recipe-row">
