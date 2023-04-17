@@ -13,7 +13,14 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
     return (
         <div>
             {results}
-            {/* {AddButton()} */}
+            {
+                <button type="button" class="step-butt" onClick={showForm} id = "addbutton">
+                {/* <button type = "button">
+                    +
+                </button> */}
+                +
+                </button>
+            }
         </div>
     )
 
@@ -69,12 +76,6 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
 
         return (
             <div class="row justify-content-center">
-                <button type="button" class="step-butt" onClick={showForm} id = "addbutton">
-                    {/* <button type = "button">
-                        +
-                    </button> */}
-                    +
-                </button>
                 <form id="formElement" style={{display: 'none'}} onSubmit={(e) => {handleRecipeStepSubmit(e, {num, recipeSteps, changeRecipeSteps, submitRef})}}>
                     <input type="text" ref={submitRef}/>
                     <button type="submit">Submit</button>
@@ -92,7 +93,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
     function GenerateRecipeSteps({recipeIndex, num, recipeSteps, changeRecipeSteps}){
         // let step = data.results[0].recipes[recipeIndex].instructions[num].display_text
         let step = recipeSteps[num]
-        
+
         let punctuation = ". "
         return (
             <div class="row justify-content-center" key={num}>
@@ -100,7 +101,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps}){
                     {num}
                     {punctuation}
                     {step}
-                    
+
                 </div>
                 {AddButton({num, recipeSteps, changeRecipeSteps})}
             </div>
