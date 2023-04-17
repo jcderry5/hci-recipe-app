@@ -113,6 +113,18 @@
 	background-color: rgb(255, 255, 255);
 }
 
+
+.arrows{
+	max-width: 150%;
+    max-height: 150%;
+}
+
+#arrow-div {
+	opacity: 30%;
+	padding-right: 5%;
+	vertical-align: middle;
+}
+
 .confirm-but{
 	width: 350px;
 	font-size: 30px;

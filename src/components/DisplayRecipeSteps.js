@@ -12,6 +12,8 @@ import {
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 import styled from 'styled-components'
+import upArrow from '../up-arrow.png'
+import downArrow from '../down-arrow.png'
 
 const DeleteButton = styled.div`
     background: red;
@@ -35,9 +37,6 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
             {results}
             {
                 <button type="button" class="step-butt" onClick={showForm} id = "addbutton">
-                {/* <button type = "button">
-                    +
-                </button> */}
                 +
                 </button>
             }
@@ -134,18 +133,43 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
     function GenerateRecipeSteps({ recipeIndex, num, recipeSteps, changeRecipeSteps }) {
         // let step = data.results[0].recipes[recipeIndex].instructions[num].display_text
         let step = recipeSteps[num]
-
         let punctuation = ". "
         return (
             <div class="row justify-content-center" key={num}>
-                <div class="steps">
-                    {num}
-                    {punctuation}
-                    {step}
+                <div class="steps row">
+                    <div class="col-2" id="arrow-div">
+                        <img src={upArrow} class="arrows" onClick={() =>  { moveStepUp( num, recipeSteps, changeRecipeSteps) }}/>
+                        <img src={downArrow} class="arrows" onClick={() =>  { moveStepDown( num, recipeSteps, changeRecipeSteps) }}/>
+                    </div>
+                    <div class="col">
+                        {num}
+                        {punctuation}
+                        {step}
+                    </div>
                 </div>
                 {AddButton({ num, recipeSteps, changeRecipeSteps })}
             </div>
         )
+    }
+
+    function moveStepUp(idx, recipeSteps, changeRecipeSteps) {
+        console.log("Pressed up arrow")
+        if (idx == 0) return
+        const tempSteps = recipeSteps;
+        const stepToMove = tempSteps[idx]
+        tempSteps.splice(idx, 1)
+        tempSteps.splice(idx - 1, 0, stepToMove)
+        changeRecipeSteps([...tempSteps])
+    }
+
+    function moveStepDown(idx, recipeSteps, changeRecipeSteps) {
+        console.log("Pressed down arrow")
+        if (idx == recipeSteps.length - 1) return
+        const tempSteps = recipeSteps;
+        const stepToMove = tempSteps[idx]
+        tempSteps.splice(idx, 1)
+        tempSteps.splice(idx + 1, 0, stepToMove)
+        changeRecipeSteps([...tempSteps])
     }
 }
 
