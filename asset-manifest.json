@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/hci-recipe-app/static/css/main.23a507f4.css",
-    "main.js": "/hci-recipe-app/static/js/main.0362083e.js",
+    "main.css": "/hci-recipe-app/static/css/main.26ea0db9.css",
+    "main.js": "/hci-recipe-app/static/js/main.913cbc3e.js",
+    "static/media/rr.PNG": "/hci-recipe-app/static/media/rr.386ba6bcf1f3fcd88f0c.PNG",
     "index.html": "/hci-recipe-app/index.html",
-    "main.23a507f4.css.map": "/hci-recipe-app/static/css/main.23a507f4.css.map",
-    "main.0362083e.js.map": "/hci-recipe-app/static/js/main.0362083e.js.map"
+    "main.26ea0db9.css.map": "/hci-recipe-app/static/css/main.26ea0db9.css.map",
+    "main.913cbc3e.js.map": "/hci-recipe-app/static/js/main.913cbc3e.js.map"
   },
   "entrypoints": [
-    "static/css/main.23a507f4.css",
-    "static/js/main.0362083e.js"
+    "static/css/main.26ea0db9.css",
+    "static/js/main.913cbc3e.js"
   ]
 }
