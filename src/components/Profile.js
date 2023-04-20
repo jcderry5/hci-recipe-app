@@ -17,6 +17,7 @@ export default function Profile() {
         const responseJson = await val.json();
         name_val(responseJson)
         nameRef.current.value = responseJson;
+        document.getElementById('updateName').value = ''
         console.log(responseJson)
       }
     function updateName() {
@@ -31,6 +32,7 @@ export default function Profile() {
         const responseJson = await val.json();
         diet_val(responseJson)
         dietRef.current.value = responseJson;
+        document.getElementById('updateDiet').value = ''
         console.log(responseJson)
       }
     function updateDiet() {
@@ -47,27 +49,27 @@ export default function Profile() {
     return (
         <Container>
         <Test/>
-        <div class="row">
-        <div class = "profile-image">
-          {/* <img src = '../images/th_6.jpg' alt = "profile picture"/> */}
-         
-        </div>
-				<div class="col-3" >
-					Name:
-				</div>
-        <div class="col-3" id="name" >
-                <input type="text" id="updateName" class = "pref-input" ref={nameRef}/>
-                <button id="name" onClick={() => updateName()}> Update Name </button>
-        </div>
-			</div>
-            <div class="row">
-				<div class="col-3">
-					Dietary Preferences:
-				</div>
-                <div class="col-3" id="diet" >
-                <input type="text" id="updateDiet" class = "pref-input" ref={dietRef}/>
-                <button id="diet" onClick={() => updateDiet()}> Update Diet </button>
-                </div>
+        <div class="row profile-row" id="top-profile-div">
+          <div class="col-3" >
+            Name:
+          </div>
+          <div class="col-6" id="name" >
+            <input type="text" id="updateName" class = "pref-input" placeholder={name}/>
+          </div>
+          <div class="col-3">
+            <button id="name" onClick={() => updateName()}> Update </button>
+          </div>
+			  </div>
+        <div class="row profile-row">
+				  <div class="col-3">
+					  Dietary Preferences:
+				  </div>
+          <div class="col-6" id="diet" >
+            <input type="text" id="updateDiet" class = "pref-input" placeholder={diet}/>
+          </div>
+          <div class="col-3">
+            <button id="diet" onClick={() => updateDiet()}> Update </button>
+          </div>
 			</div>
 
         </Container>

@@ -114,7 +114,7 @@
 	width: 80%;
 	text-align: left;
 	background-color: rgb(255, 255, 255);
-	
+
 }
 
 .confirm-but{
@@ -171,4 +171,12 @@ input{
 
 .main-menu-card{
 	text-align: center;
+}
+
+#top-profile-div{
+	margin-top: 10%;
+}
+
+.profile-row {
+	margin-top:5%;
 }
