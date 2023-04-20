@@ -3,6 +3,7 @@ import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useNavigate} from "react-router-dom"
 import '../RecipeResults.css'
+import rrLogo from '../images/rr.PNG'
 
 export default function MainMenu() {
   const { user, logout } = useAuth();
@@ -29,7 +30,7 @@ export default function MainMenu() {
             <div className="row">
             <div class="col" style={{display: 'flex', justifyContent: 'center'}}><b>Welcome!</b> </div> </div>    
             <div className="row">
-            <div class="col" style={{display: 'flex', justifyContent: 'center'}}><b>Logo Will Go Here</b> </div> </div>    
+            <div class="col" style={{display: 'flex', justifyContent: 'center'}}><img id="logo" src={rrLogo} width="150" height="150"/> </div> </div>    
           </div>
         </Card.Body>
       </Card>}
