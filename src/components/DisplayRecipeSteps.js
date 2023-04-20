@@ -50,9 +50,10 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
 
         const RecipeStepItem = ({ recipeIndex, idx, recipeSteps, changeRecipeSteps }) => {
             return (
-                <SwipeableListItem trailingActions={trailingActions()} onSwipeEnd={dragDirection => swipeEndActions({ dragDirection, idx, recipeSteps, changeRecipeSteps })}>
-                    <GenerateRecipeSteps recipeIndex={recipeIndex} num={idx} recipeSteps={recipeSteps} changeRecipeSteps={changeRecipeSteps} />
-                </SwipeableListItem>
+                    <SwipeableListItem trailingActions={trailingActions()} onSwipeEnd={dragDirection => swipeEndActions({ dragDirection, idx, recipeSteps, changeRecipeSteps })}>
+                            <GenerateRecipeSteps recipeIndex={recipeIndex} num={idx} recipeSteps={recipeSteps} changeRecipeSteps={changeRecipeSteps} />   
+                    </SwipeableListItem>
+                
             )
         }
 
@@ -62,9 +63,12 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
         }
 
         return (
-            <SwipeableList fullSwipe={true} threshold={3.0}>
-                {returnValue}
-            </SwipeableList>
+            // <div class='row justify-content-center'>
+                <SwipeableList fullSwipe={true} threshold={3.0}>
+                    {returnValue}
+                </SwipeableList>
+            // </div>
+
         )
     }
 
@@ -116,10 +120,12 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
                     </button> */}
                     +
                 </button>
-                <form id="formElement" style={{ display: 'none' }} onSubmit={(e) => { handleRecipeStepSubmit(e, { num, recipeSteps, changeRecipeSteps, submitRef }) }}>
-                    <input type="text" ref={submitRef} />
-                    <button type="submit">Submit</button>
-                </form>
+                <div class = "row justify-content-center" style={{display: 'none'}}>
+                    <form id="formElement" style={{ display: 'none', textAlign: "center"}} onSubmit={(e) => { handleRecipeStepSubmit(e, { num, recipeSteps, changeRecipeSteps, submitRef }) }}>
+                        <input type="text" ref={submitRef} />
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>   
             </div>
         )
     }
@@ -128,6 +134,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
         // Using the event origin, gets the form element from parent's children
         let form = event.target.parentElement.children[1];
         form.style.display = "block"
+        form.children[0].style.display = "block"
     }
 
     function GenerateRecipeSteps({ recipeIndex, num, recipeSteps, changeRecipeSteps }) {
@@ -136,7 +143,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
 
         let punctuation = ". "
         return (
-            <div class="row justify-content-center" key={num}>
+            <div class="row justify-content-center" id = "steps" key={num}>
                 <div class="steps">
                     {num}
                     {punctuation}
