@@ -79,6 +79,9 @@
 	object-fit: cover;
 }
 
+#logo {
+	border-radius: 15px;
+}
 #add-ingredient,
 .ingredient{
 	/* border-style: solid; */
