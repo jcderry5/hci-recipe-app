@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import { Link } from "react-router-dom"
+import { Button } from "react-bootstrap"
 // import PropTypes from 'prop-types'
 
 class SideMenu extends Component {
@@ -37,19 +38,19 @@ class SideMenu extends Component {
 
 function Menu(){
     return(
-        <div>
-            <div className='menu-option' id = "home-menu">
-            <Link to="/hci-recipe-app">Home</Link>
-            </div>
-            <div className='menu-option' id = "recipe-book-menu">
-            <Link to="/hci-recipe-app/RecipeBook">Recipe Book</Link>
-            </div>
-            <div className='menu-option' id = 'new-recipe-menu'>
-            <Link to="/hci-recipe-app/newrecipe">Create New Recipe</Link>
-            </div>
-            <div className='menu-option' id = 'profile-menu'>
-            <Link to="/hci-recipe-app/profile">Profile</Link>
-            </div>
+        <div className="d-grid gap-2">
+            <Button variant='outline-dark' as={Link} to="/hci-recipe-app" bsPrefix="btn menu-option">
+                Home
+            </Button>
+            <Button variant='outline-dark' as={Link} to="/hci-recipe-app/RecipeBook" bsPrefix="btn menu-option">
+                Recipe Book
+            </Button>
+            <Button variant='outline-dark' as={Link} to="/hci-recipe-app/newrecipe" bsPrefix="btn menu-option">
+                Create New Recipe
+            </Button>
+            <Button variant='outline-dark' as={Link} to="/hci-recipe-app/profile" bsPrefix="btn menu-option">
+                Profile
+            </Button>
         </div>
     )
 }
