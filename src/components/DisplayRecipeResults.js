@@ -59,7 +59,7 @@ function DataSetResults({ searchState, setRecipeIndex, changeStep, changeRecipeS
 	extractRecipeInfo()
 	const returnValue = [];
 	for (let i = 0; i < data.results[0].recipes.length; i++) {
-		if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState)) {
+		if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState.toLowerCase())) {
 			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep} changeRecipeSteps={changeRecipeSteps} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>)
 		}
 	}
