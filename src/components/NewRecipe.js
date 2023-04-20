@@ -96,7 +96,7 @@ export default function NewRecipe() {
             <div class="import">
                 <form>
                     <label for="search">Search: </label>
-                    <input type="text" placeholder="Kid-Friendly" ref={searchTextRef} ></input>
+                    <input type="text" placeholder="Chicken" ref={searchTextRef} ></input>
                     <button type="button" onClick={submitQuery}>Submit</button>
                     {/* <input type = "submit" value = "Enter" onClick={() => flipIt()}></input> */}
                 </form>
