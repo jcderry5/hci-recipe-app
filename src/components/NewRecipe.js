@@ -87,6 +87,13 @@ export default function NewRecipe() {
         }
     }
 
+    function handleSearchKeyDown(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            submitQuery();
+        }
+    }
+
     function Import() {
         let results = ""
         if (hasResults === true) {
@@ -96,7 +103,7 @@ export default function NewRecipe() {
             <div class="import">
                 <form>
                     <label for="search">Search: </label>
-                    <input type="text" placeholder="Chicken" ref={searchTextRef} ></input>
+                    <input type="text" placeholder="Chicken" ref={searchTextRef} onKeyDown={handleSearchKeyDown}></input>
                     <button type="button" onClick={submitQuery}>Submit</button>
                     {/* <input type = "submit" value = "Enter" onClick={() => flipIt()}></input> */}
                 </form>
