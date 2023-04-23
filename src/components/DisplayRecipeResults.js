@@ -58,29 +58,35 @@ function extractRecipeInfo() {
 function DataSetResults({ searchState, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients }) {
 	extractRecipeInfo()
 	const returnValue = [];
-	for (let i = 0; i < data.results[0].recipes.length; i++) {
-		if (searchState === "" || data.results[0].recipes[i].name.toLowerCase().includes(searchState.toLowerCase())) {
-			returnValue.push(<RecipeResult idx={i} setRecipeIndex={setRecipeIndex} changeStep={changeStep} changeRecipeSteps={changeRecipeSteps} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>)
+	for (let j = 0; j < data.results.length; j++) {
+		if (typeof data.results[j].recipes !== "undefined") {
+			for (let i = 0; i < data.results[j].recipes.length; i++) {
+				if (searchState === "" || data.results[j].recipes[i].name.toLowerCase().includes(searchState.toLowerCase())) {
+					let idx = [j, i];
+					returnValue.push(<RecipeResult idx={idx} setRecipeIndex={setRecipeIndex} changeStep={changeStep} changeRecipeSteps={changeRecipeSteps} currentIngredients={currentIngredients} changeCurrentIngredients= {changeCurrentIngredients}/>)
+				}
+			}
 		}
 	}
+	
 	return returnValue;
 }
 
 function handleRecipeChoice({idx, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients}) {
 	setRecipeIndex(idx);
 
-	let amtSteps = data.results[0].recipes[idx].instructions.length
+	let amtSteps = data.results[idx[0]].recipes[idx[1]].instructions.length
 
 	let steps = []
 
 	for(let i = 0; i<amtSteps; i++){
-		steps.push(data.results[0].recipes[idx].instructions[i].display_text)
+		steps.push(data.results[idx[0]].recipes[idx[1]].instructions[i].display_text)
 	}
 
 	changeRecipeSteps(steps)
 
 	changeStep(2);
-	const allIngredients = data.results[0].recipes[idx].sections[0].components
+	const allIngredients = data.results[idx[0]].recipes[idx[1]].sections[0].components
 	let ingredientArr = [];
 	for (const currKey of Object.keys(allIngredients)) {
 		const currValue = allIngredients[currKey];
@@ -99,14 +105,14 @@ function RecipeResult({ idx, setRecipeIndex, changeStep, changeRecipeSteps, curr
 		<div class="recipe-row">
 			<button class="recipe-options-but" type="button" onClick={() => {handleRecipeChoice({idx, setRecipeIndex, changeStep, changeRecipeSteps, currentIngredients, changeCurrentIngredients})}}>
 				<div class="row">
-					<img class="recipe-options-img" src={data.results[0].recipes[idx].thumbnail_url}></img>
+					<img class="recipe-options-img" src={data.results[idx[0]].recipes[idx[1]].thumbnail_url}></img>
 				</div>
 				<div class="row">
 					<div class="col-3 recipe-subtitles">
 						Name:
 					</div>
 					<div class="col-9 truncate">
-						{data.results[0].recipes[idx].name}
+						{data.results[idx[0]].recipes[idx[1]].name}
 					</div>
 				</div>
 				<div class="row">
@@ -114,12 +120,12 @@ function RecipeResult({ idx, setRecipeIndex, changeStep, changeRecipeSteps, curr
 						Recipe Steps:
 					</div>
 					<div class="col-6">
-						{data.results[0].recipes[idx].instructions.length}
+						{data.results[idx[0]].recipes[idx[1]].instructions.length}
 					</div>
 				</div>
 			</button>
 			<div class="row">
-				<a class="recipe-subtitles truncate-url" href={data.results[0].recipes[idx].original_video_url}> OG Recipe URL</a>
+				<a class="recipe-subtitles truncate-url" href={data.results[idx[0]].recipes[idx[1]].original_video_url}> OG Recipe URL</a>
 			</div>
 			{/* data.results[0].recipes[0].instructions.count */}
 		</div>

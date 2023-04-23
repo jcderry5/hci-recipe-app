@@ -29,15 +29,15 @@ export default function NewRecipe() {
     let stepName = "";
     if (stepsNum === 2) {
         theStep = Ingredients()
-        stepName = data.results[0].recipes[currentRecipeIndex].name
+        stepName = data.results[currentRecipeIndex[0]].recipes[currentRecipeIndex[1]].name
         nextStep = tempNextButton();
     } else if (stepsNum === 3) {
         theStep = Steps()
-        stepName = data.results[0].recipes[currentRecipeIndex].name
+        stepName = data.results[currentRecipeIndex[0]].recipes[currentRecipeIndex[1]].name
         nextStep = tempNextButton();
     } else if (stepsNum === 4) {
         theStep = Finalize()
-        stepName = data.results[0].recipes[currentRecipeIndex].name
+        stepName = data.results[currentRecipeIndex[0]].recipes[currentRecipeIndex[1]].name
     }
 
     return (
