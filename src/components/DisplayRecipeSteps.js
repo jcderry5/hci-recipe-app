@@ -136,7 +136,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
 
         let punctuation = ". "
         return (
-            <div class="row justify-content-center" key={num}>
+            <div class="row d-flex justify-content-center w-100" key={num}>
                 <div class="steps">
                     {num}
                     {punctuation}
