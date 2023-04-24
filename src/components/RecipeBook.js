@@ -62,7 +62,7 @@ export default function RecipeBook() {
                     </h5>
                     <div class="row">
 					<div class="col-6 recipe-subtitles">
-						Recipe Diffuculty:
+						Recipe Difficulty:
 					</div>
 					<div class="col-6">
 		                {recipeDifficulty}
