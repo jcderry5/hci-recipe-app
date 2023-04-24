@@ -35,16 +35,15 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
     return (
         <div>
             {results}
-            {
-                <button type="button" class="step-butt" onClick={showForm} id = "addbutton">
-                +
-                </button>
-            }
+           
         </div>
     )
 
     function extractRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
         const returnValue = [];
+
+        let num = recipeSteps.length - 1
+        // console.log("here is num", num)
 
         const trailingActions = () => (
             <TrailingActions>
@@ -55,6 +54,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
         );
 
         const RecipeStepItem = ({ recipeIndex, idx, recipeSteps, changeRecipeSteps }) => {
+            
             return (
                 <SwipeableListItem trailingActions={trailingActions()} onSwipeEnd={dragDirection => swipeEndActions({ dragDirection, idx, recipeSteps, changeRecipeSteps })}>
                     <GenerateRecipeSteps recipeIndex={recipeIndex} num={idx} recipeSteps={recipeSteps} changeRecipeSteps={changeRecipeSteps} />
@@ -68,9 +68,15 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
         }
 
         return (
-            <SwipeableList fullSwipe={true} threshold={3.0}>
-                {returnValue}
-            </SwipeableList>
+            <div>
+                <SwipeableList fullSwipe={true} threshold={3.0}>
+                    {returnValue}
+                </SwipeableList>
+                    {AddButton({num, recipeSteps, changeRecipeSteps})}
+          
+            </div>
+            
+            
         )
     }
 
@@ -97,11 +103,15 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
     function handleRecipeStepSubmit(e, { num, recipeSteps, changeRecipeSteps, submitRef }) {
         e.preventDefault();
         // submitRef.current.value contains the contents of the new step to add.
+        // console.log("here")
+        // console.log(num)
         const newRecipeSteps = [];
         for (let i = 0; i < recipeSteps.length; i++) {
             newRecipeSteps.push(recipeSteps[i]);
+            // console.log("hi")
             if (i === num) {
                 // At num, insert the new recipe step.
+                // console.log("here")
                 newRecipeSteps.push(submitRef.current.value);
             }
         }
@@ -116,7 +126,8 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
 
         return (
             <div class="row justify-content-center">
-                <form id="formElement" style={{display: 'none'}} onSubmit={(e) => {handleRecipeStepSubmit(e, {num, recipeSteps, changeRecipeSteps, submitRef})}}>
+                <button type="button" class="step-butt" onClick={showForm} id = "addbutton"> + </button>
+                <form id="formElement" style={{display: 'none', textAlign: 'center'}} onSubmit={(e) => {handleRecipeStepSubmit(e, {num, recipeSteps, changeRecipeSteps, submitRef})}}>
                     <input type="text" ref={submitRef}/>
                     <button type="submit">Submit</button>
                 </form>
@@ -147,7 +158,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
                         {step}
                     </div>
                 </div>
-                {AddButton({ num, recipeSteps, changeRecipeSteps })}
+                {/* {AddButton({ num, recipeSteps, changeRecipeSteps })} */}
             </div>
         )
     }
