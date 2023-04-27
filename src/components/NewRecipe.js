@@ -29,15 +29,15 @@ export default function NewRecipe() {
     let stepName = "";
     if (stepsNum === 2) {
         theStep = Ingredients()
-        stepName = data.results[0].recipes[currentRecipeIndex].name
+        stepName = data.results[currentRecipeIndex[0]].recipes[currentRecipeIndex[1]].name
         nextStep = tempNextButton();
     } else if (stepsNum === 3) {
         theStep = Steps()
-        stepName = data.results[0].recipes[currentRecipeIndex].name
+        stepName = data.results[currentRecipeIndex[0]].recipes[currentRecipeIndex[1]].name
         nextStep = tempNextButton();
     } else if (stepsNum === 4) {
         theStep = Finalize()
-        stepName = data.results[0].recipes[currentRecipeIndex].name
+        stepName = data.results[currentRecipeIndex[0]].recipes[currentRecipeIndex[1]].name
     }
 
     return (
@@ -56,20 +56,33 @@ export default function NewRecipe() {
     function stepsHeader() {
         return (
             <div class="steps-header">
-                <button class='stepsButton' type="button">
+                <button class={handleStepHeaderDisplayClass(1)} type="button" onClick={() => {handleStepHeaderSelect(1)}}>
                     1
                 </button>
-                <button class='stepsButton' type="button">
+                <button class={handleStepHeaderDisplayClass(2)} type="button" onClick={() => {handleStepHeaderSelect(2)}}>
                     2
                 </button>
-                <button class='stepsButton' type="button">
+                <button class={handleStepHeaderDisplayClass(3)} type="button" onClick={() => {handleStepHeaderSelect(3)}}>
                     3
                 </button>
-                <button class='stepsButton' type="button">
+                <button class={handleStepHeaderDisplayClass(4)} type="button" onClick={() => {handleStepHeaderSelect(4)}}>
                     4
                 </button>
             </div>
         )
+    }
+
+    function handleStepHeaderDisplayClass(idx) {
+        return stepsNum > idx ? 'stepsButtonDone' : stepsNum === idx ? 'stepsButtonCurrent' : 'stepsButton';
+    }
+
+    function handleStepHeaderSelect(idx) {
+        if (idx === 1) {
+            changeStep(1);
+        }
+        if (idx > 1 && stepsNum !== 1) {
+            changeStep(idx);
+        }
     }
 
     function tempNextButton() {
@@ -87,6 +100,13 @@ export default function NewRecipe() {
         }
     }
 
+    function handleSearchKeyDown(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            submitQuery();
+        }
+    }
+
     function Import() {
         let results = ""
         if (hasResults === true) {
@@ -96,7 +116,7 @@ export default function NewRecipe() {
             <div class="import">
                 <form>
                     <label for="search">Search: </label>
-                    <input type="text" placeholder="Chicken" ref={searchTextRef} ></input>
+                    <input type="text" placeholder="Chicken" ref={searchTextRef} onKeyDown={handleSearchKeyDown}></input>
                     <button type="button" onClick={submitQuery}>Submit</button>
                     {/* <input type = "submit" value = "Enter" onClick={() => flipIt()}></input> */}
                 </form>

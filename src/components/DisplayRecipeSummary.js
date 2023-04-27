@@ -24,8 +24,8 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
     function updateRecipe(recipeIndex, recipeSteps) {
         // for (var i = 0; i < data.results[0].recipes[recipeIndex].sections[0].components.length; i++) {
             update(ref(database,'users/' + user.uid + '/recipe-book'),{
-                [data.results[0].recipes[recipeIndex].name]:  {
-                    recipethumbnail: data.results[0].recipes[recipeIndex].thumbnail_url,
+                [data.results[recipeIndex[0]].recipes[recipeIndex[1]].name]:  {
+                    recipethumbnail: data.results[recipeIndex[0]].recipes[recipeIndex[1]].thumbnail_url,
                     index: recipeIndex,
                     recipe_obj: {
                         steps: recipeSteps,
@@ -134,7 +134,7 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
         return(
             <div class = "row justify-content-center">
                 <div class = "steps">
-                    {num}
+                    {num+1}
                     {punctuation}
                     {step}
                 </div>

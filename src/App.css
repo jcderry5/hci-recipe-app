@@ -76,7 +76,7 @@ html{
 
 /* new recipe */
 
-.stepsButton{
+.stepsButton {
   text-align: center;
   border: none;
   border-radius: 50%;
@@ -84,6 +84,32 @@ html{
   font-weight: 1000;
   background-color: lightgray;
   color: black;
+  padding: 15px 27px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.stepsButtonCurrent {
+  text-align: center;
+  border: 5px solid black;
+  border-radius: 50%;
+  font-size: 30px;
+  font-weight: 1000;
+  background-color: lightgray;
+  color: black;
+  padding: 15px 27px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.stepsButtonDone {
+  text-align: center;
+  border: none;
+  border-radius: 50%;
+  font-size: 30px;
+  font-weight: 1000;
+  background-color: rgb(35, 35, 35);
+  color: #CACACA;
   padding: 15px 27px;
   margin-left: 8px;
   margin-right: 8px;
