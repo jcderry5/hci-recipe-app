@@ -56,20 +56,33 @@ export default function NewRecipe() {
     function stepsHeader() {
         return (
             <div class="steps-header">
-                <button class='stepsButton' type="button">
+                <button class={handleStepHeaderDisplayClass(1)} type="button" onClick={() => {handleStepHeaderSelect(1)}}>
                     1
                 </button>
-                <button class='stepsButton' type="button">
+                <button class={handleStepHeaderDisplayClass(2)} type="button" onClick={() => {handleStepHeaderSelect(2)}}>
                     2
                 </button>
-                <button class='stepsButton' type="button">
+                <button class={handleStepHeaderDisplayClass(3)} type="button" onClick={() => {handleStepHeaderSelect(3)}}>
                     3
                 </button>
-                <button class='stepsButton' type="button">
+                <button class={handleStepHeaderDisplayClass(4)} type="button" onClick={() => {handleStepHeaderSelect(4)}}>
                     4
                 </button>
             </div>
         )
+    }
+
+    function handleStepHeaderDisplayClass(idx) {
+        return stepsNum > idx ? 'stepsButtonDone' : stepsNum === idx ? 'stepsButtonCurrent' : 'stepsButton';
+    }
+
+    function handleStepHeaderSelect(idx) {
+        if (idx === 1) {
+            changeStep(1);
+        }
+        if (idx > 1 && stepsNum !== 1) {
+            changeStep(idx);
+        }
     }
 
     function tempNextButton() {
