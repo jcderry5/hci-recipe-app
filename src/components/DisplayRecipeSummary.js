@@ -134,7 +134,7 @@ function DisplayRecipeSummary({recipeSteps, recipeIndex, currentIngredients, use
         return(
             <div class = "row justify-content-center">
                 <div class = "steps">
-                    {num}
+                    {num+1}
                     {punctuation}
                     {step}
                 </div>

@@ -138,7 +138,7 @@ function DisplayRecipeSteps({ recipeIndex, recipeSteps, changeRecipeSteps }) {
         return (
             <div class="row d-flex justify-content-center w-100" key={num}>
                 <div class="steps">
-                    {num}
+                    {num+1}
                     {punctuation}
                     {step}
                 </div>
