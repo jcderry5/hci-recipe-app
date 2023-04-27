@@ -33,6 +33,11 @@ export default function MainMenu() {
         </Card.Body>
       </Card>}
       <Container>
+      <Row>
+          <Card as={Link} to="/hci-recipe-app/newrecipe">
+            <Card.Title style={{ display: 'flex', justifyContent: 'center', padding: '15px' }}>Add a New Recipe</Card.Title>
+          </Card>
+        </Row>
         <Row>
           <Card as={Link} to="/hci-recipe-app/recipebook">
             <Card.Title style={{ display: 'flex', justifyContent: 'center', padding: '15px' }}>View Your Recipe Book</Card.Title>
